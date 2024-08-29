@@ -36,7 +36,7 @@ javac -h . NativeExample.java
 
 **注意事项**：
 - 头文件生成: 使用 javac -h 命令生成的头文件中会包含 JNI 语法定义，确保你遵循这些定义来实现 C 函数。
-```sh
+```c
 JNIEXPORT jstring JNICALL Java_NativeExample_getNativeMessage(JNIEnv *, jobject);
 ```
 - 参数:
