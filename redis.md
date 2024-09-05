@@ -6,61 +6,7 @@
 - Zset
 - Geospatial
 - Hyperloglog
-- Bitmap
-
-## 操作
-- **String**
-  - set [key] [value]
-  - setex [key] [time] [value]
-  - setnx [key] [value]
-  - get [key]
-  - incr [key]
-  - incrby [key] [num]
-  - decr [key] [num]
-  - decrby [key] [num]
-  - getrange [key] [start-index] [end-index]
-  - setrange [key] [start-index] [newValue]
-  - getset [key] [value]
-
-- **List**
-  - lrange 
-  ```sh
-  lrange [key] [start-index] [last-index]
-  e.g lrange list-name 0 1 （取出索引0到1的两个元素，包括头和尾的元素）
-  ```
-  - lpush, rpush：左插入，有插入元素
-  ```sh
-  lpush [key] [value]
-  rpush [key] [value]
-  ```
-  - lpop，rpop：左取出，右取出元素
-  ```sh
-  lpop [key]
-  rpop [key]
-  ```
-  - lindex：查询指定下标元素
-  ```sh
-  lindex [key] [index]
-  ```
-  - llen：查询list列表长度（元素个数）
-  ```sh
-  llen [key]
-  ```
-
-- **其他常用操作**
-  - type [key]
-  - select [database]
-  - keys *
-  - expire [key] [time]
-  - ttl [key]
-  - exists [key]
-  - del [key]
-  - move [key] [database]
-  - flushall
-  - clear
-
-- config set requirepass [pwd]
-- auth [pwd]
+- Bitmap：位存储
 
 ## 常见问题
 ### 缓存穿透
@@ -85,3 +31,90 @@
   缓存雪崩的场景通常有两个：
   1. 大量热点key同时过期；
   2. 缓存服务故障或宕机；
+
+## 操作
+### string
+- set [key] [value]
+- setex [key] [time] [value]
+- setnx [key] [value]
+- get [key]
+- incr [key]
+- incrby [key] [num]
+- decr [key] [num]
+- decrby [key] [num]
+- getrange [key] [start-index] [end-index]
+- setrange [key] [start-index] [newValue]
+- getset [key] [value]
+
+### list
+- lrange 
+```sh
+lrange [key] [start-index] [last-index]
+e.g lrange list-name 0 1 （取出索引0到1的两个元素，包括头和尾的元素）
+```
+- lpush, rpush：左插入，有插入元素
+```sh
+lpush [key] [value]
+rpush [key] [value]
+```
+- lpop，rpop：左取出，右取出元素
+```sh
+lpop [key]
+rpop [key]
+```
+- lindex：查询指定下标元素
+```sh
+lindex [key] [index]
+```
+- llen：查询list列表长度（元素个数）
+```sh
+llen [key]
+```
+
+### set
+- sadd（添加）
+- smembers（查看所有元素）
+- sismember（判断是否存在）
+- scard（查看长度）
+- srem（移除指定元素）
+- sinter（交集）
+- sunion（并集）
+- sdiff（差集）
+
+### hash
+- hset（添加hash）
+- hget（查询）
+- hgetall（查询所有）
+- hdel（删除hash中指定的值）
+- hlen（获取hash的长度）s
+- hexists（判断key是否存在）操作
+- hkeys（获取所有key）
+- hvals（获取所有value）
+- hincrby（给值加增量）
+- hsetnx（存在不添加）
+
+### zset
+- zadd（添加）
+- zrange（查询）
+- zrangebyscore（排序小-大）
+- zrevrange（排序大-小）
+- zrangebyscore withscores（查询所有值包含key）
+- zrem（移除元素）
+- zcard（查看元素个数）
+- zcount（查询指定区间内的元素个数）
+
+### 其他常用操作
+- type [key]
+- select [database]
+- keys *
+- expire [key] [time]
+- ttl [key]
+- exists [key]
+- del [key]
+- move [key] [database]
+- flushall
+- clear
+
+### 服务器操作
+- config set requirepass [pwd]
+- auth [pwd]
