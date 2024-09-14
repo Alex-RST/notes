@@ -1,6 +1,4 @@
 /.vscode/
 
-./docs/.vitepress/cache
-./docs/.vitepress/dist
-
-./docs/.vitepress/dist
+/docs/.vitepress/cache
+/docs/.vitepress/dist

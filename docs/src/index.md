@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: API Examples
       link: /api-examples
+    - theme: brand
+      text: bloom filter
+      link: /bloomFilter
 
 features:
   - title: Feature A
