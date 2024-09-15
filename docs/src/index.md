@@ -3,19 +3,16 @@
 layout: home
 
 hero:
-  name: "notes"
-  text: "notes"
+  name: "Notes"
+  text: "Notes"
   tagline: My great project tagline
   actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 深入理解JVM虚拟机
+      link: /understanding_the_jvm
     - theme: brand
-      text: 布隆过滤器
-      link: /布隆过滤器
+      text: notes
+      link: /notes
 
 features:
   - title: Feature A
