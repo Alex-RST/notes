@@ -94,5 +94,5 @@ export default defineConfig({
     },
     srcDir: "src",
     cleanUrls: true,
-    ignoreDeadLinks: true,
+    ignoreDeadLinks: true
 })
