@@ -29,12 +29,13 @@ export default defineConfig({
         sidebar: {
             '/notes': [
                 {
-                    text: '目录',
+                    text: '随手记',
                     items: [
                         { text: '布隆过滤器', link: '/notes/布隆过滤器' },
                         { text: 'JNI实践', link: '/notes/JNI实践' },
                         { text: 'Redis', link: '/notes/Redis' },
-                        { text: 'note', link: '/notes/note' }
+                        { text: 'note', link: '/notes/note' },
+                        { text: 'tomcat', link: '/notes/tomcat' }
                     ]
                 }
             ],
@@ -91,6 +92,9 @@ export default defineConfig({
             level: 'deep',
             label: '目录'
         }
+    },
+    markdown: {
+        lineNumbers: true
     },
     srcDir: "src",
     cleanUrls: true,
