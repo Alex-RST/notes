@@ -34,8 +34,8 @@ export default defineConfig({
                         { text: '布隆过滤器', link: '/notes/布隆过滤器' },
                         { text: 'JNI实践', link: '/notes/JNI实践' },
                         { text: 'Redis', link: '/notes/Redis' },
-                        { text: 'note', link: '/notes/note' },
-                        { text: 'tomcat', link: '/notes/tomcat' }
+                        { text: 'Note', link: '/notes/note' },
+                        { text: 'Tomcat', link: '/notes/tomcat' }
                     ]
                 }
             ],
@@ -86,7 +86,7 @@ export default defineConfig({
             ]
         },
         socialLinks: [
-            { icon: { svg: 'gitee' }, link: 'https://gitee.com/pxslin/notes' }
+            { icon: { svg: 'Gitee' }, link: 'https://gitee.com/pxslin/notes' }
         ],
         outline: {
             level: 'deep',

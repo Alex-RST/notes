@@ -57,7 +57,7 @@ webapp
 ```java [@WebServlet]
 @WebServlet(name = "firstServlet")  
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 ```xml [web.xml]
@@ -73,7 +73,7 @@ public class FirstServlet extent HttpServlet {
 ```java [@WebServlet]
 @WebServlet(value = {"/url1","/url2/*"})  
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 ```xml [web.xml]
@@ -96,7 +96,7 @@ public class FirstServlet extent HttpServlet {
     loadOnStartup = -1 // [!code focus]
 )  
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 ```xml [web.xml]
@@ -119,7 +119,7 @@ public class FirstServlet extent HttpServlet {
     }
 ) 
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 ```xml [web.xml] 
@@ -142,7 +142,7 @@ public class FirstServlet extent HttpServlet {
 ```java [@WebServlet]
 @WebServlet(asyncSupported = true)  // [!code focus]
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 ```xml [web.xml]
@@ -159,7 +159,7 @@ public class FirstServlet extent HttpServlet {
 ```java [@WebServlet]
 @WebServlet(smallIcon = "smallIcon")  // [!code focus]
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 :::
@@ -169,7 +169,7 @@ public class FirstServlet extent HttpServlet {
 ```java [@WebServlet]
 @WebServlet(largeIcon = "largeIcon")  // [!code focus]
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 :::
@@ -179,7 +179,7 @@ public class FirstServlet extent HttpServlet {
 ```java [@WebServlet]
 @WebServlet(description = "description")  // [!code focus]
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 :::
@@ -189,7 +189,7 @@ public class FirstServlet extent HttpServlet {
 ```java [@WebServlet]
 @WebServlet(displayName = "displayName")  // [!code focus]
 public class FirstServlet extent HttpServlet {
- //...
+    //...
 }
 ```
 :::
@@ -201,8 +201,12 @@ public class FirstServlet extent HttpServlet {
 4. 销毁
 
 ## web.xml
+1. 全局范围的web.xml：${tomcat_root}/conf/web.xml。
+2. 项目范围的：${product_root}/web.xml
+全局范围的web.xml存在许多默认配置，所有webadd都可访问。例如：当根据访问的资源，确定响应头中content/type的值。
 
 ## DefaultServlet
+在${tomcat_root}/conf/web.xml中声明了服务器默认的Servlet除了*.jsp资源外，所有无法匹配到Servlet的资源，都交由DefaultServlet处理。
 
 ## ServletConfig
 在@WebServlet中或web.xml中配置的初始化参数，会生成一个ServletConfig对象并在Servlet初始化阶段，传给声明了这些参数的Servlet。
