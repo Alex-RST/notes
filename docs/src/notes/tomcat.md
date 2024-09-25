@@ -182,6 +182,13 @@ public class FirstServlet extent HttpServlet {
     //...
 }
 ```
+```xml [web.xml]
+<servlet>
+    <servlet-name>servlet名字</servlet-name>
+    <servlet-class>servlet对应的java全类名</servlet-class>
+    <description>false</description>// [!code focus]
+</servlet>
+```
 :::
 
 ### 显示名
@@ -191,6 +198,13 @@ public class FirstServlet extent HttpServlet {
 public class FirstServlet extent HttpServlet {
     //...
 }
+```
+```xml [web.xml]
+<servlet>
+    <servlet-name>servlet名字</servlet-name>
+    <servlet-class>servlet对应的java全类名</servlet-class>
+    <display-name>false</display-name>// [!code focus]
+</servlet>
 ```
 :::
 
