@@ -441,8 +441,8 @@ JavaWeb中常用的监听器：
 
 ### Listener声明
 监听器的声明有两种方式，两种方式只能选其一：
-1. web.xml中配置。
-2. 使用@WebListener注解。
+1. `web.xml`中配置。
+2. 使用`@WebListener`注解。
 
 ::: code-group
 ```java [@WebListener]
@@ -485,7 +485,7 @@ webapp
     path中为项目的资源访问路径；docBase为项目所在的系统路径。
 
 ### host-manager和manager
-1. 打开"tomcat根目录/conf/tomcat-users.xml"
+1. 打开`tomcat根目录/conf/tomcat-users.xml`
 2. 配置用户登录信息
    ```xml
    <role rolename="tomcat"/>
@@ -503,5 +503,5 @@ webapp
 - 相对路径：相对路径以 `./` 开头或直接写资源路径
 - 绝对路径：以 `/` 开头
 - 请求转发需要不需要上下文路径作为开头；重定向需要上下文路径作为开头
-- 因以客户角度（浏览器视角）考虑访问的资源路径问题。例如：当访问资源为`http://localhost:80/a/b/servlet`，并且在响应中存在一个 `<img src="static/index.img" />`时，当浏览器获得到响应时，发现需要`static/index.html`资源时，会再次发送请求，路径为\http://localhost:80/a/b/static/index.img。原因是：浏览器会以 `http://localhost:80/a/b/servlet` 中的 `http://localhost:80/a/b` 开始，拼接src属性中的相对路径 `static/index.img`。
+- 因以客户角度（浏览器视角）考虑访问的资源路径问题。例如：当访问资源为`http://localhost:80/a/b/servlet`，并且在响应中存在一个 `<img src="static/index.img" />`时，当浏览器获得到响应时，发现需要`static/index.html`资源，会再次发送请求，路径为`http://localhost:80/a/b/static/index.img`。原因是：浏览器会以 `http://localhost:80/a/b/servlet` 中的 `http://localhost:80/a/b` 开始，拼接`src`属性中的相对路径 `static/index.img`。
 
