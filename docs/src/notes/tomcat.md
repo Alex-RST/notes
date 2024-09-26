@@ -1,58 +1,20 @@
 # Tomcat
 
-## tomcat使用startup.bat启动后，控制台输出乱码解决办法
-  1. 打开{tomcat安装目录}/conf/logging.properties文件。
-  2. 找到并修改java.util.logging.ConsoleHandler.encoding的值为控制台输出的字符集。
-  3. 重新启动tomcat。
+## Tomcat架构
 
-## webapp的项目结构
-```text
-webapp
-  ├─static
-  └─WEB-INF
-      ├─web.xml
-      ├─classes
-      └─lib
-```
-- WEB-INF：不可以被直接访问的资源
-- static：可直接访问的静态资源（html，css，js，img等。也可以直接放在项目根目录下，例如此处的webapp目录）
 
-## web项目部署在tomcat的方式
-1. 将标准的webapp，放入tomcat根目录/webapp中。
-2. 
-3. 可将目录放在系统的任意路径下，但需要对tomcat进行配置。在"tomcatcat根目录/conf"下新建Catalina目录，新增一个需要部署的项目的配置文件，文件名为xxx.xml。其中"xxx"为需要部署的项目根目录名。文件内容：
-    ```xml
-    <Context path="" docBase=""/>
-    ```
-    path中为项目的资源访问路径；docBase为项目所在的系统路径。
-
-## 如何访问tomcat自带的host-manager和manager项目
-1. 打开"tomcat根目录/conf/tomcat-users.xml"
-2. 配置用户登录信息
-   ```xml
-   <role rolename="tomcat"/>
-   <role rolename="role1"/>
-   <user username="tomcat" password="<must-be-changed>" roles="tomcat"/>
-   <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
-   <user username="role1" password="<must-be-changed>" roles="role1"/>
-   ```
-3. 重启tomcatS
-
-## 响应头中的content/type
-当tomcat收到一个请求后，获取到请求的资源放入，封装好的Response对象中。根据资源的类型（扩展名），自动的与'tomcat安装目录'/conf/web.xml文件中的配置进行匹配，获取到对于的content/type类型，并写入响应头中。当没有与之匹配的类型时，浏览器将自动的将响应数据作为html文件进行处理并展示。所有，当请求的资源时一个动态资源时（如servlet）,应根据将返回的响应数据，在响应头中设置对应的content/type字段。
-
-## 声明Servlet
+## Servlet
+### Servlet声明与配置
 声明Servlet有两种方式：
-1. 配置web项目中web.xml。
-2. 通过java注解的方式（@WebServlet）。
+1. 配置web项目中`web.xml`。
+2. 通过java注解的方式，`@WebServlet`。
 
 ::: tip
-1. 以下两种方式只能选择其一；一个Servlet不能同时使用@WebServlet和web.xml进行配置。
-2. 在配置路径时，注意路径不能冲突，且路径使用 / 开头。
+1. 以下两种方式只能选择其一；一个Servlet不能同时使用`@WebServlet`和`web.xml`进行配置。
+2. 在配置路径时，注意路径不能冲突，且路径使用 `/` 开头。
 :::
 
-下面将分别使用两种方式对Servlet的配置项进行展示：
-### 名字
+#### 名字
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(name = "firstServlet")  
@@ -68,7 +30,7 @@ public class FirstServlet extent HttpServlet {
 ```
 :::
 
-### url路径
+#### url路径
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(value = {"/url1","/url2/*"})  
@@ -88,7 +50,9 @@ public class FirstServlet extent HttpServlet {
 ```
 :::
 
-### 加载顺序
+#### 加载顺序
+- 类型：`int`
+- 说明：小于0，容器启动时不会实例化；大于0，启动时实例化，数字越大，顺序越靠后。数字相同时根据Servlet名字的自然顺序进行实例化。
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(
@@ -108,7 +72,9 @@ public class FirstServlet extent HttpServlet {
 ```
 :::
 
-### 初始化参数
+#### 初始化参数
+- 类型：`@WebInitParam`
+- 说明：Servlet在初始化阶段（`init`）可获取的参数
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(
@@ -137,7 +103,7 @@ public class FirstServlet extent HttpServlet {
 ```
 :::
 
-### 异步支持
+#### 异步支持
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(asyncSupported = true)  // [!code focus]
@@ -154,27 +120,7 @@ public class FirstServlet extent HttpServlet {
 ```
 :::
 
-### 小图标
-::: code-group
-```java [@WebServlet]
-@WebServlet(smallIcon = "smallIcon")  // [!code focus]
-public class FirstServlet extent HttpServlet {
-    //...
-}
-```
-:::
-
-### 大图标
-::: code-group
-```java [@WebServlet]
-@WebServlet(largeIcon = "largeIcon")  // [!code focus]
-public class FirstServlet extent HttpServlet {
-    //...
-}
-```
-:::
-
-### 描述
+#### 描述
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(description = "description")  // [!code focus]
@@ -191,7 +137,7 @@ public class FirstServlet extent HttpServlet {
 ```
 :::
 
-### 显示名
+#### 显示名
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(displayName = "displayName")  // [!code focus]
@@ -208,22 +154,43 @@ public class FirstServlet extent HttpServlet {
 ```
 :::
 
-## Servlet生命周期
+#### 小图标
+::: code-group
+```java [@WebServlet]
+@WebServlet(smallIcon = "smallIcon")  // [!code focus]
+public class FirstServlet extent HttpServlet {
+    //...
+}
+```
+:::
+
+#### 大图标
+::: code-group
+```java [@WebServlet]
+@WebServlet(largeIcon = "largeIcon")  // [!code focus]
+public class FirstServlet extent HttpServlet {
+    //...
+}
+```
+:::
+
+
+### Servlet生命周期
 1. 创建
 2. 初始化
 3. 服务
 4. 销毁
 
-## web.xml
-1. 全局范围的web.xml：${tomcat_root}/conf/web.xml。
-2. 项目范围的：${product_root}/web.xml
-全局范围的web.xml存在许多默认配置，所有webadd都可访问。例如：当根据访问的资源，确定响应头中content/type的值。
+### web.xml
+1. 全局范围的web.xml：`${tomcat_root}/conf/web.xml`。
+2. 项目范围的：`${product_root}/web.xml`。
+全局范围的web.xml存在许多默认配置，所有 webapp 都可访问。例如：当根据访问的资源，确定响应头中`content/type`的值。
 
-## DefaultServlet
-在${tomcat_root}/conf/web.xml中声明了服务器默认的Servlet除了*.jsp资源外，所有无法匹配到Servlet的资源，都交由DefaultServlet处理。
+### DefaultServlet
+在`${tomcat_root}/conf/web.xml`中声明了服务器默认的Servlet除了*.jsp资源外，所有无法匹配到Servlet的资源，都交由 `DefaultServlet` 处理。
 
-## ServletConfig
-在@WebServlet中或web.xml中配置的初始化参数，会生成一个ServletConfig对象并在Servlet初始化阶段，传给声明了这些参数的Servlet。
+### ServletConfig
+在@WebServlet中或web.xml中配置的初始化参数，会生成一个 ServletConfig对象并在 Servlet 初始化阶段，传给声明了这些参数的 Servlet。
 常用方法：
 ```java
 public class DemoServlet extends HttpServlet {
@@ -236,8 +203,8 @@ public class DemoServlet extends HttpServlet {
 }
 ```
 
-## ServletContext
-应用域对象。在一个web应用中只有一个此对象。在项目的web.xml中可以配置context-param，项目启动时，会创建一个servletContext对象，并根据context-param注入指定参数。web.xml配置如下：
+### ServletContext
+应用域对象。在一个web应用中只有一个此对象。在项目的 web.xml 中可以配置 context-param ，项目启动时，会创建一个servletContext对象，并根据 context-param注入指定参数。web.xml配置如下：
 ```xml
 <context-param>
     <param-name>参数名</param-name>
@@ -265,3 +232,276 @@ public class DemoServlet extends HttpServlet {
     }
 }
 ```
+
+## Filter（过滤器）
+Filter（过滤器），是J2EE提供的一种机制。用于对请求和响应进行特定处理，并决定是否继续执行。通过过滤器可以对请求进行拦截处理并执行统一操作，或对请求的特定资源进行预处理。也可以对响应结果进行同样操作。
+
+要实现一个过滤器，必须要实现Filter接口，并通过`@WebFilter`或`web.xml`对此过滤器进行声明。Filter接口提供了三个待实现方法：
+```java
+public interface Filter {
+    //初始化
+    default void init(FilterConfig filterConfig) throws ServletException {}
+    //执行过滤
+    void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException;
+    //销毁
+    default void destroy() {}
+}
+```
+
+### Filter声明与配置
+过滤器的声明有两种方式，两种方式只能选其一：
+1. `web.xml`中配置。
+2. 使用`@WebListener`注解。
+::: code-group
+```java [@WebFilter]
+@WebFilter("/*") // [!code focus]
+public MyFilter interface Filter {
+    //...
+}
+```
+```xml [web.xml]
+<filter>
+    <filter-name>myFilter</filter-name>
+    <filter-class>${Fully Qualified Name}</filter-class>
+</filter>
+```
+:::
+
+
+若无特殊要求（例如资源释放等），通常只需实现`doFilter`方法，通常可以分为三个部分：
+- 第一部分代码会对游览器请求进行第一次过滤，然后继续执行。
+- 第二部分代码就是将浏览器请求放行，如果还有过滤器，那么就继续交给下一个过滤器。  
+   可以根据第一部分的执行结果，判断是否需要继续执行过滤器链执行的过滤方法。当确定需要继续交给之后的过滤器之后，需要自行调用`FilterChain#doFilter`方法。当此过滤器已经是最后一个过滤器时，`FilterChain#doFilter`方法将调用目标资源方法（Servlet则调用Service；静态资源则直接访问该资源）。
+- 第三部分代码就是对返回的Web资源再次进行过滤处理。
+
+#### urlPatterns/vaule
+url路径匹配，匹配到的url会交由此过滤器
+::: code-group
+```java [@WebFilter]
+@WebFilter({"/a/c", "/a/b", "/b/p/*"}) // [!code focus]
+public MyFilter interface Filter {
+    //...
+}
+```
+```xml [web.xml]
+<filter-mapping>
+    <filter-name>${filter-ame}</filter-name>
+    <url-pattern>/*</url-pattern> // [!code focus]
+</filter-mapping>
+```
+:::
+
+#### filterName
+::: code-group
+```java [@WebFilter]
+@WebFilter(filterName = ${filterName}) // [!code focus]
+public MyFilter interface Filter {
+    //...
+}
+```
+```xml [web.xml]
+<filter>
+    <filter-name>${filter-name}</filter-name> // [!code focus]
+    <filter-class>${Fully Qualified Name}</filter-class>
+</filter>
+```
+:::
+
+#### initParams
+Filter初始化参数，容器启动时生成一个FilterConfig对象，传给此过滤器的`Filter#init(FilterConfig config)`方法。
+::: code-group
+```java [@WebFilter]
+@WebFilter(initParams = { // [!code focus:4]
+        @WebInitParam(name = "param1", value = "value1"),
+        @WebInitParam(name = "param2", value = "value2")
+    }) 
+public MyFilter interface Filter {
+    //...
+}
+```
+```xml [web.xml]
+<filter>
+    <filter-name>${name}</filter-name>
+    <init-param> // [!code focus:8]
+        <param-name>param1</param-name>
+        <param-value>value1</param-value>
+    </init-param>
+    <init-param>
+        <param-name>param2</param-name>
+        <param-value>value2</param-value>
+    </init-param>
+</filter>
+```
+:::
+
+#### servletNames
+此 Filter 应用到的 Servlet 名称数组
+::: code-group
+```java [@WebFilter]
+@WebFilter(servletNames = {"servlet1", "servlet2"}) // [!code focus]
+public MyFilter interface Filter {
+    //...
+}
+```
+```xml [web.xml]
+<filter-mapping>
+    <filter-name>MyFilter</filter-name>
+    <servlet-name>${servlet-name}</servlet-name>// [!code focus]
+</filter-mapping>
+```
+:::
+
+#### dispatcherTypes
+此 Filter 应用到的 DispatcherTypes 数组  
+
+类型：DispatcherType，定义如下
+```java
+public enum DispatcherType {
+    /**
+     * {@link RequestDispatcher#forward(ServletRequest, ServletResponse)}
+     */
+    FORWARD,
+
+    /**
+     * {@link RequestDispatcher#include(ServletRequest, ServletResponse)}
+     */
+    INCLUDE,
+
+    /**
+     * Normal (non-dispatched) requests.
+     */
+    REQUEST,
+
+    /**
+     * {@link AsyncContext#dispatch()}, {@link AsyncContext#dispatch(String)} and
+     * {@link AsyncContext#addListener(AsyncListener, ServletRequest, ServletResponse)}
+     */
+    ASYNC,
+
+    /**
+     * When the container has passed processing to the error handler mechanism such as a defined error page.
+     */
+    ERROR
+}
+```
+::: code-group
+```java [@WebFilter]
+@WebFilter(dispatcherTypes = DispatcherType.REQUEST) // [!code focus]
+public MyFilter interface Filter {
+    //...
+}
+```
+```xml [web.xml]
+<filter-mapping>
+    <filter-name>MyFilter</filter-name>
+    <dispatcher>REQUEST</dispatcher> // [!code focus]
+</filter-mapping>
+```
+:::
+
+### 实现一个简单过滤器
+```java
+@WebFilter("/*")
+public MyFilter interface Filter {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        //第一部分
+        //...
+        //第二部分调用过滤器链下一个过滤方法
+        chain.doFilter(request, response);
+        //第三部分
+        //...
+    }
+}
+```
+
+## Listener（监听器）
+Listener（监听器），是 J2EE 提供的一种机制，用于监听以及响应事件。
+
+监听器可以类比于观察者模式。监听器充当观察者，在观察者模式中，一个对象（观察者）注册对另一个对象（被观察者）的事件感兴趣，并在被观察者触发相应事件时得到通知并执行相应操作。
+
+JavaWeb中常用的监听器：
+- ServletContextListener：监听ServletContext对象的创建和销毁事件，当Web应用程序启动和关闭时触发。 
+
+- ServletRequestListener：监听ServletRequest对象的创建和销毁事件，在每次客户端请求到达服务器时触发。
+
+- HttpSessionListener：监听HttpSession对象的创建和销毁事件，当用户与Web应用程序建立和关闭会话时触发。
+
+- ServletContextAttributeListener：监听ServletContext中属性的添加、修改和删除事件。
+
+- ServletRequestAttributeListener：监听ServletRequest中属性的添加、修改和删除事件。
+
+- HttpSessionAttributeListener：监听HttpSession中属性的添加、修改和删除事件。
+
+
+- HttpSessionActivationListener：监听HttpSession对象的钝化（passivation）和活化（activation）事件，与分布式会话（Di:stributed Session）有关。
+
+- ServletRequestListener：监听ServletContext对象的创建和销毁事件，以及请求的开始和完成。
+
+- ServletContextListener：监听ServletContext对象的创建和销毁事件，与Web应用程序的启动和关闭有关
+
+### Listener声明
+监听器的声明有两种方式，两种方式只能选其一：
+1. web.xml中配置。
+2. 使用@WebListener注解。
+
+::: code-group
+```java [@WebListener]
+@WebListener("${description}")
+public class DemoListener implements ServletContextListener {
+    //...
+}
+```
+```xml [web.xml]
+<listener>
+    <listener-class>${listener-class}</listener-class>
+</listener>
+```
+:::
+
+## 常见问题
+### 控制台输出乱码解决办法
+  1. 打开`{tomcat安装目录}/conf/logging.properties`文件。
+  2. 找到并修改`java.util.logging.ConsoleHandler.encoding`的值为控制台输出的字符集。
+  3. 重新启动tomcat。
+
+### webapp的项目结构
+```text
+webapp
+  ├─static
+  └─WEB-INF
+      ├─web.xml
+      ├─classes
+      └─lib
+```
+- WEB-INF：不可以被直接访问的资源
+- static：可直接访问的静态资源（html，css，js，img等。也可以直接放在项目根目录下，例如此处的webapp目录）
+
+### web项目部署
+1. 将标准的webapp，放入tomcat根目录/webapp中。
+2. 可将目录放在系统的任意路径下，但需要对tomcat进行配置。在`tomcatcat根目录/conf`下新建Catalina目录，新增一个需要部署的项目的配置文件，文件名为`xxx.xml`，其中`xxx`为需要部署的项目根目录名。文件内容：
+    ```xml
+    <Context path="" docBase=""/>
+    ```
+    path中为项目的资源访问路径；docBase为项目所在的系统路径。
+
+### host-manager和manager
+1. 打开"tomcat根目录/conf/tomcat-users.xml"
+2. 配置用户登录信息
+   ```xml
+   <role rolename="tomcat"/>
+   <role rolename="role1"/>
+   <user username="tomcat" password="<must-be-changed>" roles="tomcat"/>
+   <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
+   <user username="role1" password="<must-be-changed>" roles="role1"/>
+   ```
+3. 重启tomcatS
+
+### 响应头中的content/type
+当tomcat收到一个请求后，获取到请求的资源放入，封装好的Response对象中。根据资源的类型（扩展名），自动的与'tomcat安装目录'/conf/web.xml文件中的配置进行匹配，获取到对于的content/type类型，并写入响应头中。当没有与之匹配的类型时，浏览器将自动的将响应数据作为html文件进行处理并展示。所有，当请求的资源时一个动态资源时（如servlet）,应根据将返回的响应数据，在响应头中设置对应的content/type字段。
+
+### 路径问题
+- 相对路径：相对路径以 `./` 开头或直接写资源路径
+- 绝对路径：以 `/` 开头
+- 请求转发需要不需要上下文路径作为开头；重定向需要上下文路径作为开头
+- 因以客户角度（浏览器视角）考虑访问的资源路径问题。例如：当访问资源为`http://localhost:80/a/b/servlet`，并且在响应中存在一个 `<img src="static/index.img" />`时，当浏览器获得到响应时，发现需要`static/index.html`资源时，会再次发送请求，路径为\http://localhost:80/a/b/static/index.img。原因是：浏览器会以 `http://localhost:80/a/b/servlet` 中的 `http://localhost:80/a/b` 开始，拼接src属性中的相对路径 `static/index.img`。
+
