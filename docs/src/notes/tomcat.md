@@ -432,7 +432,6 @@ JavaWeb中常用的监听器：
 
 - HttpSessionAttributeListener：监听HttpSession中属性的添加、修改和删除事件。
 
-
 - HttpSessionActivationListener：监听HttpSession对象的钝化（passivation）和活化（activation）事件，与分布式会话（Di:stributed Session）有关。
 
 - ServletRequestListener：监听ServletContext对象的创建和销毁事件，以及请求的开始和完成。
