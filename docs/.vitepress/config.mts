@@ -89,7 +89,7 @@ export default defineConfig({
             { icon: { svg: 'Gitee' }, link: 'https://gitee.com/pxslin/notes' }
         ],
         outline: {
-            level: 'deep',
+            level: [2,3],
             label: '目录'
         }
     },
