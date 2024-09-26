@@ -1,5 +1,7 @@
 # Tomcat
 
+> [ Tomcat 源码仓库地址](https://github.com/apache/tomcat)
+
 ## Tomcat架构
 
 
@@ -419,29 +421,46 @@ Listener（监听器），是 J2EE 提供的一种机制，用于监听以及响
 
 监听器可以类比于观察者模式。监听器充当观察者，在观察者模式中，一个对象（观察者）注册对另一个对象（被观察者）的事件感兴趣，并在被观察者触发相应事件时得到通知并执行相应操作。
 
-JavaWeb中常用的监听器：
-- ServletContextListener：监听ServletContext对象的创建和销毁事件，当Web应用程序启动和关闭时触发。 
-
-- ServletRequestListener：监听ServletRequest对象的创建和销毁事件，在每次客户端请求到达服务器时触发。
-
-- HttpSessionListener：监听HttpSession对象的创建和销毁事件，当用户与Web应用程序建立和关闭会话时触发。
-
-- ServletContextAttributeListener：监听ServletContext中属性的添加、修改和删除事件。
-
-- ServletRequestAttributeListener：监听ServletRequest中属性的添加、修改和删除事件。
-
-- HttpSessionAttributeListener：监听HttpSession中属性的添加、修改和删除事件。
-
-- HttpSessionActivationListener：监听HttpSession对象的钝化（passivation）和活化（activation）事件，与分布式会话（Di:stributed Session）有关。
-
-- ServletRequestListener：监听ServletContext对象的创建和销毁事件，以及请求的开始和完成。
-
-- ServletContextListener：监听ServletContext对象的创建和销毁事件，与Web应用程序的启动和关闭有关
+### 常用的监听器
+- ServletContextListener：  
+  监听ServletContext对象的创建和销毁事件，当Web应用程序启动和关闭时触发。 
+- ServletContextAttributeListener：  
+  监听ServletContext中属性的添加、修改和删除事件。
+- HttpSessionListener：  
+  监听HttpSession对象的创建和销毁事件，当用户与Web应用程序建立和关闭会话时触发。
+- HttpSessionAttributeListener：  
+  监听HttpSession中属性的添加、修改和删除事件。
+- ServletRequestListener：  
+  监听ServletRequest对象的创建和销毁事件，在每次客户端请求到达服务器时触发。
+- ServletRequestAttributeListener：  
+  监听ServletRequest中属性的添加、修改和删除事件。
+- HttpSessionBindingListener  
+  监听当前监听器在Session中的增加与移除。 它的使用方式完全不同。在需要使用此监听器时，先实例化一个此监听器实力，再通过 `HttpSession#addAttribute` 方法绑定到session对象，此时立即出发此监听器的 `HttpSessionBindingListener#valueBound` 方法。当从session中移除或session失效时，触法其 `HttpSessionBindingListener#valueUnbound` 方法。
+- HttpSessionActivationListener：  
+  监听HttpSession对象的钝化（passivation）和活化（activation）事件，与分布式会话（Di:stributed Session）有关。使用方法与 `HttpSessionBindingListener` 类似，但需要进行额外配置。  
+  > 如何配置钝化与活化?
+  1. 在 web 目录下，添加 META-INF 目录，并创建 `Context.txt`
+  	```text
+  	web
+  	  ├─static
+  	  ├─WEB-INF
+  	  └─META-INF
+  	      └─Context.xml
+  	```
+  2. 在Context.xml中，配置钝化
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Context>
+        <Manager className="${Fully Qualified Name}" maxIdleSwap="1">
+            <Store className="${Fully Qualified Name}" directory="${save-path（序列化保存路径）}"></Store>
+        </Manager>
+    </Context>
+    ```
 
 ### Listener声明
 监听器的声明有两种方式，两种方式只能选其一：
-1. `web.xml`中配置。
-2. 使用`@WebListener`注解。
+- `web.xml`中配置。
+- 使用`@WebListener`注解。
 
 ::: code-group
 ```java [@WebListener]
@@ -459,9 +478,9 @@ public class DemoListener implements ServletContextListener {
 
 ## 常见问题
 ### 控制台输出乱码解决办法
-  1. 打开`{tomcat安装目录}/conf/logging.properties`文件。
-  2. 找到并修改`java.util.logging.ConsoleHandler.encoding`的值为控制台输出的字符集。
-  3. 重新启动tomcat。
+1. 打开`{tomcat安装目录}/conf/logging.properties`文件。
+2. 找到并修改`java.util.logging.ConsoleHandler.encoding`的值为控制台输出的字符集。
+3. 重新启动tomcat。
 
 ### webapp的项目结构
 ```text
@@ -476,23 +495,23 @@ webapp
 - static：可直接访问的静态资源（html，css，js，img等。也可以直接放在项目根目录下，例如此处的webapp目录）
 
 ### web项目部署
-1. 将标准的webapp，放入tomcat根目录/webapp中。
-2. 可将目录放在系统的任意路径下，但需要对tomcat进行配置。在`tomcatcat根目录/conf`下新建Catalina目录，新增一个需要部署的项目的配置文件，文件名为`xxx.xml`，其中`xxx`为需要部署的项目根目录名。文件内容：
-    ```xml
-    <Context path="" docBase=""/>
-    ```
-    path中为项目的资源访问路径；docBase为项目所在的系统路径。
+- 将标准的webapp，放入tomcat根目录/webapp中。
+- 可将目录放在系统的任意路径下，但需要对tomcat进行配置。在`tomcatcat根目录/conf`下新建Catalina目录，新增一个需要部署的项目的配置文件，文件名为`xxx.xml`，其中`xxx`为需要部署的项目根目录名。文件内容：
+  ```xml
+  <Context path="" docBase=""/>
+  ```
+  path中为项目的资源访问路径；docBase为项目所在的系统路径。
 
 ### host-manager和manager
 1. 打开`tomcat根目录/conf/tomcat-users.xml`
 2. 配置用户登录信息
-   ```xml
-   <role rolename="tomcat"/>
-   <role rolename="role1"/>
-   <user username="tomcat" password="<must-be-changed>" roles="tomcat"/>
-   <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
-   <user username="role1" password="<must-be-changed>" roles="role1"/>
-   ```
+	```xml
+	<role rolename="tomcat"/>
+	<role rolename="role1"/>
+	<user username="tomcat" password="<must-be-changed>" roles="tomcat"/>
+	<user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
+	<user username="role1" password="<must-be-changed>" roles="role1"/>
+	```
 3. 重启tomcatS
 
 ### 响应头中的content/type
