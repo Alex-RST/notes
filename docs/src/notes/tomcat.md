@@ -20,7 +20,7 @@
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(name = "firstServlet")  
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -36,7 +36,7 @@ public class FirstServlet extent HttpServlet {
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(value = {"/url1","/url2/*"})  
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -61,7 +61,7 @@ public class FirstServlet extent HttpServlet {
     name = "firstServlet",
     loadOnStartup = -1 // [!code focus]
 )  
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -86,7 +86,7 @@ public class FirstServlet extent HttpServlet {
         @WebInitParam(name = "param2", value = "value2")
     }
 ) 
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -109,7 +109,7 @@ public class FirstServlet extent HttpServlet {
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(asyncSupported = true)  // [!code focus]
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -126,7 +126,7 @@ public class FirstServlet extent HttpServlet {
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(description = "description")  // [!code focus]
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -143,7 +143,7 @@ public class FirstServlet extent HttpServlet {
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(displayName = "displayName")  // [!code focus]
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -160,7 +160,7 @@ public class FirstServlet extent HttpServlet {
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(smallIcon = "smallIcon")  // [!code focus]
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
@@ -170,7 +170,7 @@ public class FirstServlet extent HttpServlet {
 ::: code-group
 ```java [@WebServlet]
 @WebServlet(largeIcon = "largeIcon")  // [!code focus]
-public class FirstServlet extent HttpServlet {
+public class FirstServlet extends HttpServlet {
     //...
 }
 ```
