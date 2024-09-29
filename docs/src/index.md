@@ -3,15 +3,15 @@
 layout: home
 
 hero:
-  name: "Notes"
-  text: "Notes"
-  tagline: My great project tagline
+  name: "LTP's Notes"
+  text: "已有的事，后必再有  已行的事，后必再行"
+  tagline: 生前何必久睡，死后自会长眠
   actions:
     - theme: alt
       text: 深入理解Java虚拟机
-      link: /understanding_the_jvm
+      link: /know_jvm
     - theme: brand
-      text: Notes
+      text: 随手记
       link: /notes
 
 features:
