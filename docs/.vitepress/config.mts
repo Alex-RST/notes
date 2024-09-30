@@ -31,8 +31,9 @@ export default defineConfig({
                 {
                     text: '随手记',
                     items: [
-                        { text: '布隆过滤器', link: '/notes/bloom_filter' },
-                        { text: 'JNI实践', link: '/notes/jni_practice' },
+                        { text: '布隆过滤器', link: '/notes/bloom-filter' },
+                        { text: 'JNI实践', link: '/notes/jni-practice' },
+                        { text: 'Spring Bean的生命周期', link: '/notes/spring-bean-lifecycle'},
                         { text: 'Redis', link: '/notes/redis' },
                         { text: 'Note', link: '/notes/notes' },
                         { text: 'Tomcat', link: '/notes/tomcat' }
@@ -98,5 +99,5 @@ export default defineConfig({
     },
     srcDir: "src",
     cleanUrls: true,
-    ignoreDeadLinks: true
+    // ignoreDeadLinks: true
 })
