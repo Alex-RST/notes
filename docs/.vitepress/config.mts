@@ -92,11 +92,15 @@ export default defineConfig({
         outline: {
             level: [2, 3],
             label: '目录'
-        }
+        },
+        search: {
+            provider: 'local'
+        },
     },
     markdown: {
         lineNumbers: true
     },
+    lastUpdated: true,
     srcDir: "src",
     cleanUrls: true,
     // ignoreDeadLinks: true
