@@ -6,7 +6,7 @@
 ## Tomcat架构
 ![tomcat架构](/img/tomcat-framework.drawio.png "tomcat架构")
 
-## Tomcat类加载器架构
+## Tomcat类加载器结构
 一个健全的Web服务器通常需要解决以下问题：
 - 部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离。
 - 部署在同一个服务器上的两个Web应用程序所使用的Java类库可以相互共享。（与前一条相反）
