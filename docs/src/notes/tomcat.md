@@ -1,9 +1,35 @@
 # Tomcat
 
-> [ Tomcat 源码仓库地址](https://github.com/apache/tomcat)
+> [Tomcat 源码仓库地址](https://github.com/apache/tomcat)  
+> [Tomcat 主页地址](https://tomcat.apache.org/)
 
 ## Tomcat架构
 ![tomcat架构](/img/tomcat-framework.drawio.png "tomcat架构")
+
+## Tomcat类加载器架构
+一个健全的Web服务器通常需要解决以下问题：
+- 部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离。
+- 部署在同一个服务器上的两个Web应用程序所使用的Java类库可以相互共享。（与前一条相反）
+- 服务器需要尽可能的保证自身的安全不受部署的Web应用程序影响。
+- 支持JSP应用的Web服务器，十有八九都需要支持HotSwap（热替换）功能。
+
+为了解决上述问题，Tomcat设计了三组目录，与webapp内部的`WEB-INF`组成了四个不同区域，可笼统的划分为`服务器域`和`WebApp域`，但默认不一定开放，可能只存在`/lib/`目录：
+- `/common`：可以被Tomcat和所有WebApp共同使用。
+- `/server`：可以被Tomcat使用，对所有WebApp不可见。
+- `/shared`：对所有WebApp共同使用，对Tomcat不可见。
+- `/WebApp/WEB-INF`：仅仅对当前WebApp可可使用，对Tomcat和其他WebApp不可见。
+
+为了支持上述目录结构，Tomcat自定义了多个类加载器，并按照经典的双亲委派机制模型进行实现：
+<div align=center>
+    <img src="/img/tomcat-classloader-framework.drawio.png" />
+</div>
+
+::: tip
+- JDK9之后，因加入了模块化机制，Extension ClassLoader由Platform ClassLoader替代。
+- 上述类加载结构，在Tomcat6以前是默认结构。在Tomcat6及之后，简化了此结构，将`/common`、`/server`、`/shared`默认合并到一起变成`/lib`目录。
+:::
+
+三个灰色的是JDK默认提供的类加载器，剩下的由Tomcat自定义的类加载器。其中WebApp类加载器和JSP类加载器还会存在多个实例，每一个WebApp对应一个WebApp类加载器，每一个JSP文件对应一个JasperLoader类加载器。
 
 ## Servlet
 ### Servlet声明与配置
