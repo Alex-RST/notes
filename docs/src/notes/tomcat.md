@@ -34,12 +34,12 @@
 ## Servlet
 ### Servlet声明与配置
 声明Servlet有两种方式：
-1. 配置web项目中`web.xml`。
-2. 通过java注解的方式，`@WebServlet`。
+- 配置web项目中`web.xml`。
+- 通过java注解的方式，`@WebServlet`。
 
 ::: tip
-1. 以下两种方式只能选择其一；一个Servlet不能同时使用`@WebServlet`和`web.xml`进行配置。
-2. 在配置路径时，注意路径不能冲突，且路径使用 `/` 开头。
+- 以下两种方式只能选择其一；一个Servlet不能同时使用`@WebServlet`和`web.xml`进行配置。
+- 在配置路径时，注意路径不能冲突，且路径使用 `/` 开头。
 :::
 
 #### 名字
