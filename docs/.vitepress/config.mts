@@ -7,24 +7,7 @@ export default defineConfig({
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
-            { text: 'Home', link: '/' },
-            {
-                text: 'parent',
-                items: [
-                    {
-                        text: 'child1',
-                        link: '/notes/布隆过滤器'
-                    },
-                    {
-                        text: 'child2',
-                        link: '/notes/布隆过滤器'
-                    },
-                    {
-                        text: 'child3',
-                        link: '/notes/布隆过滤器'
-                    }
-                ]
-            }
+            { text: 'Home', link: '/' }
         ],
         sidebar: {
             '/notes': [
