@@ -3,7 +3,7 @@
 > [ Tomcat 源码仓库地址](https://github.com/apache/tomcat)
 
 ## Tomcat架构
-
+![tomcat架构](/img/tomcat-framework.drawio.png "tomcat架构")
 
 ## Servlet
 ### Servlet声明与配置
