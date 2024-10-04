@@ -1,8 +1,5 @@
 # Tomcat
 
-> [Tomcat 源码仓库地址](https://github.com/apache/tomcat)  
-> [Tomcat 主页地址](https://tomcat.apache.org/)
-
 ## Tomcat架构
 ![tomcat架构](/img/tomcat-framework.drawio.png "tomcat架构")
 
@@ -32,7 +29,7 @@
 三个灰色的是JDK默认提供的类加载器，剩下的由Tomcat自定义的类加载器。其中WebApp类加载器和JSP类加载器还会存在多个实例，每一个WebApp对应一个WebApp类加载器，每一个JSP文件对应一个JasperLoader类加载器。
 
 ## WebApp目录结构
-一个正常的Web服务器是从外部加载这些组件的，根据Servlet规范，Web App开发者完成了`Servlet`、`Filter`和`Listener`等组件后，需要按规范把它们打包成`.war`文件。`.war`文件本质上就是一个`jar`包，但它的目录组织如下：
+一个正常的Web服务器是从外部加载这些组件的，根据Servlet规范，Web App开发者完成了`Servlet`、`Filter`和`Listener`等组件后，需要按规范把它们打包成`.war`文件。`.war`文件本质上就是一个`jar`包，但它的目录组织如下<sup><a href="#ref1">1</a></sup>：
 
 ```text
 hello-webapp
@@ -574,8 +571,12 @@ webapp
 当tomcat收到一个请求后，获取到请求的资源放入，封装好的Response对象中。根据资源的类型（扩展名），自动的与'tomcat安装目录'/conf/web.xml文件中的配置进行匹配，获取到对于的content/type类型，并写入响应头中。当没有与之匹配的类型时，浏览器将自动的将响应数据作为html文件进行处理并展示。所有，当请求的资源时一个动态资源时（如servlet）,应根据将返回的响应数据，在响应头中设置对应的content/type字段。
 
 ### 路径问题
-- 相对路径：相对路径以 `./` 开头或直接写资源路径
-- 绝对路径：以 `/` 开头
-- 请求转发需要不需要上下文路径作为开头；重定向需要上下文路径作为开头
+- 相对路径：相对路径以 `./` 开头或直接写资源路径。
+- 绝对路径：以 `/` 开头。
+- 请求转发需要不需要上下文路径作为开头；重定向需要上下文路径作为开头。
 - 因以客户角度（浏览器视角）考虑访问的资源路径问题。例如：当访问资源为`http://localhost:80/a/b/servlet`，并且在响应中存在一个 `<img src="static/index.img" />`时，当浏览器获得到响应时，发现需要`static/index.html`资源，会再次发送请求，路径为`http://localhost:80/a/b/static/index.img`。原因是：浏览器会以 `http://localhost:80/a/b/servlet` 中的 `http://localhost:80/a/b` 开始，拼接`src`属性中的相对路径 `static/index.img`。
 
+## 参考文献
+1. <a id = "ref1">https://liaoxuefeng.com/books/jerrymouse/servlet-spec/index.html</a>
+2. Tomcat 源码仓库地址：<a id = "ref2">https://github.com/apache/tomcat</a>
+3. Tomcat 主页地址：<a id = "ref3">https://tomcat.apache.org/</a>
