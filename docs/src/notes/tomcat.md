@@ -21,12 +21,12 @@
     <img src="/img/tomcat-classloader-framework.drawio.png" />
 </div>
 
+三个灰色的是JDK默认提供的类加载器，剩下的由Tomcat自定义的类加载器。其中WebApp类加载器和JSP类加载器还会存在多个实例，每一个WebApp对应一个WebApp类加载器，每一个JSP文件对应一个JasperLoader类加载器。
+
 ::: tip
 - JDK9之后，因加入了模块化机制，Extension ClassLoader由Platform ClassLoader替代。
 - 上述类加载结构，在Tomcat6以前是默认结构。在Tomcat6及之后，简化了此结构，将`/common`、`/server`、`/shared`默认合并到一起变成`/lib`目录。
 :::
-
-三个灰色的是JDK默认提供的类加载器，剩下的由Tomcat自定义的类加载器。其中WebApp类加载器和JSP类加载器还会存在多个实例，每一个WebApp对应一个WebApp类加载器，每一个JSP文件对应一个JasperLoader类加载器。
 
 ## WebApp目录结构
 一个正常的Web服务器是从外部加载这些组件的，根据Servlet规范，Web App开发者完成了`Servlet`、`Filter`和`Listener`等组件后，需要按规范把它们打包成`.war`文件。`.war`文件本质上就是一个`jar`包，但它的目录组织如下<sup><a href="#ref1">1</a></sup>：
@@ -577,6 +577,6 @@ webapp
 - 因以客户角度（浏览器视角）考虑访问的资源路径问题。例如：当访问资源为`http://localhost:80/a/b/servlet`，并且在响应中存在一个 `<img src="static/index.img" />`时，当浏览器获得到响应时，发现需要`static/index.html`资源，会再次发送请求，路径为`http://localhost:80/a/b/static/index.img`。原因是：浏览器会以 `http://localhost:80/a/b/servlet` 中的 `http://localhost:80/a/b` 开始，拼接`src`属性中的相对路径 `static/index.img`。
 
 ## 参考文献
-1. <a id = "ref1">https://liaoxuefeng.com/books/jerrymouse/servlet-spec/index.html</a>
-2. Tomcat 源码仓库地址：<a id = "ref2">https://github.com/apache/tomcat</a>
-3. Tomcat 主页地址：<a id = "ref3">https://tomcat.apache.org/</a>
+1. [手写Tomcat]("https://liaoxuefeng.com/books/jerrymouse/servlet-spec/index.html")
+2. [Tomcat 源码仓库地址](https://github.com/apache/tomcat)
+3. [Tomcat 主页地址](https://tomcat.apache.org/)
