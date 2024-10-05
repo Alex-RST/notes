@@ -577,6 +577,6 @@ webapp
 - 因以客户角度（浏览器视角）考虑访问的资源路径问题。例如：当访问资源为`http://localhost:80/a/b/servlet`，并且在响应中存在一个 `<img src="static/index.img" />`时，当浏览器获得到响应时，发现需要`static/index.html`资源，会再次发送请求，路径为`http://localhost:80/a/b/static/index.img`。原因是：浏览器会以 `http://localhost:80/a/b/servlet` 中的 `http://localhost:80/a/b` 开始，拼接`src`属性中的相对路径 `static/index.img`。
 
 ## 参考文献
-1. [手写Tomcat]("https://liaoxuefeng.com/books/jerrymouse/servlet-spec/index.html")
+1. [手写Tomcat](https://liaoxuefeng.com/books/jerrymouse/servlet-spec/index.html)
 2. [Tomcat 源码仓库地址](https://github.com/apache/tomcat)
 3. [Tomcat 主页地址](https://tomcat.apache.org/)
