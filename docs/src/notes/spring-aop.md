@@ -13,8 +13,8 @@
 ## 通知执行顺序
 1. Around
 2. Before
-3. AfterReturning/AfterThrowing
-4. target method（目标方法）
+3. target method（目标方法）
+4. AfterReturning/AfterThrowing
 5. After
 6. Around
 
