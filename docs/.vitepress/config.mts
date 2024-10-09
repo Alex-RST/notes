@@ -21,6 +21,7 @@ export default defineConfig({
                         { text: 'Note', link: '/notes/notes' },
                         { text: 'Tomcat', link: '/notes/tomcat' },
                         { text: 'Spring Bean 生命周期', link: '/notes/spring-bean-lifecycle' },
+                        { text: 'Spring IOC', link: '/notes/spring-ioc' },
                         { text: 'Spring AOP', link: '/notes/spring-aop' },
                     ]
                 }
