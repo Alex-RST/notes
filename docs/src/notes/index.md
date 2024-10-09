@@ -1,3 +1,9 @@
+---
+next:
+    text: 布隆过滤器
+    link: /notes/bloom-filter
+---
+
 # 随手记
 
 有用的知识点查询网站：
