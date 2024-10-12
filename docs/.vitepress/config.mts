@@ -23,6 +23,8 @@ export default defineConfig({
                         { text: 'Tomcat', link: '/notes/tomcat' },
                         { text: 'Spring IOC', link: '/notes/spring-ioc' },
                         { text: 'Spring AOP', link: '/notes/spring-aop' },
+                        { text: 'Node.js', link: '/notes/nodejs'},
+                        { text: 'Jackson', link: '/notes/jackson'},
                     ]
                 }
             ],
