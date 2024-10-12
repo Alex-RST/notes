@@ -25,6 +25,7 @@ export default defineConfig({
                         { text: 'Spring AOP', link: '/notes/spring-aop' },
                         { text: 'Node.js', link: '/notes/nodejs'},
                         { text: 'Jackson', link: '/notes/jackson'},
+                        { text: '正则表达式', link: '/notes/regex.md'}
                     ]
                 }
             ],
