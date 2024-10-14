@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
-import { set_sidebar } from './config/set_sidebar.js'
+// import { set_sidebar } from './config/set_sidebar.js'
+import generateSidebar from './config/generate-sidebar.cts'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -81,10 +82,6 @@ export default defineConfig({
                 }
             ]
         },
-        // sidebar: {
-        //     '/notes': set_sidebar('/docs/src/notes'),
-        //     'know_jvm': set_sidebar('/docs/src/know_jvm')
-        // },
         socialLinks: [
             { icon: { svg: '<img src=/img/gitee.ico width=20 height=20 />' }, link: 'https://gitee.com/pxslin/notes' }
         ],
@@ -100,7 +97,11 @@ export default defineConfig({
             next: '下一篇'
         },
         lightModeSwitchTitle: '开灯',
-        darkModeSwitchTitle: '关灯'
+        darkModeSwitchTitle: '关灯',
+        // sidebar: {
+        //     '/notes': set_sidebar('/docs/src/notes'),
+        //     'know_jvm': set_sidebar('/docs/src/know_jvm')
+        // },
     },
     markdown: {
         lineNumbers: true,
@@ -108,6 +109,5 @@ export default defineConfig({
     },
     lastUpdated: true,
     srcDir: "src",
-    cleanUrls: true,
-    // ignoreDeadLinks: true
+    cleanUrls: true
 })
