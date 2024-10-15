@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Program",
+        "program": "${workspaceFolder}/docs/.vitepress/config/generate-sidebar.cjs",
+        "request": "launch",
+        "skipFiles": [
+          "<node_internals>/**"
+        ],
+        "type": "node"
+      }
+    ]
+  }
