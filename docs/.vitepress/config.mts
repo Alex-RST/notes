@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import { set_sidebar } from './config/set_sidebar.js'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -81,10 +80,6 @@ export default defineConfig({
                 }
             ]
         },
-        // sidebar: {
-        //     '/notes': set_sidebar('/docs/src/notes'),
-        //     'know_jvm': set_sidebar('/docs/src/know_jvm')
-        // },
         socialLinks: [
             { icon: { svg: '<img src=/img/gitee.ico width=20 height=20 />' }, link: 'https://gitee.com/pxslin/notes' }
         ],
