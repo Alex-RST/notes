@@ -7,7 +7,7 @@ function isDirectory(pathStr: string): boolean {
     return fs.lstatSync(pathStr).isDirectory()
 }
 
-const IGNORE_PATH: string[] = ['public','index.md']
+const IGNORE_PATH: string[] = ['public', 'index.md']
 const ROOT_ABSOLUTE_PATH = path.resolve()
 
 let sidebar = generateSidebar('/docs/src')
@@ -18,13 +18,16 @@ export default function generateSidebar(srcDir: string): DefaultTheme.SidebarMul
     let srcAp: string = path.join(ROOT_ABSOLUTE_PATH, srcDir)
     // 读取srcAp下的所有文件或者文件夹
     let curPathFileNames: string[] = fs.readdirSync(srcAp)
-    let sidebar: {[path: string]: any} = {}
+    let sidebar: { [path: string]: any } = {}
     for (let index in curPathFileNames) {
         let curFileName: string = curPathFileNames[index]
         let curFileRp: string = path.join(srcDir, curFileName)
         let curFileAp: string = path.join(ROOT_ABSOLUTE_PATH, curFileRp)
-        if(isDirectory(curFileAp) && !IGNORE_PATH.includes(curFileName)) {
-            let mapName: string = sidebarConfig.pathMap[curFileName]
+        if (isDirectory(curFileAp) && !IGNORE_PATH.includes(curFileName)) {
+            let mapName = null
+            if (sidebarConfig.pathMap != undefined) {
+                mapName = sidebarConfig.pathMap[curFileName]
+            }
             sidebar[curFileName] = [{
                 text: mapName != null ? mapName : curFileName,
                 link: curFileName,
@@ -44,16 +47,25 @@ export function generateItems(srcDir: string, dirRp: string): DefaultTheme.Sideb
         let curFileName: string = curPathFileNames[index]
         let curFileRp: string = path.join(dirRp, curFileName)
         let curFileAp: string = path.join(ROOT_ABSOLUTE_PATH, srcDir, curFileRp)
-        if(IGNORE_PATH.includes(curFileName)) {
+        if (IGNORE_PATH.includes(curFileName)) {
             continue
         }
-        let mapName: string = sidebarConfig.pathMap[curFileName.substring(0, curFileName.lastIndexOf("."))]
-        if(isDirectory(curFileAp)) {
+
+        if (isDirectory(curFileAp)) {
+            let mapName = null
+            if (sidebarConfig.pathMap != undefined) {
+                mapName = sidebarConfig.pathMap[curFileRp]
+            }
             items.push({
                 text: mapName != null ? mapName : curFileName,
+                collapsed: false,
                 items: generateItems(srcDir, curFileRp),
             })
         } else {
+            let mapName = null
+            if (sidebarConfig.pathMap != undefined) {
+                mapName = sidebarConfig.pathMap[curFileRp.substring(0, curFileRp.lastIndexOf('.'))]
+            }
             items.push({
                 text: mapName != null ? mapName : curFileName,
                 link: curFileRp.substring(0, curFileRp.lastIndexOf("."))
