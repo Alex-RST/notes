@@ -3,15 +3,11 @@ import * as path from 'path'
 import { DefaultTheme } from 'vitepress/types/default-theme'
 import sidebarConfig from './sidebarConfig'
 
-function isDirectory(pathStr: string): boolean {
-    return fs.lstatSync(pathStr).isDirectory()
-}
-
-const IGNORE_PATH: string[] = ['public', 'index.md']
+const IGNORE_PATH: string[] = sidebarConfig.ignorePath != undefined ? sidebarConfig.ignorePath : []
 const ROOT_ABSOLUTE_PATH = path.resolve()
 
-let sidebar = generateSidebar('/docs/src')
-console.log(sidebar)
+// let sidebar = generateSidebar('/docs/src')
+// console.log(sidebar)
 
 export default function generateSidebar(srcDir: string): DefaultTheme.SidebarMulti {
     // 获取srcRp的绝对路径
@@ -73,5 +69,9 @@ export function generateItems(srcDir: string, dirRp: string): DefaultTheme.Sideb
         }
     }
     return items
+}
+
+function isDirectory(pathStr: string): boolean {
+    return fs.lstatSync(pathStr).isDirectory()
 }
 

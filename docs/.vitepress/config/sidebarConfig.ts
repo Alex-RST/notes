@@ -11,7 +11,7 @@ export default declareSidebarConfig({
         'notes\\tomcat': 'Tomcat',
         'notes\\jackson': 'Jackson',
         'notes\\notes': 'Notes',
-        
+
         'know_jvm': '深入理解Java虚拟机',
         'know_jvm\\part-1': '第一部分 走进Java',
         'know_jvm\\part-1\\unit-01': '第一章 走进Java',
@@ -31,11 +31,16 @@ export default declareSidebarConfig({
         'know_jvm\\part-5': '第五部分 高效并发',
         'know_jvm\\part-5\\unit-12': '第12章 Java内存模型与线程',
         'know_jvm\\part-5\\unit-13': '第13章 线程安全与锁优化',
-    }
+    },
+    ignorePath: [
+        'public',
+        'index.md'
+    ]
 })
 
 class SidebarConfig {
-    pathMap?: {[path: string]: string}
+    ignorePath?: string[]
+    pathMap?: { [path: string]: string }
 }
 
 function declareSidebarConfig(config: SidebarConfig): SidebarConfig {
