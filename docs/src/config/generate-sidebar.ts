@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { DefaultTheme } from 'vitepress/types/default-theme'
-import sidebarConfig from './sidebarConfig'
+import sidebarConfig from './sidebarConfig.cjs'
 
 const IGNORE_PATH: string[] = sidebarConfig.ignorePath != undefined ? sidebarConfig.ignorePath : []
 const ROOT_ABSOLUTE_PATH = path.resolve()
