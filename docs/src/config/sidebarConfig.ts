@@ -1,8 +1,6 @@
-import path from 'path';
+import { SidebarConfig } from "./generate-sidebar"
 
-export { ignored, pathName }
-
-const config: SidebarConfig = {
+export let config: SidebarConfig = {
     pathMap: {
         'notes': {
             name: '随手记',
@@ -70,61 +68,8 @@ const config: SidebarConfig = {
         'index.md',
         'notes\\index.md',
         'know_jvm\\index.md'
-    ]
-}
-const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
-if(config.pathMap !== undefined) {
-    parseInfoMap('', config.pathMap)
-}
-
-/**
- * 目录信息映射解析
- * @param curDir 当前目录
- * @param subItemMap 当前目录下子目录映射关系
- */
-function parseInfoMap(curDir: string, subItemMap: SidebarItemMap): void {
-    for(let key in subItemMap) {
-        let subItemInfo: SidebarItemInfo | string  = subItemMap[key];
-        let subDir: string = path.join(curDir, key)
-        if(typeof subItemInfo === 'string') {
-            itemInfoMap.set(subDir, {name: subItemInfo})
-        } else {
-            itemInfoMap.set(subDir, subItemInfo)
-            if(subItemInfo.subItems !== undefined) {
-                parseInfoMap(subDir, subItemInfo.subItems)
-            }
-        }
-    }
-}
-
-function ignored(resPath: string): boolean {
-    let ignoreUri: string[] | undefined = config.ignoredPath
-    if(ignoreUri !== undefined && ignoreUri.includes(resPath)) {
-        return true
-    } else {
-        return false
-    }
-}
-
-function pathName(uri: string): string | undefined {
-    let info: SidebarItemInfo | undefined= itemInfoMap.get(uri)
-    if(info === undefined) return undefined
-    else return info.name
-}
-
-interface SidebarConfig {
-    pathMap?: SidebarItemMap,
-    ignoredPath?: string[]
-}
-
-interface SidebarItemMap {
-    [path: string]: SidebarItemInfo | string
-}
-
-interface SidebarItemInfo {
-    name: string,
-    collapsed?: boolean,
-    subItems?: SidebarItemMap
+    ],
+    srcPath: 'docs/src'
 }
 
 
