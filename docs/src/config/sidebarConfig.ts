@@ -1,4 +1,6 @@
-import * as path from "path";
+import path from 'path';
+
+export { ignored, pathName }
 
 const config: SidebarConfig = {
     pathMap: {
@@ -15,6 +17,7 @@ const config: SidebarConfig = {
                 'tomcat': 'Tomcat',
                 'jackson': 'Jackson',
                 'notes': 'Notes',
+                'es6-standard': 'ES6标准入门'
             }
         },
         'know_jvm': {
@@ -60,37 +63,59 @@ const config: SidebarConfig = {
                 }
             }
         }
-    }
+    },
+    ignoredPath: [
+        'config',
+        'public',
+        'index.md',
+        'notes\\index.md',
+        'know_jvm\\index.md'
+    ]
 }
-const itemInfoMap: Map<string, SidebarItemInfo | string> = new Map;
+const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
 if(config.pathMap !== undefined) {
-    parseInfoMap('../', config.pathMap)
+    parseInfoMap('', config.pathMap)
 }
 console.log(itemInfoMap)
 
 /**
  * 目录信息映射解析
- * @param dir 当前目录
- * @param itemMap 当前目录下子目录映射关系
+ * @param curDir 当前目录
+ * @param subItemMap 当前目录下子目录映射关系
  */
-function parseInfoMap(parent: string, itemMap: SidebarItemMap): void {
-    for(let key in itemMap) {
-        let itemInfo: SidebarItemInfo | string  = itemMap[key];
-        let curDir = path.join(parent, key)
-        if(typeof itemInfo === 'string') {
-            itemInfoMap.set(curDir, {name: itemInfo})
+function parseInfoMap(curDir: string, subItemMap: SidebarItemMap): void {
+    for(let key in subItemMap) {
+        let subItemInfo: SidebarItemInfo | string  = subItemMap[key];
+        let subDir: string = path.join(curDir, key)
+        if(typeof subItemInfo === 'string') {
+            itemInfoMap.set(subDir, {name: subItemInfo})
         } else {
-            itemInfoMap.set(curDir, itemInfo)
-            if(itemInfo.subItems !== undefined) {
-                parseInfoMap(curDir, itemInfo.subItems)
+            itemInfoMap.set(subDir, subItemInfo)
+            if(subItemInfo.subItems !== undefined) {
+                parseInfoMap(subDir, subItemInfo.subItems)
             }
         }
     }
 }
 
+function ignored(resPath: string): boolean {
+    let ignoreUri: string[] | undefined = config.ignoredPath
+    if(ignoreUri !== undefined && ignoreUri.includes(resPath)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+function pathName(uri: string): string | undefined {
+    let info: SidebarItemInfo | undefined= itemInfoMap.get(uri)
+    if(info === undefined) return undefined
+    else return info.name
+}
+
 interface SidebarConfig {
     pathMap?: SidebarItemMap,
-    ignore?: string[]
+    ignoredPath?: string[]
 }
 
 interface SidebarItemMap {
@@ -99,7 +124,6 @@ interface SidebarItemMap {
 
 interface SidebarItemInfo {
     name: string,
-    ignored?: boolean,
     collapsed?: boolean,
     subItems?: SidebarItemMap
 }

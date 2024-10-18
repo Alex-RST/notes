@@ -3,7 +3,7 @@
     "configurations": [
       {
         "name": "Launch Program",
-        "program": "${workspaceFolder}/docs/src/config/sidebarConfig.cjs",
+        "program": "${workspaceFolder}/docs/src/config/generate-sidebar.ts",
         "request": "launch",
         "skipFiles": [
           "<node_internals>/**"

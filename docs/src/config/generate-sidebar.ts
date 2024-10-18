@@ -1,70 +1,63 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import fs from 'fs'
+import path from 'path'
 import { DefaultTheme } from 'vitepress/types/default-theme'
-import sidebarConfig from './sidebarConfig.cjs'
+import { pathName, ignored } from './sidebarConfig'
 
-const IGNORE_PATH: string[] = sidebarConfig.ignorePath != undefined ? sidebarConfig.ignorePath : []
 const ROOT_ABSOLUTE_PATH = path.resolve()
+const SRC_PATH = 'docs/src'
 
-// let sidebar = generateSidebar('/docs/src')
-// console.log(sidebar)
+let sidebar = generateSidebar('')
+console.log(sidebar)
 
-export default function generateSidebar(srcDir: string): DefaultTheme.SidebarMulti {
-    // 获取srcRp的绝对路径
-    let srcAp: string = path.join(ROOT_ABSOLUTE_PATH, srcDir)
-    // 读取srcAp下的所有文件或者文件夹
-    let curPathFileNames: string[] = fs.readdirSync(srcAp)
-    let sidebar: { [path: string]: any } = {}
-    for (let index in curPathFileNames) {
-        let curFileName: string = curPathFileNames[index]
-        let curFileRp: string = path.join(srcDir, curFileName)
-        let curFileAp: string = path.join(ROOT_ABSOLUTE_PATH, curFileRp)
-        if (isDirectory(curFileAp) && !IGNORE_PATH.includes(curFileName)) {
-            let mapName = null
-            if (sidebarConfig.pathMap != undefined) {
-                mapName = sidebarConfig.pathMap[curFileName]
-            }
-            sidebar[curFileName] = [{
-                text: mapName != null ? mapName : curFileName,
-                link: curFileName,
-                items: generateItems(srcDir, curFileName)
+export default function generateSidebar(curPath: string): DefaultTheme.SidebarMulti {
+    //侧边栏
+    let sidebar: DefaultTheme.SidebarMulti = {}
+    //resPath的绝对路径
+    let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
+    //resPath下的子路径名
+    let subFileNames: string[] = fs.readdirSync(curPathAb)
+    for (let index in subFileNames) {
+        let subFileName: string = subFileNames[index]
+        let subPath: string = path.join(curPath, subFileName)
+        let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
+        if (isDirectory(subPathAb) && !ignored(subPath)) {
+            let mapName = pathName(subPath)
+            sidebar[subFileName] = [{
+                text: mapName !== undefined ? mapName : subFileName,
+                link: subPath,
+                items: generateItems(subPath)
             }]
         }
     }
     return sidebar
 }
 
-export function generateItems(srcDir: string, dirRp: string): DefaultTheme.SidebarItem[] {
-    // 获取dirRp的绝对路径
-    let dirAp: string = path.join(ROOT_ABSOLUTE_PATH, srcDir, dirRp)
-    let curPathFileNames: string[] = fs.readdirSync(dirAp)
+export function generateItems(curPath: string): DefaultTheme.SidebarItem[] {
     let items: DefaultTheme.SidebarItem[] = []
-    for (let index in curPathFileNames) {
-        let curFileName: string = curPathFileNames[index]
-        let curFileRp: string = path.join(dirRp, curFileName)
-        let curFileAp: string = path.join(ROOT_ABSOLUTE_PATH, srcDir, curFileRp)
-        if (IGNORE_PATH.includes(curFileName)) {
+
+    let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
+    let subFileNames: string[] = fs.readdirSync(curPathAb)
+    for (let index in subFileNames) {
+        let subFileName: string = subFileNames[index]
+        let subPath: string = path.join(curPath, subFileName)
+        let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
+        if (ignored(subPath)) {
             continue
         }
-
-        if (isDirectory(curFileAp)) {
-            let mapName = null
-            if (sidebarConfig.pathMap != undefined) {
-                mapName = sidebarConfig.pathMap[curFileRp]
-            }
+        if (isDirectory(subPathAb)) {
+            let mapName = pathName(subPath)
             items.push({
-                text: mapName != null ? mapName : curFileName,
+                text: mapName !== undefined ? mapName : subFileName,
                 collapsed: false,
-                items: generateItems(srcDir, curFileRp),
+                items: generateItems(subPath),
             })
         } else {
-            let mapName = null
-            if (sidebarConfig.pathMap != undefined) {
-                mapName = sidebarConfig.pathMap[curFileRp.substring(0, curFileRp.lastIndexOf('.'))]
-            }
+            let subFileNameNoExt: string = subFileName.substring(0, subFileName.lastIndexOf('.'))
+            let subPathNoExt: string = subPath.substring(0, subPath.lastIndexOf('.'))
+            let mapName = pathName(subPathNoExt)
             items.push({
-                text: mapName != null ? mapName : curFileName,
-                link: curFileRp.substring(0, curFileRp.lastIndexOf("."))
+                text: mapName !== undefined ? mapName : subFileNameNoExt,
+                link: subPathNoExt
             })
         }
     }
