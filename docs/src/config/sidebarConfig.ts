@@ -76,7 +76,6 @@ const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
 if(config.pathMap !== undefined) {
     parseInfoMap('', config.pathMap)
 }
-console.log(itemInfoMap)
 
 /**
  * 目录信息映射解析

@@ -6,9 +6,6 @@ import { pathName, ignored } from './sidebarConfig'
 const ROOT_ABSOLUTE_PATH = path.resolve()
 const SRC_PATH = 'docs/src'
 
-let sidebar = generateSidebar('')
-console.log(sidebar)
-
 export default function generateSidebar(curPath: string): DefaultTheme.SidebarMulti {
     //侧边栏
     let sidebar: DefaultTheme.SidebarMulti = {}
