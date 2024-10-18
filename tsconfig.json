@@ -108,7 +108,7 @@
     // "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "files": [
-    "sidebarConfig.ts",
-    "generate-sidebar.ts"
+    "./docs/src/config/sidebarConfig.ts",
+    "./docs/src/config/generate-sidebar.ts"
   ]
 }
