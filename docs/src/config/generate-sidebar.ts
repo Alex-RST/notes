@@ -3,10 +3,20 @@ import path from 'path'
 import { DefaultTheme } from 'vitepress/types/default-theme'
 import { config } from './sidebarConfig'
 
+export default generateSidebarMulti
+export { SidebarConfig, generateSidebarItem as generateItems }
+
 const ROOT_ABSOLUTE_PATH = path.resolve()
 const SRC_PATH = config.srcPath
 
-export default function generateSidebar(curPath: string): DefaultTheme.SidebarMulti {
+const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
+if(config.pathMap !== undefined) {
+    parseInfoMap('', config.pathMap)
+}
+let sidebar = generateSidebarMulti('')
+console.log(sidebar)
+
+function generateSidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
     //侧边栏
     let sidebar: DefaultTheme.SidebarMulti = {}
     //resPath的绝对路径
@@ -22,14 +32,14 @@ export default function generateSidebar(curPath: string): DefaultTheme.SidebarMu
             sidebar[subFileName] = [{
                 text: mapName !== undefined ? mapName : subFileName,
                 link: subPath,
-                items: generateItems(subPath)
+                items: generateSidebarItem(subPath)
             }]
         }
     }
     return sidebar
 }
 
-export function generateItems(curPath: string): DefaultTheme.SidebarItem[] {
+function generateSidebarItem(curPath: string): DefaultTheme.SidebarItem[] {
     let items: DefaultTheme.SidebarItem[] = []
 
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
@@ -46,7 +56,7 @@ export function generateItems(curPath: string): DefaultTheme.SidebarItem[] {
             items.push({
                 text: mapName !== undefined ? mapName : subFileName,
                 collapsed: false,
-                items: generateItems(subPath),
+                items: generateSidebarItem(subPath),
             })
         } else {
             let subFileNameNoExt: string = subFileName.substring(0, subFileName.lastIndexOf('.'))
@@ -63,11 +73,6 @@ export function generateItems(curPath: string): DefaultTheme.SidebarItem[] {
 
 function isDirectory(pathStr: string): boolean {
     return fs.lstatSync(pathStr).isDirectory()
-}
-
-const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
-if(config.pathMap !== undefined) {
-    parseInfoMap('', config.pathMap)
 }
 
 /**
@@ -105,7 +110,7 @@ function pathName(uri: string): string | undefined {
     else return info.name
 }
 
-export interface SidebarConfig {
+interface SidebarConfig {
     pathMap?: SidebarItemMap,
     ignoredPath?: string[],
     srcPath: string

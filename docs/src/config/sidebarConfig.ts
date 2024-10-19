@@ -22,13 +22,13 @@ export let config: SidebarConfig = {
             name: '深入理解Java虚拟机',
             subItems: {
                 'part-1': {
-                    name: '第一部分',
+                    name: '第一部分 走进Java',
                     subItems: {
                         'unit-01': '第1章 走进Java'
                     }
                 },
                 'part-2': {
-                    name: '第二部分',
+                    name: '第二部分 自动内存管理',
                     subItems: {
                         'unit-02': '第2章 Java内存区域与内存移除异常',
                         'unit-03': '第3章 垃圾收集器与内存分配策略',
@@ -37,7 +37,7 @@ export let config: SidebarConfig = {
                     }
                 },
                 'part-3': {
-                    name: '第三部分',
+                    name: '第三部分 虚拟机执行子系统',
                     subItems: {
                         'unit-06': '第6章 类文件结构',
                         'unit-07': '第7章 虚拟机类加载机制',
@@ -46,14 +46,14 @@ export let config: SidebarConfig = {
                     }
                 },
                 'part-4': {
-                    name: '第四部分',
+                    name: '第四部分 程序编译与代码优化',
                     subItems: {
                         'unit-10': '第10章 前端编译与优化',
                         'unit-11': '第11章 后端编译与优化'
                     }
                 },
                 'part-5': {
-                    name: '第五部分',
+                    name: '第五部分 高效并发',
                     subItems: {
                         'unit-12': '第12章 Java内存模型与线程',
                         'unit-13': '第13章 线程安全与锁优化',

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import generateSidebar from '../src/config/generate-sidebar'
+import generateSidebarMulti from '../src/config/generate-sidebar'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -10,7 +10,7 @@ export default defineConfig({
         nav: [
             { text: 'Home', link: '/' }
         ],
-        sidebar: generateSidebar(''),
+        sidebar: generateSidebarMulti(''),
         socialLinks: [
             { icon: { svg: '<img src=/img/gitee.ico width=20 height=20 />' }, link: 'https://gitee.com/pxslin/notes' }
         ],
