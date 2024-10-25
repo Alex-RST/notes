@@ -23,7 +23,7 @@ function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
     let subNames: string[] = fs.readdirSync(curPathAb)
     for (let index in subNames) {
         let subName: string = subNames[index]
-        let subPath: string = curPath.endsWith('/') ? curPath + subName : curPath + '/' + subName
+        let subPath: string = pathJoint(curPath, subName)
         let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
         if (isDirectory(subPathAb) && !ignored(subPath)) {
             sidebar[subName] = sidebarItems(subPath)
@@ -75,10 +75,6 @@ function sidebarItem(curPath: string, curName: string): DefaultTheme.SidebarItem
     }
 }
 
-function isDirectory(pathStr: string): boolean {
-    return fs.lstatSync(pathStr).isDirectory()
-}
-
 /**
  * 目录信息映射解析
  * @param curPath 当前目录
@@ -112,6 +108,23 @@ function pathName(uri: string): string | undefined {
     let info: SidebarItemInfo | undefined = itemInfoMap.get(uri)
     if (info === undefined) return undefined
     else return info.name
+}
+
+function pathJoint(...paths: string[]): string {
+    let result: string = ''
+    for (let path of paths) {
+        if (!path.startsWith('/')) {
+            result += '/' + path
+        }
+        if (result.endsWith('/')) {
+            result.substring(0, result.length - 1);
+        }
+    }
+    return result.length === 0 ? '/' : result
+}
+
+function isDirectory(pathStr: string): boolean {
+    return fs.lstatSync(pathStr).isDirectory()
 }
 
 interface SidebarConfig {
