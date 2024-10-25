@@ -3,72 +3,76 @@ import path from 'path'
 import { DefaultTheme } from 'vitepress/types/default-theme'
 import { config } from './sidebarConfig'
 
-export default generateSidebarMulti
-export { SidebarConfig, generateSidebarItem as generateItems }
+export default { sidebarItems, sidebarItem, sidebarMulti }
+export { SidebarConfig }
 
 const ROOT_ABSOLUTE_PATH = path.resolve()
 const SRC_PATH = config.srcPath
 
 const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
-if(config.pathMap !== undefined) {
+if (config.pathMap !== undefined) {
     parseInfoMap('', config.pathMap)
 }
-let sidebar = generateSidebarMulti('')
-console.log(sidebar)
 
-function generateSidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
+function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
     //侧边栏
     let sidebar: DefaultTheme.SidebarMulti = {}
-    //resPath的绝对路径
+    //curPath的绝对路径
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
-    //resPath下的子路径名
-    let subFileNames: string[] = fs.readdirSync(curPathAb)
-    for (let index in subFileNames) {
-        let subFileName: string = subFileNames[index]
-        let subPath: string = path.join(curPath, subFileName)
+    //curPath下的子路径名
+    let subNames: string[] = fs.readdirSync(curPathAb)
+    for (let index in subNames) {
+        let subName: string = subNames[index]
+        let subPath: string = curPath.endsWith('/') ? curPath + subName : curPath + '/' + subName
         let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
         if (isDirectory(subPathAb) && !ignored(subPath)) {
-            let mapName = pathName(subPath)
-            sidebar[subFileName] = [{
-                text: mapName !== undefined ? mapName : subFileName,
-                link: subPath,
-                items: generateSidebarItem(subPath)
-            }]
+            sidebar[subName] = sidebarItems(subPath)
         }
     }
     return sidebar
 }
 
-function generateSidebarItem(curPath: string): DefaultTheme.SidebarItem[] {
+function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
     let items: DefaultTheme.SidebarItem[] = []
-
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
-    let subFileNames: string[] = fs.readdirSync(curPathAb)
-    for (let index in subFileNames) {
-        let subFileName: string = subFileNames[index]
-        let subPath: string = path.join(curPath, subFileName)
-        let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
+    let subNames: string[] = fs.readdirSync(curPathAb)
+    for (let index in subNames) {
+        let subName: string = subNames[index]
+        let subPath: string = curPath + '/' + subName
         if (ignored(subPath)) {
             continue
         }
-        if (isDirectory(subPathAb)) {
-            let mapName = pathName(subPath)
-            items.push({
-                text: mapName !== undefined ? mapName : subFileName,
-                collapsed: false,
-                items: generateSidebarItem(subPath),
-            })
-        } else {
-            let subFileNameNoExt: string = subFileName.substring(0, subFileName.lastIndexOf('.'))
-            let subPathNoExt: string = subPath.substring(0, subPath.lastIndexOf('.'))
-            let mapName = pathName(subPathNoExt)
-            items.push({
-                text: mapName !== undefined ? mapName : subFileNameNoExt,
-                link: subPathNoExt
-            })
-        }
+        items.push(sidebarItem(subPath, subName))
     }
     return items
+}
+
+function sidebarItem(curPath: string, curName: string): DefaultTheme.SidebarItem {
+    let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
+    if (isDirectory(curPathAb)) {
+        let items: DefaultTheme.SidebarItem[] = []
+        let subNames: string[] = fs.readdirSync(curPathAb)
+        for (let index in subNames) {
+            let subName: string = subNames[index]
+            let subPath: string = curPath + '/' + subName
+            let item: DefaultTheme.SidebarItem = sidebarItem(subPath, subName)
+            items.push(item)
+        }
+        let mapName = pathName(curPath)
+        return {
+            text: mapName !== undefined ? mapName : curName,
+            collapsed: false,
+            items: items
+        }
+    } else {
+        let curNameNoExt: string = curName.substring(0, curName.lastIndexOf("."))
+        let curPathNoExt: string = curPath.substring(0, curPath.lastIndexOf("."))
+        let mapName = pathName(curPath)
+        return {
+            text: mapName !== undefined ? mapName : curNameNoExt,
+            link: curPathNoExt
+        }
+    }
 }
 
 function isDirectory(pathStr: string): boolean {
@@ -77,18 +81,18 @@ function isDirectory(pathStr: string): boolean {
 
 /**
  * 目录信息映射解析
- * @param curDir 当前目录
+ * @param curPath 当前目录
  * @param subItemMap 当前目录下子目录映射关系
  */
-function parseInfoMap(curDir: string, subItemMap: SidebarItemMap): void {
-    for(let key in subItemMap) {
-        let subItemInfo: SidebarItemInfo | string  = subItemMap[key];
-        let subDir: string = path.join(curDir, key)
-        if(typeof subItemInfo === 'string') {
-            itemInfoMap.set(subDir, {name: subItemInfo})
+function parseInfoMap(curPath: string, subItemMap: SidebarItemMap): void {
+    for (let subItemName in subItemMap) {
+        let subItemInfo: SidebarItemInfo | string = subItemMap[subItemName];
+        let subDir: string = curPath.endsWith('/') ? curPath + subItemName : curPath + '/' + subItemName
+        if (typeof subItemInfo === 'string') {
+            itemInfoMap.set(subDir, { name: subItemInfo })
         } else {
             itemInfoMap.set(subDir, subItemInfo)
-            if(subItemInfo.subItems !== undefined) {
+            if (subItemInfo.subItems !== undefined) {
                 parseInfoMap(subDir, subItemInfo.subItems)
             }
         }
@@ -97,7 +101,7 @@ function parseInfoMap(curDir: string, subItemMap: SidebarItemMap): void {
 
 function ignored(resPath: string): boolean {
     let ignoreUri: string[] | undefined = config.ignoredPath
-    if(ignoreUri !== undefined && ignoreUri.includes(resPath)) {
+    if (ignoreUri !== undefined && ignoreUri.includes(resPath)) {
         return true
     } else {
         return false
@@ -105,8 +109,8 @@ function ignored(resPath: string): boolean {
 }
 
 function pathName(uri: string): string | undefined {
-    let info: SidebarItemInfo | undefined= itemInfoMap.get(uri)
-    if(info === undefined) return undefined
+    let info: SidebarItemInfo | undefined = itemInfoMap.get(uri)
+    if (info === undefined) return undefined
     else return info.name
 }
 
