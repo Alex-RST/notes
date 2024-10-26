@@ -109,6 +109,7 @@
   },
   "files": [
     "./docs/src/config/sidebarConfig.ts",
-    "./docs/src/config/generate-sidebar.ts"
+    "./docs/src/config/generate-sidebar.ts",
+    "./docs/src/config/test.ts"
   ]
 }

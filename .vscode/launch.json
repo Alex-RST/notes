@@ -3,12 +3,13 @@
     "configurations": [
       {
         "name": "Launch Program",
-        "program": "${workspaceFolder}/docs/src/config/generate-sidebar.ts",
+        "program": "${workspaceFolder}/docs/src/config/test.ts",
         "request": "launch",
         "skipFiles": [
           "<node_internals>/**"
         ],
-        "type": "node"
+        "type": "node",
+        "preLaunchTask": "tsc: 构建 - tsconfig.json"
       }
     ]
   }

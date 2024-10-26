@@ -11,9 +11,14 @@ const SRC_PATH = config.srcPath
 
 const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
 if (config.pathMap !== undefined) {
-    parseInfoMap('', config.pathMap)
+    parseInfoMap('/', config.pathMap)
 }
 
+/**
+ * 生成指定目录下的多侧边栏
+ * @param curPath 从源码目录开始的相对路径
+ * @returns 多侧边栏
+ */
 function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
     //侧边栏
     let sidebar: DefaultTheme.SidebarMulti = {}
@@ -32,30 +37,44 @@ function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
     return sidebar
 }
 
+/**
+ * 生成侧边栏
+ * @param curPath 从源码目录开始的相对路径
+ * @returns 侧边栏
+ */
 function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
     let items: DefaultTheme.SidebarItem[] = []
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
     let subNames: string[] = fs.readdirSync(curPathAb)
     for (let index in subNames) {
         let subName: string = subNames[index]
-        let subPath: string = curPath + '/' + subName
+        let subPath: string = pathJoint(curPath, subName)
         if (ignored(subPath)) {
             continue
         }
-        items.push(sidebarItem(subPath, subName))
+        items.push(sidebarItem(subPath))
     }
     return items
 }
 
-function sidebarItem(curPath: string, curName: string): DefaultTheme.SidebarItem {
+/**
+ * 生成指定目录下的侧边栏项
+ * @param curPath 从源码目录开始的相对路径
+ * @returns 侧边栏项
+ */
+function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
+    let curName: string = curPath.substring(curPath.lastIndexOf('/')+1)
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
     if (isDirectory(curPathAb)) {
         let items: DefaultTheme.SidebarItem[] = []
         let subNames: string[] = fs.readdirSync(curPathAb)
         for (let index in subNames) {
             let subName: string = subNames[index]
-            let subPath: string = curPath + '/' + subName
-            let item: DefaultTheme.SidebarItem = sidebarItem(subPath, subName)
+            let subPath: string = pathJoint(curPath, subName)
+            if(ignored(subPath)) {
+                continue
+            }
+            let item: DefaultTheme.SidebarItem = sidebarItem(subPath)
             items.push(item)
         }
         let mapName = pathName(curPath)
@@ -83,7 +102,7 @@ function sidebarItem(curPath: string, curName: string): DefaultTheme.SidebarItem
 function parseInfoMap(curPath: string, subItemMap: SidebarItemMap): void {
     for (let subItemName in subItemMap) {
         let subItemInfo: SidebarItemInfo | string = subItemMap[subItemName];
-        let subDir: string = curPath.endsWith('/') ? curPath + subItemName : curPath + '/' + subItemName
+        let subDir: string = pathJoint(curPath, subItemName)
         if (typeof subItemInfo === 'string') {
             itemInfoMap.set(subDir, { name: subItemInfo })
         } else {
@@ -95,6 +114,11 @@ function parseInfoMap(curPath: string, subItemMap: SidebarItemMap): void {
     }
 }
 
+/**
+ * 是否被忽略的路径
+ * @param resPath 从源码目录开始的相对路径
+ * @returns true or false
+ */
 function ignored(resPath: string): boolean {
     let ignoreUri: string[] | undefined = config.ignoredPath
     if (ignoreUri !== undefined && ignoreUri.includes(resPath)) {
@@ -113,19 +137,37 @@ function pathName(uri: string): string | undefined {
 function pathJoint(...paths: string[]): string {
     let result: string = ''
     for (let path of paths) {
-        if (!path.startsWith('/')) {
-            result += '/' + path
-        }
-        if (result.endsWith('/')) {
-            result.substring(0, result.length - 1);
+        path = trim(path, '/')
+        if(path === '') {
+            continue
+        } else {
+            result += '/'+path
         }
     }
     return result.length === 0 ? '/' : result
 }
 
+/**
+ * 判断当前路径是否为一个目录
+ * @param pathStr 绝对路径
+ * @returns true or false
+ */
 function isDirectory(pathStr: string): boolean {
     return fs.lstatSync(pathStr).isDirectory()
 }
+
+/**
+ * 去掉字符串两端指定字符
+ * @param str 需要修饰的字符串
+ * @param char 需要去掉的字符
+ * @returns 修饰后的字符串
+ */
+function trim(str: string, char: string): string {
+    if (char) {
+        str = str.replace(new RegExp('^\\' + char + '+|\\' + char + '+$', 'g'), '');
+    }
+    return str.replace(/^\s+|\s+$/g, '');
+};
 
 interface SidebarConfig {
     pathMap?: SidebarItemMap,
