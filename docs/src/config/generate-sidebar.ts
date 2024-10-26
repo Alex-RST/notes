@@ -29,7 +29,7 @@ function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
         let subPath: string = pathJoint(curPath, subName)
         let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
         if (isDirectory(subPathAb) && !ignored(subPath)) {
-            sidebar[subName] = sidebarItems(subPath)
+            sidebar[subPath] = sidebarItems(subPath)
         }
     }
     return sidebar
