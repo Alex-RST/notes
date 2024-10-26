@@ -4,6 +4,7 @@ export let config: SidebarConfig = {
     pathMap: {
         'notes': {
             name: '随手记',
+            withIndex: true,
             subItems: {
                 'bloom-filter.md': '布隆过滤器',
                 'jni-practice.md': 'JNI实践',
@@ -20,6 +21,7 @@ export let config: SidebarConfig = {
         },
         'know_jvm': {
             name: '深入理解Java虚拟机',
+            withIndex: true,
             subItems: {
                 'part-1': {
                     name: '第一部分 走进Java',

@@ -10,7 +10,7 @@ export default defineConfig({
         nav: [
             { text: 'Home', link: '/' }
         ],
-        sidebar: sidebar.sidebarMulti('/', true),
+        sidebar: sidebar.sidebarMulti('/'),
         socialLinks: [
             { icon: { svg: '<img src=/img/gitee.ico width=20 height=20 />' }, link: 'https://gitee.com/pxslin/notes' }
         ],

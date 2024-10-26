@@ -15,10 +15,9 @@ parseConfig()
 /**
  * 生成指定目录下的多侧边栏
  * @param curPath 从源码目录开始的相对路径
- * @param hasIndex 是否对curPath下的目录生成index
  * @returns 多侧边栏
  */
-function sidebarMulti(curPath: string, hasIndex: boolean): DefaultTheme.SidebarMulti {
+function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
     //侧边栏
     let sidebar: DefaultTheme.SidebarMulti = {}
     //curPath的绝对路径
@@ -30,7 +29,7 @@ function sidebarMulti(curPath: string, hasIndex: boolean): DefaultTheme.SidebarM
         let subPath: string = pathJoint(curPath, subName)
         let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
         if (isDirectory(subPathAb) && !ignored(subPath)) {
-            sidebar[subName] = sidebarItems(subPath, hasIndex)
+            sidebar[subName] = sidebarItems(subPath)
         }
     }
     return sidebar
@@ -42,12 +41,14 @@ function sidebarMulti(curPath: string, hasIndex: boolean): DefaultTheme.SidebarM
  * @param hasIndex 是否生成包含index的目录
  * @returns 侧边栏
  */
-function sidebarItems(curPath: string, hasIndex: boolean): DefaultTheme.SidebarItem[] {
+function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
     let items: DefaultTheme.SidebarItem[] = []
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
     let subNames: string[] = fs.readdirSync(curPathAb)
-    if(hasIndex) {
-        items.push(sidebarItem(curPath, true))
+    let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
+    let withIndex = itemInfo !== undefined ? itemInfo.withIndex : false
+    if (withIndex) {
+        items.push(sidebarItem(curPath))
     } else {
         for (let index in subNames) {
             let subName: string = subNames[index]
@@ -55,7 +56,7 @@ function sidebarItems(curPath: string, hasIndex: boolean): DefaultTheme.SidebarI
             if (ignored(subPath)) {
                 continue
             }
-            items.push(sidebarItem(subPath, false))
+            items.push(sidebarItem(subPath))
         }
     }
     return items
@@ -67,8 +68,8 @@ function sidebarItems(curPath: string, hasIndex: boolean): DefaultTheme.SidebarI
  * @param hasIndex 如果curPath指向一个目录，是否生成带有index项
  * @returns 侧边栏项
  */
-function sidebarItem(curPath: string, hasIndex: boolean): DefaultTheme.SidebarItem {
-    let curName: string = curPath.substring(curPath.lastIndexOf('/')+1)
+function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
+    let curName: string = curPath.substring(curPath.lastIndexOf('/') + 1)
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
     if (isDirectory(curPathAb)) {
         let items: DefaultTheme.SidebarItem[] = []
@@ -76,24 +77,23 @@ function sidebarItem(curPath: string, hasIndex: boolean): DefaultTheme.SidebarIt
         for (let index in subNames) {
             let subName: string = subNames[index]
             let subPath: string = pathJoint(curPath, subName)
-            if(ignored(subPath)) {
+            if (ignored(subPath)) {
                 continue
             }
-            let item: DefaultTheme.SidebarItem = sidebarItem(subPath, false)
+            let item: DefaultTheme.SidebarItem = sidebarItem(subPath)
             items.push(item)
         }
         let mapName = pathName(curPath)
         let item: DefaultTheme.SidebarItem = {
             text: mapName !== undefined ? mapName : curName,
-            collapsed: false,
             items: items
         }
         let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
-        if(itemInfo !== undefined) {
+        if (itemInfo !== undefined) {
             item['collapsed'] = itemInfo.collapsed
-        }
-        if(hasIndex) {
-            item['link'] = curPath
+            if (itemInfo.withIndex) {
+                item['link'] = curPath
+            }
         }
         return item
     } else {
@@ -117,10 +117,10 @@ function pathJoint(...paths: string[]): string {
     let result: string = ''
     for (let path of paths) {
         path = trim(path, '/')
-        if(path === '') {
+        if (path === '') {
             continue
         } else {
-            result += '/'+path
+            result += '/' + path
         }
     }
     return result.length === 0 ? '/' : result
@@ -192,6 +192,11 @@ function ignored(resPath: string): boolean {
     }
 }
 
+/**
+ * 
+ * @param uri 
+ * @returns 
+ */
 function pathName(uri: string): string | undefined {
     let info: SidebarItemInfo | undefined = itemInfoMap.get(uri)
     if (info === undefined) return undefined
@@ -210,8 +215,9 @@ interface SidebarItemMap {
 }
 
 interface SidebarItemInfo {
-    name: string,
-    collapsed?: boolean,
+    name: string
+    collapsed?: boolean
+    withIndex?: boolean
     subItems?: SidebarItemMap
 }
 
