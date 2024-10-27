@@ -15,7 +15,7 @@ export let config: SidebarConfig = {
                 'spring-ioc.md': 'Spring IOC',
                 'tomcat.md': 'Tomcat',
                 'jackson.md': 'Jackson',
-                'notes.md': 'Notes',
+                'java-collection.md': 'Java集合框架',
                 'es6-standard.md': 'ES6标准入门'
             }
         },
