@@ -9,8 +9,7 @@ export { SidebarConfig }
 const ROOT_ABSOLUTE_PATH = path.resolve()
 const SRC_PATH = config.srcPath
 
-const itemInfoMap: Map<string, SidebarItemInfo> = new Map;
-parseConfig()
+const itemInfoMap: Map<string, SidebarItemInfo> = parseInfoMap(config)
 
 /**
  * 生成指定目录下的多侧边栏
@@ -47,7 +46,8 @@ function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
     let subNames: string[] = fs.readdirSync(curPathAb)
     let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
     let withIndex = itemInfo !== undefined ? itemInfo.withIndex : false
-    if (withIndex) {
+    let withTitle = itemInfo !== undefined ? itemInfo.withTitle : false
+    if (withIndex || withTitle) {
         items.push(sidebarItem(curPath))
     } else {
         for (let index in subNames) {
@@ -83,19 +83,23 @@ function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
             let item: DefaultTheme.SidebarItem = sidebarItem(subPath)
             items.push(item)
         }
-        let mapName = pathName(curPath)
-        let item: DefaultTheme.SidebarItem = {
-            text: mapName !== undefined ? mapName : curName,
-            items: items
-        }
+        let text: string | undefined = curName;
+        let link: string | undefined = undefined;
+        let collapsed: boolean | undefined = undefined;
         let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
-        if (itemInfo !== undefined) {
-            item['collapsed'] = itemInfo.collapsed
-            if (itemInfo.withIndex) {
-                item['link'] = curPath
+        if(itemInfo !== undefined) {
+            text = itemInfo.name;
+            collapsed = itemInfo.collapsed;
+            if(itemInfo.withIndex) {
+                link = curPath
             }
         }
-        return item
+        return {
+            text,
+            link,
+            collapsed,
+            items
+        }
     } else {
         let curNameNoExt: string = curName.substring(0, curName.lastIndexOf("."))
         let curPathNoExt: string = curPath.substring(0, curPath.lastIndexOf("."))
@@ -150,20 +154,26 @@ function trim(str: string, char: string): string {
 
 // **************************************** 解析配置 ****************************************
 /**
- * 配置解析
+ * 解析目录信息
+ * @param config 配置信息
+ * @returns 目录信息
  */
-function parseConfig(): void {
-    if (config.pathMap !== undefined) {
-        parseInfoMap('/', config.pathMap)
+function parseInfoMap(config: SidebarConfig): Map<string, SidebarItemInfo> {
+    let itemInfoMap: Map<string, SidebarItemInfo> = new Map;
+    if(config.pathMap === undefined) {
+        return itemInfoMap
     }
+    parseInfoMapImpl('/', config.pathMap, itemInfoMap);
+    return itemInfoMap;
 }
 
 /**
- * 目录信息映射解析
+ * 目录信息映射解析具体实现
  * @param curPath 当前目录
  * @param subItemMap 当前目录下子目录映射关系
+ * @param itemInfoMap 已解析出的内容
  */
-function parseInfoMap(curPath: string, subItemMap: SidebarItemMap): void {
+function parseInfoMapImpl(curPath: string, subItemMap: SidebarItemMap, itemInfoMap: Map<string, SidebarItemInfo>): void {
     for (let subItemName in subItemMap) {
         let subItemInfo: SidebarItemInfo | string = subItemMap[subItemName];
         let subDir: string = pathJoint(curPath, subItemName)
@@ -172,7 +182,7 @@ function parseInfoMap(curPath: string, subItemMap: SidebarItemMap): void {
         } else {
             itemInfoMap.set(subDir, subItemInfo)
             if (subItemInfo.subItems !== undefined) {
-                parseInfoMap(subDir, subItemInfo.subItems)
+                parseInfoMapImpl(subDir, subItemInfo.subItems, itemInfoMap)
             }
         }
     }
@@ -218,6 +228,7 @@ interface SidebarItemInfo {
     name: string
     collapsed?: boolean
     withIndex?: boolean
+    withTitle?: boolean
     subItems?: SidebarItemMap
 }
 
