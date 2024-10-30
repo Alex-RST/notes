@@ -16,7 +16,8 @@ export let config: SidebarConfig = {
                 'tomcat.md': 'Tomcat',
                 'jackson.md': 'Jackson',
                 'java-collection.md': 'Java集合框架',
-                'es6-standard.md': 'ES6标准入门'
+                'es6-standard.md': 'ES6标准入门',
+                'vue-quick-start.md': 'VUE快速开发'
             }
         },
         'know_jvm': {
