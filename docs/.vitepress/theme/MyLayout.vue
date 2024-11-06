@@ -3,7 +3,7 @@ import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
 
-const { isDark } = useData()
+const { isDark, frontmatter } = useData()
 
 const enableTransitions = () =>
   'startViewTransition' in document &&
@@ -40,7 +40,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 </script>
 
 <template>
-  <DefaultTheme.Layout />
+  <DefaultTheme.Layout v-if="frontmatter.layout !== 'page'" />
 </template>
 
 <style>

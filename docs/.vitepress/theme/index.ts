@@ -1,5 +1,5 @@
-import Layout from './Layout.vue'
+import MyLayout from './MyLayout.vue'
 
 export default {
-  Layout
+  Layout: MyLayout
 }
