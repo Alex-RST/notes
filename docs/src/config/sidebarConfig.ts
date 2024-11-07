@@ -17,7 +17,8 @@ export let config: SidebarConfig = {
                 'jackson.md': 'Jackson',
                 'java-collection.md': 'Java集合框架',
                 'es6-standard.md': 'ES6标准入门',
-                'vue-quick-start.md': 'VUE快速开发'
+                'vue-quick-start.md': 'VUE快速开发',
+                'gsap.md': 'GSAP'
             }
         },
         'know_jvm': {
@@ -75,7 +76,8 @@ export let config: SidebarConfig = {
         '/public',
         '/index.md',
         '/notes/index.md',
-        '/know_jvm/index.md'
+        '/know_jvm/index.md',
+        '/component'
     ],
     srcPath: '/docs/src'
 }

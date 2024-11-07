@@ -23,8 +23,3 @@ vue create ${project-name}
 ## vue组件通信
 
 ## 组件插槽
-<GsapTest />
-
-<script setup>
-import GsapTest from '../GsapTest.vue'
-</script>
