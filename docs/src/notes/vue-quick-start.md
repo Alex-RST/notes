@@ -1,11 +1,6 @@
 # VUE快速开发
 
-## 安装vue-cli
-```sh
-npm i @vue/cli -g
-```
-
-## 新建VUE项目
+## 新建VUE3项目
 ```sh
 vue create ${project-name}
 ```
