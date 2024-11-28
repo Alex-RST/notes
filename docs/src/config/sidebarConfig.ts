@@ -18,7 +18,8 @@ export let config: SidebarConfig = {
                 'java-collection.md': 'Java集合框架',
                 'es6-standard.md': 'ES6标准入门',
                 'vue-quick-start.md': 'VUE快速开发',
-                'gsap.md': 'GSAP'
+                'gsap.md': 'GSAP',
+                'compass.md': 'Compass'
             }
         },
         'know_jvm': {
