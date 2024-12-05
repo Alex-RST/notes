@@ -19,7 +19,8 @@ export let config: SidebarConfig = {
                 'es6-standard.md': 'ES6标准入门',
                 'vue-quick-start.md': 'VUE快速开发',
                 'gsap.md': 'GSAP',
-                'compass.md': 'Compass'
+                'compass.md': 'Compass',
+                'css.md': 'CSS'
             }
         },
         'know_jvm': {
