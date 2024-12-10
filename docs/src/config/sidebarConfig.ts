@@ -20,7 +20,8 @@ export let config: SidebarConfig = {
                 'vue-quick-start.md': 'VUE快速开发',
                 'gsap.md': 'GSAP',
                 'compass.md': 'Compass',
-                'css.md': 'CSS'
+                'css.md': 'CSS',
+                'thread.md': "Thread"
             }
         },
         'know_jvm': {
