@@ -1,6 +1,6 @@
 # DynamicTp 快速上手指南
 
-::: tip
+::: tip :mag_right: 提示
 - 本文核心内容在于快速的在`SpringBoot`项目中集成`DynamicTp`框架，并实现对线程池资源的实时监控与参数的动态配置。
 - 本案列使用nacos作为配置中心。也可以使用zookeeper等，详见[DynamicTp 官方文档](#参考资料)。
 - 本文大部分内容均来自`DynamicTp`官方文档，文档地址详见[DynamicTp 官方文档](#参考资料)。
@@ -11,7 +11,7 @@
   - `Prometheus`
 :::
 
-::: warning :warning:警告
+::: warning :warning: 警告
 - `SpringBoot 3.2.x` 与 `Nacos 0.2.12` 及之前的版本不兼容。
 :::
 
