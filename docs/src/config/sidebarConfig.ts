@@ -21,7 +21,8 @@ export let config: SidebarConfig = {
                 'gsap.md': 'GSAP',
                 'compass.md': 'Compass',
                 'css.md': 'CSS',
-                'thread.md': "Thread"
+                'thread.md': "Thread",
+                "dynamictp-fast-guide.md": "DynamicTp快速上手指南"
             }
         },
         'know_jvm': {
