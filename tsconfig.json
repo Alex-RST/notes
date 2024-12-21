@@ -100,6 +100,6 @@
     // "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "./docs/src/config/*.ts"
+    "./src/config/*.ts"
   ]
 }

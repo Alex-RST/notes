@@ -139,5 +139,10 @@
 
   ```
 
+## `DynamicTp` 架构设计图
+<div align=center>
+    <img src="/img/dynamic-tp-arch.svg" />
+</div>
+
 ## 参考资料
 - [DynamicTp 官方文档](https://dynamictp.cn/guide/introduction/background.html)

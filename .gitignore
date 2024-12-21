@@ -1,7 +1,7 @@
-/docs/.vitepress/cache
-/docs/.vitepress/dist
+/.vitepress/cache
+/.vitepress/dist
 
-/docs/src/config/*.js
-/docs/src/config/*.js.map
+/src/config/*.js
+/src/config/*.js.map
 
 /node_modules

@@ -83,7 +83,7 @@ export let config: SidebarConfig = {
         '/know_jvm/index.md',
         '/component'
     ],
-    srcPath: '/docs/src'
+    srcPath: '/src'
 }
 
 
