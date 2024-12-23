@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import sidebar from '../src/config/generate-sidebar'
+import sidebar from './generate-sidebar'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
