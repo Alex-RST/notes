@@ -100,7 +100,6 @@
     // "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "./src/config/*.ts", 
-    ".vitepress/generate-sidebar.ts"  
+    ".vitepress/*.ts"  
   ]
 }
