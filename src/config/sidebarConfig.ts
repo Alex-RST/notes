@@ -21,8 +21,14 @@ export let config: SidebarConfig = {
                 'gsap.md': 'GSAP',
                 'compass.md': 'Compass',
                 'css.md': 'CSS',
-                'thread.md': "Thread",
-                "dynamictp-fast-guide.md": "DynamicTp快速上手指南"
+                "dynamictp-fast-guide.md": "DynamicTp快速上手指南",
+                "JUC": {
+                    name: "Java 多线程与并发",
+                    collapsed: true,
+                    subItems: {
+                        'java-thread-pool.md': "Java线程池的原理与实践",
+                    }
+                }
             }
         },
         'know_jvm': {
