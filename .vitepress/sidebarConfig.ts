@@ -11,8 +11,6 @@ export let config: SidebarConfig = {
                 'nodejs.md': 'Node.js',
                 'redis.md': 'Redis',
                 'regex.md': '正则表达式',
-                'spring-aop.md': 'Spring AOP',
-                'spring-ioc.md': 'Spring IOC',
                 'tomcat.md': 'Tomcat',
                 'jackson.md': 'Jackson',
                 'java-collection.md': 'Java集合框架',
@@ -28,6 +26,14 @@ export let config: SidebarConfig = {
                     subItems: {
                         'java-thread-pool.md': 'Java线程池的原理与实践',
                         'concurrency-base.md': '并发基础'
+                    }
+                },
+                'spring': {
+                    name: 'Spring',
+                    collapsed: false,
+                    subItems: {
+                        'spring-aop.md': 'Spring AOP',
+                        'spring-ioc.md': 'Spring IOC',
                     }
                 }
             }
