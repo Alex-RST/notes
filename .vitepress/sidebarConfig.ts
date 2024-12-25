@@ -20,7 +20,7 @@ export let config: SidebarConfig = {
                 'compass.md': 'Compass',
                 'css.md': 'CSS',
                 'dynamictp-fast-guide.md': 'DynamicTp快速上手指南',
-                'JUC': {
+                'juc': {
                     name: 'Java 多线程与并发',
                     collapsed: false,
                     subItems: {
