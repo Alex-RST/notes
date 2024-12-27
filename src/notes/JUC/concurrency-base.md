@@ -14,5 +14,13 @@
 - `原子性`
 - `有序性`
 
+## Java中的所有锁
+- `独享锁` 与 `排他锁`
+- `可重入锁` 与 `非可重入锁`
+- `乐观锁` 与 `悲观锁`
+- `公平锁` 与 `非公平锁`
+- `自旋锁` 与 `自适应自旋锁`
+- `无锁`、`偏向锁`、`轻量级锁`、`重量级锁`
+
 ## 参考资料
-- https://pdai.tech/md/java/thread/java-thread-x-theorty.html
+- [Java 全栈知识体系 - Java 多线程与并发](https://pdai.tech/md/java/thread/java-thread-x-theorty.html)
