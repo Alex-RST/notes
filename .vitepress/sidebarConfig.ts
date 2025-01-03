@@ -34,6 +34,7 @@ export let config: SidebarConfig = {
                     subItems: {
                         'spring-aop.md': 'Spring AOP',
                         'spring-ioc.md': 'Spring IOC',
+                        'task-executor-scheduler.md': '任务执行与调度'
                     }
                 }
             }
