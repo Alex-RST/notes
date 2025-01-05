@@ -34,9 +34,10 @@ export let config: SidebarConfig = {
                     subItems: {
                         'spring-aop.md': 'Spring AOP',
                         'spring-ioc.md': 'Spring IOC',
-                        'task-executor-scheduler.md': '任务执行与调度'
+                        'task-executor-scheduler.md': '任务执行与调度',
+                        'springboot-profiles.md': 'Spring Boot 配置文件'
                     }
-                }
+                },
             }
         },
         'know_jvm': {
