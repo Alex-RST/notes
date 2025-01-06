@@ -19,6 +19,7 @@ export let config: SidebarConfig = {
                 'gsap.md': 'GSAP',
                 'compass.md': 'Compass',
                 'css.md': 'CSS',
+                'grafana.md': 'Grafana',
                 'dynamictp-fast-guide.md': 'DynamicTp快速上手指南',
                 'juc': {
                     name: 'Java 多线程与并发',
