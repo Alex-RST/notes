@@ -37,7 +37,6 @@ function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
 /**
  * 生成侧边栏
  * @param curPath 从源码目录开始的相对路径
- * @param hasIndex 是否生成包含index的目录
  * @returns 侧边栏
  */
 function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
@@ -46,8 +45,7 @@ function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
     let subNames: string[] = fs.readdirSync(curPathAb)
     let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
     let withIndex = itemInfo !== undefined ? itemInfo.withIndex : false
-    let withTitle = itemInfo !== undefined ? itemInfo.withTitle : false
-    if (withIndex || withTitle) {
+    if (withIndex !== undefined) {
         items.push(sidebarItem(curPath))
     } else {
         for (let index in subNames) {
@@ -65,7 +63,6 @@ function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
 /**
  * 生成指定目录下的侧边栏项
  * @param curPath 从源码目录开始的相对路径
- * @param hasIndex 如果curPath指向一个目录，是否生成带有index项
  * @returns 侧边栏项
  */
 function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
@@ -87,10 +84,10 @@ function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
         let link: string | undefined = undefined;
         let collapsed: boolean | undefined = undefined;
         let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
-        if(itemInfo !== undefined) {
+        if (itemInfo !== undefined) {
             text = itemInfo.name;
             collapsed = itemInfo.collapsed;
-            if(itemInfo.withIndex) {
+            if (itemInfo.withIndex) {
                 link = curPath
             }
         }
@@ -160,7 +157,7 @@ function trim(str: string, char: string): string {
  */
 function parseInfoMap(config: SidebarConfig): Map<string, SidebarItemInfo> {
     let itemInfoMap: Map<string, SidebarItemInfo> = new Map;
-    if(config.pathMap === undefined) {
+    if (config.pathMap === undefined) {
         return itemInfoMap
     }
     parseInfoMapImpl('/', config.pathMap, itemInfoMap);
@@ -228,7 +225,6 @@ interface SidebarItemInfo {
     name: string
     collapsed?: boolean
     withIndex?: boolean
-    withTitle?: boolean
     subItems?: SidebarItemMap
 }
 
