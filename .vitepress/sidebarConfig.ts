@@ -21,6 +21,7 @@ export let config: SidebarConfig = {
                 'css.md': 'CSS',
                 'grafana.md': 'Grafana',
                 'dynamictp-fast-guide.md': 'DynamicTp快速上手指南',
+                'java-suppresswarnings.md': '@SuppressWarnings警告汇总',
                 'juc': {
                     name: 'Java 多线程与并发',
                     collapsed: false,
