@@ -3,8 +3,8 @@
 ## 标准用法
 - 一般常用在普通 `JavaSE` 项目中。
 
-|         关键字         |          用途          |
-| --------------------- | :--------------------: |
+| 关键字 | 用途 |
+|--------|:---:|
 | all                      | to suppress all warnings                                                                   |
 | boxing                   | to suppress warnings relative to boxing/unboxing operations                                |
 | cast                     | to suppress warnings relative to cast operations                                           |
@@ -27,16 +27,16 @@
 ## `IDEA`
 - `IDEA` 给普通 `JavaSE` 提供的语法警告。
 
-|        关键字         |          用途          |
-| --------------------- | :-------------------: |
+| 关键字 | 用途 |
+|--------|:---:|
 | UnnecessaryLocalVariable | Local variable 'userId' is redundant       |
 | FieldCanBeLocal          | Field can be converted to a local variable |
 
 ## `Spring`
 - `IDEA` 在 `Spring` 以及 `SpringBoot` 等 `Spring` 的衍生项目中提供的语法警告。
 
-|        关键字         |          用途          |
-| --------------------- | :-------------------: |
+| 关键字 | 用途 |
+|--------|:---:|
 | SpringJavaInjectionPointsAutowiringInspection | Could not autowire. No beans of 'XXX' type found.                               |
 | SpringJavaAutowiredFieldsWarningInspection    | Field injection is not recommended                                              |
 | ConfigurationProperties                       | Not registered via @EnableConfigurationProperties or marked as Spring component |
