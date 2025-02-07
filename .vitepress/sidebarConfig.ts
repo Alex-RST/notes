@@ -37,6 +37,12 @@ export let config: SidebarConfig = {
                 'concurrency-base.md': '并发基础'
             }
         },
+        'database': {
+            name: '数据库',
+            subItems: {
+                'database-design.md': '数据库设计'
+            }
+        },
         'spring': {
             name: 'Spring',
             collapsed: false,
