@@ -13,6 +13,15 @@ hero:
     - theme: brand
       text: 随手记
       link: /notes
+    - theme: alt
+      text: Spring
+      link: /spring/spring-ioc.md
+    - theme: brand
+      text: Java多线程与并发
+      link: /juc/concurrency-base.md
+    - theme: alt
+      text: Maven
+      link: /maven/maven.md
 
 features:
   - title: Feature A

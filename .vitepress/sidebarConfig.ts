@@ -21,25 +21,30 @@ export let config: SidebarConfig = {
                 'css.md': 'CSS',
                 'grafana.md': 'Grafana',
                 'dynamictp-fast-guide.md': 'DynamicTp快速上手指南',
-                'java-suppresswarnings.md': '@SuppressWarnings警告汇总',
-                'juc': {
-                    name: 'Java 多线程与并发',
-                    collapsed: false,
-                    subItems: {
-                        'java-thread-pool.md': 'Java线程池的原理与实践',
-                        'concurrency-base.md': '并发基础'
-                    }
-                },
-                'spring': {
-                    name: 'Spring',
-                    collapsed: false,
-                    subItems: {
-                        'spring-aop.md': 'Spring AOP',
-                        'spring-ioc.md': 'Spring IOC',
-                        'task-executor-scheduler.md': '任务执行与调度',
-                        'springboot-profiles.md': 'Spring Boot 配置文件'
-                    }
-                },
+                'java-suppresswarnings.md': '@SuppressWarnings警告汇总'
+            }
+        },
+        'maven': {
+            name: 'Maven',
+            subItems: {
+                'maven.md': 'Maven打包流程'
+            }
+        },
+        'juc': {
+            name: 'Java 多线程与并发',
+            subItems: {
+                'java-thread-pool.md': 'Java线程池的原理与实践',
+                'concurrency-base.md': '并发基础'
+            }
+        },
+        'spring': {
+            name: 'Spring',
+            collapsed: false,
+            subItems: {
+                'spring-aop.md': 'Spring AOP',
+                'spring-ioc.md': 'Spring IOC',
+                'task-executor-scheduler.md': '任务执行与调度',
+                'springboot-profiles.md': 'Spring Boot 配置文件'
             }
         },
         'know_jvm': {
