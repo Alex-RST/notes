@@ -22,7 +22,9 @@ hero:
     - theme: alt
       text: Maven
       link: /maven/maven.md
-
+    - theme: brand
+      text: 数据库
+      link: /database/database-design.md
 features:
   - title: Feature A
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
