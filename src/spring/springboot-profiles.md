@@ -68,7 +68,7 @@ spring:
 ## 以编程方式设置配置文件
 您可以通过在应用程序运行之前调用 `SpringApplication.setAdditionalProfiles(…​)` 以编程方式设置活动配置文件。也可以通过使用Spring的 ConfigurableEnvironment 接口来激活概要文件。
 
-## spring.config.import
+## `spring.config.import`
 `spring.config.import` 是 Spring Boot 2.4 引入的一个新特性，用于在 `application.yml` 或 `application.properties` 中动态导入其他配置文件。它提供了一种灵活的方式来组合多个配置文件，使得配置管理更加模块化和可扩展。
 
 ---
