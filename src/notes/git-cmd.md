@@ -1,5 +1,25 @@
 # Git常用命令
 
+## 提交
+- 提交
+```sh
+# 先使用 add 添加到暂存区
+git commit -m ${message}
+# add 和 commit一步到位
+git commit -a -m ${message}
+```
+- 修改提交信息
+```sh
+git commit --amend -m ${message}
+```
+- 查看一次提交的详细信息
+```sh
+# 默认最后一次提交
+git show 
+# 指定的提交的ID，可以同时指定此次提交中修改的文件
+git show ${commit-id} [${filename}]
+```
+
 ## 分支
 - 列出所有分支
 ```sh
@@ -71,17 +91,31 @@ git push origin ${tag-name}
 git push origin --tags
 ```
 
-## 撤销
-- 回滚
+## 撤销与回滚
+- **回滚**
 ```sh
 git reset [--hard|--soft|--mixed] ${commit-id}
 # --hard: 回退到上个版本的已提交状态
 # --soft: 回退到上个版本的未提交状态
 # --mixed: 回退到上个版本已添加但未提交的状态
 ```
-- 撤销修改：让这个文件回到最近一次 `git commit` 或 `git add` 时的状态
+- 把暂存区的修改撤销掉（`unstage`），重新放回工作区
+```sh
+git reset HEAD ${file}
+```
+- **回滚修改**：让这个文件回到最近一次 `git commit` 或 `git add` 时的状态
 ```sh
 git checkout -- ${file-name}
+```
+- **撤销**
+```sh
+git revert -n ${commit-id}
+# 若有以下提交记录，使用 git revert -n 6cbf16b 可以撤销 6cbf16b 提交的内容，但保留 4230067 的内容
+# * 4230067 (HEAD -> main) Revert "modified eighth"
+# * 6cbf16b hahahaha eighth
+# * 65ab06b modified eighth
+# * 23d71ad eighth.txt
+# * 563f932 revert
 ```
 
 ## 拉取
@@ -123,7 +157,6 @@ git config --global user.email ${user.email}
 ```sh
 git config --global alias.${alias} ${actual-cmd}
 ```
-git config --global alias.${alias} ${actual-cmd}
 
 ## 其他常用命令
 - 查看文件修改前后的差异
@@ -136,12 +169,22 @@ git status
 ```
 - 查看提交日志
 ```sh
-git log [--graph] 
-#--graph 命令可以看到分支合并图
+git log [--graph|--oneline|--all] 
+# --graph 命令可以看到分支合并图
+# --all 查看所有分支
+# --oneline 每次提交只显示一行
 ```
 - 查看历史命令
 ```sh
 git reflog
+```
+
+## .gitignore
+- 一个`Git`仓库也可以有多个`.gitignore`文件，`.gitignore`文件放在哪个目录下，就对哪个目录（包括子目录）起作用
+- 把指定文件排除在`.gitignore`规则外的写法就是`!+文件名`
+- 检查文件因为那句代码被排除
+```sh
+git check-ignore -v ${filename}$
 ```
 
 ## 参考资料
