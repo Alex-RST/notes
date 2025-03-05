@@ -20,7 +20,6 @@ export let config: SidebarConfig = {
                 'compass.md': 'Compass',
                 'css.md': 'CSS',
                 'grafana.md': 'Grafana',
-                'dynamictp-fast-guide.md': 'DynamicTp快速上手指南',
                 'java-suppresswarnings.md': '@SuppressWarnings警告汇总'
             }
         },
@@ -33,6 +32,7 @@ export let config: SidebarConfig = {
         'juc': {
             name: 'Java 多线程与并发',
             subItems: {
+                'dynamictp-fast-guide.md': 'DynamicTp快速上手指南',
                 'java-thread-pool.md': 'Java线程池的原理与实践',
                 'concurrency-base.md': '并发基础'
             }
