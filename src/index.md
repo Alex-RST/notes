@@ -25,6 +25,9 @@ hero:
     - theme: brand
       text: 数据库
       link: /database/database-design.md
+    - theme: alt
+      text: 设计模式
+      link: /design_pattern/discuss-composite-extend.md
 features:
   - title: Feature A
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
