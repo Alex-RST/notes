@@ -39,13 +39,23 @@ git switch -c ${branch-name} # 新版本git提供
 ```
 - 删除分支
 ```sh
+# -d 表示删除分支；使用 -D 可强行删除
 git branch -d ${branch-name}
-# 使用 -D 可强行删除
 ```
 - 设置上游分支
 ```sh
 git branch --set-upstream-to=${origin-rep-name}/${origin-branch} ${local-branch}
 ```
+- 其他
+```sh
+git branch [-v|-a|-r|--merged|--no-merged]
+# -v 查看当前分支最后一次提交
+# -a 查看所有分支
+# -r 查看远程分支
+# --merged 查看哪些分支已经合并到当前分支
+# --no-merged 查看哪些分支没有合并到当前分支
+```
+
 
 ## 合并
 - 合并指定分支到当前分支
