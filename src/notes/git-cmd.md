@@ -46,6 +46,11 @@ git branch -d <branch-name>
 ```sh
 git branch --set-upstream-to=<origin-rep-name>/<origin-branch> <local-branch>
 ```
+- 创建远程分支到本地
+```sh
+# 从远程仓库 clone 到本地时，默认只会看到本地的 master 分支
+git checkout -b <local-branch> <origin-rep-name>/<origin-branch>
+```
 - 其他
 ```sh
 git branch [-v|-a|-r|--merged|--no-merged]
@@ -55,7 +60,6 @@ git branch [-v|-a|-r|--merged|--no-merged]
 # --merged 查看哪些分支已经合并到当前分支
 # --no-merged 查看哪些分支没有合并到当前分支
 ```
-
 
 ## 合并
 - 合并指定分支到当前分支
@@ -99,6 +103,8 @@ git tag
 git push origin <tag-name>
 # 一次性推送全部尚未推送到远程的本地标签
 git push origin --tags
+# 先删除本地标签，在使用如下命令，可以删除一个远程标签
+git push origin :refs/tags/<tagname>
 ```
 
 ## 撤销与回滚
