@@ -97,7 +97,32 @@ public enum WebApplicationType {
    ```
 4. **统一键的命名规范**
 5. **发布 `env` 已准备好的事件，执行`EnvironmentPostProcessor`**
+   ```java
+   //获取spring.factories中EnvironmentPostProcessor对应值
+   SpringFactoriesLoader.load(Class<?> clazz);
+   //SpringApplicationRunListener发布contextPrepared
+   //此处省略
+   ```
 6. **将 `env` 中以 `spring.main` 开头的配置信息，绑定到 `SpringApplication` 中的属性上**
+   ```java
+   public class Binder {
+    //...
+    public static Binder get(Environment environment) {
+        return get(environment, (BindHandler)null);
+    }
+    //创建一个对象实例并绑定属性
+    public <T> BindResult<T> bind(String name, Class<T> target) {
+        return this.bind(name, Bindable.of(target));
+    }
+    //绑定到已有对象上
+    public <T> BindResult<T> bind(String name, Bindable<T> target) {
+        return this.bind((ConfigurationPropertyName)ConfigurationPropertyName.of(name), target, (BindHandler)null);
+    }
+    //...
+   }
+   //Binder类提供键值信息和对象属性进行绑定
+   User user = Binder.get(env).bind("user", User.class);
+   ```
 7. **打印 `Banner`**
 8. **创建 `Spring` 容器**  
    根据以创建的 `SpringApplication`对象的 `WebApplicationType` 类型创建容器
