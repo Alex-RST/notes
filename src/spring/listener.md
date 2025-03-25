@@ -65,7 +65,7 @@ public class ListenerConfig {
     }
 
     /**
-     * 注意此方法名称需要与默认的SimpleApplicationEventMulticaster类型的Bean的名字相同，不同springboot版本，这个bean名字可能不同
+     * 注意此方法名称需要与默认的SimpleApplicationEventMulticaster类型的Bean的名字相同才能覆盖默认的bean，不同springboot版本，这个bean名字可能不同
      */
     @Bean
     public SimpleApplicationEventMulticaster simpleApplicationEventMulticaster(@Qualifier("executor") Executor executor) {
