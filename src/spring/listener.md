@@ -1,0 +1,82 @@
+# 事件监听器
+
+## 定义事件类
+- 事件类需要继承 `ApplicationEvent` 类
+```java
+public class MyApplicationEvent extends ApplicationEvent {
+    public MyApplicationEvent(Object source) {
+        super(source);
+    }
+    public MyApplicationEvent(Object source, Clock clock) {
+        super(source, clock);
+    }
+}
+```
+
+## 发布事件
+```java
+ApplicationContext
+@Component
+public class Demo {
+    @Autowired
+    private ApplicationEventPublisher publisher;
+    public void publishEvent() {
+        publisher.publishEvent(new MyApplicationEvent("发布事件"));
+    }
+}
+```
+
+## 监听事件
+**常用的监听事件的方式有两种：**
+1. **定义一个监听器类，并实现 `ApplicationListener` 接口**
+   - 监听器类需要声明为 `Bean`。
+   - `ApplicationEvent` 的泛型参数即为所监听的事件类型。
+   ```java
+   @Component
+   public static class MyApplicationEventListener implements ApplicationListener<MyApplicationEvent> {
+       @Override
+       public void onApplicationEvent(MyApplicationEvent event) {
+          //接收到事件并处理
+       }
+   }
+   ```
+2. **声明监听方法**
+   - `@EventListener` 声明一个监听方法。
+   - 监听方法必须声明在一个 `Bean` 内。
+   ```java
+   @EventListener
+   public void listener(MyApplicationEvent event) {
+      //接收到事件并处理
+   }
+   ```
+
+## 异步发送与处理
+事件发布器的底层是通过 `SimpleApplicationEventMulticaster` 接口发送事件的。`SimpleApplicationEventMulticaster` 内部有一个 `Executor` 属性，设置此属性来实现异步发送的线程池。
+```java
+@Configuration
+public class ListenerConfig {
+    @Bean
+    public Executor executor() {
+        return new ThreadPoolExecutor(5, 10, 
+                1, TimeUnit.MINUTES, 
+                new ArrayBlockingQueue<>(20), 
+                Executors.defaultThreadFactory(), 
+                new ThreadPoolExecutor.CallerRunsPolicy());
+    }
+
+    /**
+     * 注意此方法名称需要与默认的SimpleApplicationEventMulticaster类型的Bean的名字相同，不同springboot版本，这个bean名字可能不同
+     */
+    @Bean
+    public SimpleApplicationEventMulticaster simpleApplicationEventMulticaster(@Qualifier("executor") Executor executor) {
+        SimpleApplicationEventMulticaster simpleApplicationEventMulticaster = new SimpleApplicationEventMulticaster();
+        simpleApplicationEventMulticaster.setTaskExecutor(executor);
+        return simpleApplicationEventMulticaster;
+    }
+
+}
+```
+
+## 事件发布器原理
+```java
+```
