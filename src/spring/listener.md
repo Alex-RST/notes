@@ -123,6 +123,6 @@ public class CustomApplicationEventMulticaster implements ApplicationEventMultic
         }
     }
     
-    //其他需要重写的方法...
+    //其他需要实现的方法...
 }
 ```
