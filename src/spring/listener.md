@@ -73,11 +73,11 @@ public class ListenerConfig {
         simpleApplicationEventMulticaster.setTaskExecutor(executor);
         return simpleApplicationEventMulticaster;
     }
-
 }
 ```
 
 ## 事件发布器原理
+`Spring` 的事件发布实际是交给一个 `ApplicationEventMulticaster`。自定义一个 `ApplicationEventMuticaster` 类型的 `Bean`（`Bean` 的名字需要个默认的该类型的Bean保持一致），模拟事件发布的实际主要执行流程（ `Spring` 的流程更加复杂）。
 ```java
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Component("applicationEventMulticaster")
