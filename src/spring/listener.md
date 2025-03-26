@@ -79,4 +79,50 @@ public class ListenerConfig {
 
 ## 事件发布器原理
 ```java
+@SuppressWarnings({"rawtypes", "unchecked"})
+@Component("applicationEventMulticaster")
+public class CustomApplicationEventMulticaster implements ApplicationEventMulticaster {
+
+    final private List<GenericApplicationListener> listeners = new ArrayList<>();
+    final private ApplicationContext applicationContext;
+    final private Executor executor;
+    public CustomApplicationEventMulticaster(ApplicationContext applicationContext, Executor executor) {
+        this.applicationContext = applicationContext;
+        this.executor = executor;
+    }
+
+    @Override
+    public void addApplicationListenerBean(String listenerBeanName) {
+        ApplicationListener listener = applicationContext.getBean(listenerBeanName, ApplicationListener.class);
+        ResolvableType[] interfaces = ResolvableType.forInstance(listener).getInterfaces();
+        ResolvableType resolvableType = Arrays.stream(interfaces)
+                .filter(t -> t.isAssignableFrom(listener.getClass()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Listener " + listenerBeanName + " not registered"))
+                .getGeneric(0);
+        GenericApplicationListener genericApplicationListener = new GenericApplicationListener() {
+            @Override
+            public boolean supportsEventType(ResolvableType eventType) {
+                return resolvableType.isAssignableFrom(eventType);
+            }
+
+            @Override
+            public void onApplicationEvent(ApplicationEvent event) {
+                listener.onApplicationEvent(event);
+            }
+        };
+        listeners.add(genericApplicationListener);
+    }
+
+    @Override
+    public void multicastEvent(ApplicationEvent event, ResolvableType eventType) {
+        for (GenericApplicationListener listener : listeners) {
+            if (listener.supportsEventType(ResolvableType.forInstance(event))) {
+                executor.execute(() -> listener.onApplicationEvent(event));
+            }
+        }
+    }
+    
+    //其他需要重写的方法...
+}
 ```
