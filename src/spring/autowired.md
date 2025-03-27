@@ -8,3 +8,7 @@ public class TestAutowired {
     }
 }
 ```
+
+## 参考资料
+- [代码.rar](/spring/code.rar)
+- [文档.rar](/spring/doc.rar)
