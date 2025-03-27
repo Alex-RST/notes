@@ -15,7 +15,6 @@ public class MyApplicationEvent extends ApplicationEvent {
 
 ## 发布事件
 ```java
-ApplicationContext
 @Component
 public class Demo {
     @Autowired
