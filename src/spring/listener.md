@@ -125,3 +125,6 @@ public class CustomApplicationEventMulticaster implements ApplicationEventMultic
     //其他需要实现的方法...
 }
 ```
+
+## 参考资料
+- [黑马程序员Spring视频教程，深度讲解spring5底层原理 (事件监听器)](https://www.bilibili.com/video/BV1P44y1N7QG?spm_id_from=333.788.videopod.episodes&vd_source=82c8936823dd2e33632d42e87e1732ba&p=168)
