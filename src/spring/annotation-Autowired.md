@@ -311,6 +311,23 @@ private static void testDefault(DefaultListableBeanFactory beanFactory) throws N
 }
 ```
 
+## else
+`AbstractAutowireCapableBeanFactory` 类中的 `doCreateBean` 方法执行具体的创建一个bean的流程，包括：
+1. 实例化 `Bean`
+2. 初始化 `Bean`
+
+在 `AbstractAutowireCapableBeanFactory` 类的 `instantiateBean` 方法创建了一个 `BeanWrapper`，B该方法使用无参构造创建了一个实例对象 `bean`，并使用 `BeanWrapper` 进行包装，并且可以看到，此时的属性还未填充。 
+![AbstractAutowireCapableBeanFactory#doCreateBean](/spring/AbstractAutowireCapableBeanFactory-doCreateBean.png)
+
+## 几个重要的方法
+- `AbstractBeanFactory#doGetBean`
+- `AbstractAutowireCapableBeanFactory` 的 `doCreateBean` 方法
+  - 执行 `Bean` 的实例化
+  - 存入二级缓存
+  - 初始化
+  - `BeanPostProcessor` 的 `postProcessBeforeInitialization` 方法（初始化前执行）
+  - `postProcessAfterInitialization` 方法（初始化后执行） 
+  - ...
+
 ## 参考资料
-- [代码.rar](/spring/code.rar)
-- [文档.rar](/spring/doc.rar)
+- [黑马程序员Spring视频教程，深度讲解spring5底层原理---@Autowired注入底层原理](https://www.bilibili.com/video/BV1P44y1N7QG?spm_id_from=333.788.videopod.episodes&vd_source=82c8936823dd2e33632d42e87e1732ba&p=162)
