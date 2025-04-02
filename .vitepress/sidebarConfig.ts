@@ -45,7 +45,7 @@ export let config: SidebarConfig = {
         },
         'spring': {
             name: 'Spring',
-            collapsed: false,
+            withIndex: true,
             subItems: {
                 'spring-aop.md': 'Spring AOP',
                 'spring-ioc.md': 'Spring IOC',
@@ -109,6 +109,7 @@ export let config: SidebarConfig = {
         '/index.md',
         '/notes/index.md',
         '/know_jvm/index.md',
+        '/spring/index.md',
         '/component'
     ],
     srcPath: '/src'

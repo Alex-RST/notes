@@ -15,7 +15,7 @@ hero:
       link: /notes
     - theme: alt
       text: Spring
-      link: /spring/spring-ioc.md
+      link: /spring
     - theme: brand
       text: Java多线程与并发
       link: /juc/concurrency-base.md
