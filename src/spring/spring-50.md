@@ -1,4 +1,4 @@
-# Spring 源码解析 50
+# Spring 源码解析 50 讲
 
 ## 容器与 bean
 
@@ -2849,4 +2849,7 @@ static class AutoConfiguration1 {
    * 可以利用线程池进行异步发事件优化
 3. 如果发送的事件对象不是 ApplicationEvent 类型，Spring 会把它包装为 PayloadApplicationEvent 并用泛型技术解析事件对象的原始类型
    * 视频中未讲解
+
+## 参考资料
+- [黑马程序员Spring视频教程，深度讲解spring5底层原理](https://www.bilibili.com/video/BV1P44y1N7QG?spm_id_from=333.788.videopod.episodes&vd_source=82c8936823dd2e33632d42e87e1732ba)
 
