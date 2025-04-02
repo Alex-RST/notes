@@ -101,8 +101,9 @@ function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
         let curNameNoExt: string = curName.substring(0, curName.lastIndexOf("."))
         let curPathNoExt: string = curPath.substring(0, curPath.lastIndexOf("."))
         let mapName = pathName(curPath)
+        let title: string | undefined = getFirstLevelTitle(curPathAb)
         return {
-            text: mapName !== undefined ? mapName : curNameNoExt,
+            text: mapName !== undefined ? mapName : (title !== undefined ? title : curNameNoExt),
             link: curPathNoExt
         }
     }
@@ -147,7 +148,29 @@ function trim(str: string, char: string): string {
         str = str.replace(new RegExp('^\\' + char + '+|\\' + char + '+$', 'g'), '');
     }
     return str.replace(/^\s+|\s+$/g, '');
-};
+}
+
+/**
+ * 获取 Markdown 文件中的一级标题内容
+ * @param filePath Markdown 文件路径
+ * @returns 第一个一级标题的内容（若无则返回 null）
+ */
+function getFirstLevelTitle(filePath: string): string | undefined {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const lines = content.split('\n');
+
+    // 正则解释：匹配以 # 开头，后接空格，然后捕获内容（允许标题前的空格）
+    const regex = /^\s*#\s+(.+)/;
+
+    for (const line of lines) {
+        const match = line.match(regex);
+        if (match) {
+            // 返回去除首尾空格的标题内容
+            return match[1].trim();
+        }
+    }
+    return undefined;
+}
 
 // **************************************** 解析配置 ****************************************
 /**
