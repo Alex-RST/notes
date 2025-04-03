@@ -250,7 +250,7 @@ function getFirstLevelTitle(filePath: string): string | undefined {
         const match = line.match(regex);
         if (match) {
             // 返回去除首尾空格的标题内容
-            return match[1].trim();
+            return match[1].trim().replaceAll('`', '');
         }
     }
     return undefined;
