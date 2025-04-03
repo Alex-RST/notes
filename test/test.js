@@ -10,5 +10,4 @@ function isPathMatch(patternStr, urlStr) {
     return result !== null;
 }
 // 测试通配符
-console.log(isPathMatch('/index.md', '/index.md')); // true（* 匹配单级）
-//# sourceMappingURL=test.js.map
+console.log(isPathMatch('/index.md', '/index.md'));

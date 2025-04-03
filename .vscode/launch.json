@@ -3,11 +3,12 @@
     "configurations": [
       {
         "name": "Launch Program",
-        "program": "${workspaceFolder}/test/test.js",
+        "program": "${workspaceFolder}/test/test.ts",
         "request": "launch",
         "skipFiles": [
           "<node_internals>/**"
         ],
+        "runtimeArgs": ["-r", "ts-node/register"],
         "type": "node",
         "preLaunchTask": "tsc: 构建 - tsconfig.json"
       }
