@@ -3,7 +3,7 @@
     "configurations": [
       {
         "name": "Launch Program",
-        "program": "${workspaceFolder}/docs/src/config/test.ts",
+        "program": "${workspaceFolder}/test/test.js",
         "request": "launch",
         "skipFiles": [
           "<node_internals>/**"

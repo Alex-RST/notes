@@ -30,11 +30,7 @@ export let config: SidebarConfig = {
     ignoredPath: [
         '/config',
         '/public',
-        '/index.md',
-        '/notes/index.md',
-        '/know_jvm/index.md',
-        '/spring/index.md',
-        '/component'
+        '/**/index.md',
     ],
     srcPath: '/src'
 }

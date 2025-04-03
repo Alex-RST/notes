@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import UrlPattern from "url-pattern"
 import { DefaultTheme } from 'vitepress/types/default-theme'
 import { config } from './sidebarConfig'
 
@@ -11,6 +12,7 @@ const SRC_PATH = config.srcPath
 
 const itemInfoMap: Map<string, SidebarItemInfo> = parseInfoMap(config)
 
+// **************************************** 生成侧边栏 ****************************************
 /**
  * 生成指定目录下的多侧边栏
  * @param curPath 从源码目录开始的相对路径
@@ -109,6 +111,88 @@ function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
     }
 }
 
+// **************************************** 解析配置 ****************************************
+/**
+ * 解析目录信息
+ * @param config 配置信息
+ * @returns 目录信息
+ */
+function parseInfoMap(config: SidebarConfig): Map<string, SidebarItemInfo> {
+    let itemInfoMap: Map<string, SidebarItemInfo> = new Map;
+    if (config.pathMap === undefined) {
+        return itemInfoMap
+    }
+    parseInfoMapImpl('/', config.pathMap, itemInfoMap);
+    return itemInfoMap;
+}
+
+/**
+ * 目录信息映射解析具体实现
+ * @param curPath 当前目录
+ * @param subItemMap 当前目录下子目录映射关系
+ * @param itemInfoMap 已解析出的内容
+ */
+function parseInfoMapImpl(curPath: string, subItemMap: SidebarItemMap, itemInfoMap: Map<string, SidebarItemInfo>): void {
+    for (let subItemName in subItemMap) {
+        let subItemInfo: SidebarItemInfo | string = subItemMap[subItemName];
+        let subDir: string = pathJoint(curPath, subItemName)
+        if (typeof subItemInfo === 'string') {
+            itemInfoMap.set(subDir, { name: subItemInfo })
+        } else {
+            itemInfoMap.set(subDir, subItemInfo)
+            if (subItemInfo.subItems !== undefined) {
+                parseInfoMapImpl(subDir, subItemInfo.subItems, itemInfoMap)
+            }
+        }
+    }
+}
+
+/**
+ * 是否被忽略的路径
+ * @param resPath 从源码目录开始的相对路径
+ * @returns true or false
+ */
+function ignored(resPath: string): boolean {
+    let ignoreUri: string[] | undefined = config.ignoredPath
+    if (ignoreUri !== undefined) {
+        for (let pattern in ignoreUri) {
+            if (isPathMatch(ignoreUri[pattern], resPath)) return true
+        }
+        return false
+    } else {
+        return false
+    }
+}
+
+/**
+ * 
+ * @param uri 
+ * @returns 
+ */
+function pathName(uri: string): string | undefined {
+    let info: SidebarItemInfo | undefined = itemInfoMap.get(uri)
+    if (info === undefined) return undefined
+    else return info.name
+}
+
+// **************************************** 配置类型 ****************************************
+interface SidebarConfig {
+    pathMap?: SidebarItemMap,
+    ignoredPath?: string[],
+    srcPath: string
+}
+
+interface SidebarItemMap {
+    [path: string]: SidebarItemInfo | string
+}
+
+interface SidebarItemInfo {
+    name: string
+    collapsed?: boolean
+    withIndex?: boolean
+    subItems?: SidebarItemMap
+}
+
 // **************************************** 工具函数 ****************************************
 /**
  * 路径拼接
@@ -172,82 +256,15 @@ function getFirstLevelTitle(filePath: string): string | undefined {
     return undefined;
 }
 
-// **************************************** 解析配置 ****************************************
 /**
- * 解析目录信息
- * @param config 配置信息
- * @returns 目录信息
+ * 检查 URL 是否匹配指定模式
+ * @param pattern 路径模式（如 "/user/:id"）
+ * @param url 要检测的实际路径（如 "/user/123"）
+ * @returns 是否匹配
  */
-function parseInfoMap(config: SidebarConfig): Map<string, SidebarItemInfo> {
-    let itemInfoMap: Map<string, SidebarItemInfo> = new Map;
-    if (config.pathMap === undefined) {
-        return itemInfoMap
-    }
-    parseInfoMapImpl('/', config.pathMap, itemInfoMap);
-    return itemInfoMap;
-}
-
-/**
- * 目录信息映射解析具体实现
- * @param curPath 当前目录
- * @param subItemMap 当前目录下子目录映射关系
- * @param itemInfoMap 已解析出的内容
- */
-function parseInfoMapImpl(curPath: string, subItemMap: SidebarItemMap, itemInfoMap: Map<string, SidebarItemInfo>): void {
-    for (let subItemName in subItemMap) {
-        let subItemInfo: SidebarItemInfo | string = subItemMap[subItemName];
-        let subDir: string = pathJoint(curPath, subItemName)
-        if (typeof subItemInfo === 'string') {
-            itemInfoMap.set(subDir, { name: subItemInfo })
-        } else {
-            itemInfoMap.set(subDir, subItemInfo)
-            if (subItemInfo.subItems !== undefined) {
-                parseInfoMapImpl(subDir, subItemInfo.subItems, itemInfoMap)
-            }
-        }
-    }
-}
-
-/**
- * 是否被忽略的路径
- * @param resPath 从源码目录开始的相对路径
- * @returns true or false
- */
-function ignored(resPath: string): boolean {
-    let ignoreUri: string[] | undefined = config.ignoredPath
-    if (ignoreUri !== undefined && ignoreUri.includes(resPath)) {
-        return true
-    } else {
-        return false
-    }
-}
-
-/**
- * 
- * @param uri 
- * @returns 
- */
-function pathName(uri: string): string | undefined {
-    let info: SidebarItemInfo | undefined = itemInfoMap.get(uri)
-    if (info === undefined) return undefined
-    else return info.name
-}
-
-// **************************************** 配置类型 ****************************************
-interface SidebarConfig {
-    pathMap?: SidebarItemMap,
-    ignoredPath?: string[],
-    srcPath: string
-}
-
-interface SidebarItemMap {
-    [path: string]: SidebarItemInfo | string
-}
-
-interface SidebarItemInfo {
-    name: string
-    collapsed?: boolean
-    withIndex?: boolean
-    subItems?: SidebarItemMap
+function isPathMatch(patternStr: string, urlStr: string): boolean {
+    const pattern = new UrlPattern(patternStr)
+    const result = pattern.match(urlStr)
+    return result !== null
 }
 
