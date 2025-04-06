@@ -59,4 +59,4 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 用于解析含有 `@Autowired`、`@Value` 注解的依赖属性及方法
 
 ### `CommonAnnotationBeanPostProcessor`
-用于解析含有 `@Resource` 注解的依赖属性及方法
+用于解析含有 `@Resource`、`@Resource`、`@PostConstruct`、`@PreDestroy` 注解的依赖属性及方法
