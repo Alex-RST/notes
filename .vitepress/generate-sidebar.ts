@@ -30,7 +30,18 @@ function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
         let subPath: string = pathJoint(curPath, subName)
         let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
         if (isDirectory(subPathAb) && !ignored(subPath)) {
-            sidebar[subPath] = sidebarItems(subPath)
+            let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(subPath)
+            if (itemInfo === undefined) {
+                itemInfo = {
+                    name: subName,
+                    withIndex: true
+                }
+            } else {
+                if (itemInfo.withIndex === undefined) itemInfo.withIndex = true
+            }
+            let items: DefaultTheme.SidebarItem[] = []
+            items.push(sidebarItem(subPath, itemInfo))
+            sidebar[subPath] = items
         }
     }
     return sidebar
@@ -38,26 +49,21 @@ function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
 
 /**
  * 生成侧边栏
- * @param curPath 从源码目录开始的相对路径
+ * @param curPath 从源码目录开始的相对路径(路径必须代表一个目录)
  * @returns 侧边栏
  */
 function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
     let items: DefaultTheme.SidebarItem[] = []
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
     let subNames: string[] = fs.readdirSync(curPathAb)
-    let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
-    let withIndex = itemInfo !== undefined ? itemInfo.withIndex : false
-    if (withIndex !== undefined) {
-        items.push(sidebarItem(curPath))
-    } else {
-        for (let index in subNames) {
-            let subName: string = subNames[index]
-            let subPath: string = pathJoint(curPath, subName)
-            if (ignored(subPath)) {
-                continue
-            }
-            items.push(sidebarItem(subPath))
+    for (let index in subNames) {
+        let subName: string = subNames[index]
+        let subPath: string = pathJoint(curPath, subName)
+        if (ignored(subPath)) {
+            continue
         }
+        let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(subPath)
+        items.push(sidebarItem(subPath, itemInfo))
     }
     return items
 }
@@ -67,7 +73,7 @@ function sidebarItems(curPath: string): DefaultTheme.SidebarItem[] {
  * @param curPath 从源码目录开始的相对路径
  * @returns 侧边栏项
  */
-function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
+function sidebarItem(curPath: string, itemInfo?: SidebarItemInfo): DefaultTheme.SidebarItem {
     let curName: string = curPath.substring(curPath.lastIndexOf('/') + 1)
     let curPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, curPath)
     if (isDirectory(curPathAb)) {
@@ -79,33 +85,30 @@ function sidebarItem(curPath: string): DefaultTheme.SidebarItem {
             if (ignored(subPath)) {
                 continue
             }
-            let item: DefaultTheme.SidebarItem = sidebarItem(subPath)
+            let subItemInfo: SidebarItemInfo | undefined = itemInfoMap.get(subPath)
+            if (subItemInfo !== undefined && subItemInfo.collapsed === undefined) subItemInfo.collapsed = false
+            let item: DefaultTheme.SidebarItem = sidebarItem(subPath, subItemInfo)
             items.push(item)
         }
-        let text: string | undefined = curName;
-        let link: string | undefined = undefined;
-        let collapsed: boolean | undefined = undefined;
-        let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(curPath)
-        if (itemInfo !== undefined) {
-            text = itemInfo.name;
-            collapsed = itemInfo.collapsed;
-            if (itemInfo.withIndex) {
-                link = curPath
+        if (itemInfo === undefined) {
+            itemInfo = {
+                name: curName,
+                collapsed: false,
+                withIndex: true
             }
         }
         return {
-            text,
-            link,
-            collapsed,
+            text: itemInfo.name,
+            link: itemInfo.withIndex ? curPath : undefined,
+            collapsed: itemInfo.collapsed,
             items
         }
     } else {
         let curNameNoExt: string = curName.substring(0, curName.lastIndexOf("."))
         let curPathNoExt: string = curPath.substring(0, curPath.lastIndexOf("."))
-        let mapName = pathName(curPath)
-        let title: string | undefined = getFirstLevelTitle(curPathAb)
+        let firstTitle: string | undefined = getFirstLevelTitle(curPathAb)
         return {
-            text: mapName !== undefined ? mapName : (title !== undefined ? title : curNameNoExt),
+            text: itemInfo === undefined ? (firstTitle === undefined ? curNameNoExt : firstTitle) : itemInfo.name,
             link: curPathNoExt
         }
     }
