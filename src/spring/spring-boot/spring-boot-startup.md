@@ -55,9 +55,9 @@ public enum WebApplicationType {
     - 事件发布器接口：`SpringApplicationRunListener`  
     - 实现类：`EnventPublishingRunListener`。   
     - 在 `spring.factories`指定实现类，在启动时加载：
-      ![SpringApplicationRunListener](/spring/SpringApplicationRunListener.png "SpringApplicationRunListener")
+      ![SpringApplicationRunListener](/spring/spring-boot/SpringApplicationRunListener.png "SpringApplicationRunListener")
     - `SpringFactoriesLoader` 中 `load`方法可以加载 `spring.factories` 中的键值对：
-      ![SpringFactoriesLoader](/spring/SpringFactoriesLoader_load.png "SpringFactoriesLoader")
+      ![SpringFactoriesLoader](/spring/spring-boot/SpringFactoriesLoader_load.png "SpringFactoriesLoader")
       ```java
       //只需传入键所对应的class对象：
       List<String> runListeners = SpringFactoriesLoader.loadFactoryNames(SpringApplicationRunListener.class);
@@ -134,12 +134,12 @@ public enum WebApplicationType {
 11. **调用 `ApplicationContext` 的 `refresh` 方法，初始化单例**
 12. **调用所有实现了 `ApplicationRunner`、`CommandLineRunner` 接口的 `Bean`**
     - `ApplicationRunner`  
-      ![ApplicationRunner](/spring/ApplicationRunner.png "ApplicationRunner")
+      ![ApplicationRunner](/spring/spring-boot/ApplicationRunner.png "ApplicationRunner")
       `ApplicationRunner`接口的`run`方法的参数是`ApplicationArguments`类型，该类型提供了两种获取参数的方法：
       - `getOptionNames()`与`getOptionValues(String name)`
       - `getNonOptionArgs()` 
     - `CommandLineRunner`
-      ![CommandLineRunner](/spring/CommandLineRunner.png "CommandLineRunner")
+      ![CommandLineRunner](/spring/spring-boot/CommandLineRunner.png "CommandLineRunner")
 
 ## 参考资料
 - [黑马程序员Spring视频教程，深度讲解spring5底层原理](https://www.bilibili.com/video/BV1P44y1N7QG?spm_id_from=333.788.videopod.episodes&vd_source=82c8936823dd2e33632d42e87e1732ba&p=124)

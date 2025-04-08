@@ -141,7 +141,7 @@
 
 ## `DynamicTp` 架构设计图
 <div align=center>
-    <img src="/img/dynamic-tp-arch.svg" />
+    <img src="/juc/dynamictp-fast-guide/dynamic-tp-arch.svg" />
 </div>
 
 ## 参考资料

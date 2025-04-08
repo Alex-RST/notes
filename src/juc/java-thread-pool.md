@@ -31,7 +31,7 @@
 
 ThreadPoolExecutor的UML类图：
 <div align=center>
-    <img src="/img/thread-pool/ThreadPoolExecutor-UML.png" />
+    <img src="/juc/java-thread-pool/ThreadPoolExecutor-UML.png" />
 </div>
 
 ### 生命周期管理
@@ -42,32 +42,32 @@ private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
 
 ThreadPoolExecutor的运行状态有5种，分别为：
 <div align=center>
-    <img src="/img/thread-pool/thread-pool-lifecycle-state.png" />
+    <img src="/juc/java-thread-pool/thread-pool-lifecycle-state.png" />
 </div>
 
 其生命周期转换如下入所示：
 <div align=center>
-    <img src="/img/thread-pool/thread-pool-convert.png" />
+    <img src="/juc/java-thread-pool/thread-pool-convert.png" />
 </div>
 
 ### 任务调度
 <div align=center>
-    <img src="/img/thread-pool/thread-pool-dispatch.png" />
+    <img src="/juc/java-thread-pool/thread-pool-dispatch.png" />
 </div>
 
 ### 任务缓冲
 <div align=center>
-    <img src="/img/thread-pool/thread-pool-queue.png" />
+    <img src="/juc/java-thread-pool/thread-pool-queue.png" />
 </div>
 
 ### 任务申请  
 <div align=center>
-    <img src="/img/thread-pool/thread-pool-task-apply.png" />
+    <img src="/juc/java-thread-pool/thread-pool-task-apply.png" />
 </div>
 
 ### 任务拒绝 
 <div align=center>
-    <img src="/img/thread-pool/thread-pool-refuse.png" />
+    <img src="/juc/java-thread-pool/thread-pool-refuse.png" />
 </div>
 
 ## :fire:如何使用ThreadPoolExecutor

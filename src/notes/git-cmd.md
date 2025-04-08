@@ -224,5 +224,5 @@ git check-ignore -v <filename>$
 - [GIT教程---廖雪峰的官方网站](https://liaoxuefeng.com/books/git/introduction/index.html)
 
 ## 附件
-- [Git Cheat Sheet](/git-cheat-sheet.pdf)
+- [Git Cheat Sheet](/notes/git-cmd/git-cheat-sheet.pdf)
   

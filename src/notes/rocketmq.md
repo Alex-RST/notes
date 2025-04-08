@@ -4,7 +4,7 @@
 
 ### 架构图  
 <div align=center>
-    <img src="/img/rocketmq-architecture-diagram.png" />
+    <img src="/notes/rocketmq/rocketmq-architecture-diagram.png" />
 </div>
 
 ### 四大组件

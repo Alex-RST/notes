@@ -1,7 +1,7 @@
 # Tomcat
 
 ## Tomcat架构
-![tomcat架构](/img/tomcat-framework.drawio.png "tomcat架构")
+![tomcat架构](/notes/tomcat/tomcat-framework.drawio.png "tomcat架构")
 
 ## Tomcat类加载器结构
 一个健全的Web服务器通常需要解决以下问题：
@@ -18,7 +18,7 @@
 
 为了支持上述目录结构，Tomcat自定义了多个类加载器，并按照经典的双亲委派机制模型进行实现：
 <div align=center>
-    <img src="/img/tomcat-classloader-framework.drawio.png" />
+    <img src="/notes/tomcat/tomcat-classloader-framework.drawio.png" />
 </div>
 
 三个灰色的是JDK默认提供的类加载器，剩下的由Tomcat自定义的类加载器。其中WebApp类加载器和JSP类加载器还会存在多个实例，每一个WebApp对应一个WebApp类加载器，每一个JSP文件对应一个JasperLoader类加载器。

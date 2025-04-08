@@ -207,13 +207,13 @@ public static void testApplicationContext(DefaultListableBeanFactory beanFactory
 ```
 
 `Spring IOC` 中的所有的单例 `Bean` 都将放在 `DefaultListableBeanFactory` 类中。`DeaultListableBeanFactory` 又是通过继承 `DefaultSingletonBeanRegistry`类，由此父类维护一个名为 `singletonObjects` 的 `Map<String, Object>`集合，所有的单例 `Bean` 都将放在此集合中。
-![singletonObjects](/spring/DefaultSingletonBeanRegistry-singletonFactories.png)
+![singletonObjects](/spring/spring-framework/DefaultSingletonBeanRegistry-singletonFactories.png)
 
 而一些特殊的 `Bean`，例如：`ApplicationContext`，都是放在了 `DefaultListableBeanFactory` 的一个名为 `resolvableDependencies` 的集合中。
-![resolvableDependencies](/spring/DefaultListableApplicationContext-resolvableDependencies.png)
+![resolvableDependencies](/spring/spring-framework/DefaultListableApplicationContext-resolvableDependencies.png)
 
 在何时将这些特殊的 `Bean` 放入此集合？答案是在 `IOC容器` 启动阶段的`refresh`方法中，调用了一个名为 `prepareBeanFactory` 的方法，在该方法中，将这些 特殊的 `Bean` 放入了集合。
-![prepareBeanFactory](/spring/AbstractBeanFactory-prepareBeanFactory.png)
+![prepareBeanFactory](/spring/spring-framework/AbstractBeanFactory-prepareBeanFactory.png)
 
 ### `List` 类型
 ```java
@@ -317,7 +317,7 @@ private static void testDefault(DefaultListableBeanFactory beanFactory) throws N
 2. 初始化 `Bean`
 
 在 `AbstractAutowireCapableBeanFactory` 类的 `instantiateBean` 方法创建了一个 `BeanWrapper`，B该方法使用无参构造创建了一个实例对象 `bean`，并使用 `BeanWrapper` 进行包装，并且可以看到，此时的属性还未填充。 
-![AbstractAutowireCapableBeanFactory#doCreateBean](/spring/AbstractAutowireCapableBeanFactory-doCreateBean.png)
+![AbstractAutowireCapableBeanFactory#doCreateBean](/spring/spring-framework/AbstractAutowireCapableBeanFactory-doCreateBean.png)
 
 ## 几个重要的方法
 - `AbstractBeanFactory#doGetBean`

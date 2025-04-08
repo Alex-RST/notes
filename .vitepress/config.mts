@@ -12,7 +12,7 @@ export default defineConfig({
         ],
         sidebar: sidebar.sidebarMulti('/'),
         socialLinks: [
-            { icon: { svg: '<img src=/img/gitee.ico width=20 height=20 />' }, link: 'https://gitee.com/pxslin/notes' }
+            { icon: { svg: '<img src=/gitee.ico width=20 height=20 />' }, link: 'https://gitee.com/pxslin/notes' }
         ],
         outline: {
             level: [2, 3],

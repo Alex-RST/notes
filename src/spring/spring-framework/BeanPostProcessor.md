@@ -18,16 +18,16 @@ public interface BeanPostProcessor {
 ## 源码解析
 ### 何时实例化？
 `spring` 应用启动后，`AbstractApplicationContext` 的 `refresh` 属性整个容器，在 `refresh` 方法的内部调用 `registerBeanPostProcessors` 方法负责注册（包含实例化） `BeanPostProcessor` 接口的实现类。
-![AbstractApplicationContext-refresh](/spring/AbstractApplicationContext-refresh.png)
+![AbstractApplicationContext-refresh](/spring/spring-framework/AbstractApplicationContext-refresh.png)
 
 具体的注册逻辑，则委托给了 `PostProcessorRegistrationDelegate` 的 `registerBeanPostProcessors` 静态方法。大致可分为如下几个步骤：
 1. 获取所有实现了 `BeanPostProcessor` 的 `Bean` 的名字。（此时 `Bean` 还未实例化，但已扫描到所有 `Bean`，并收集了 `BeanDefinition`）。
-   ![PostProcessorRegistrationDelegate-registerBeanPostProcessors-1](/spring/PostProcessorRegistrationDelegate-registerBeanPostProcessors-1.png)
+   ![PostProcessorRegistrationDelegate-registerBeanPostProcessors-1](/spring/spring-framework/PostProcessorRegistrationDelegate-registerBeanPostProcessors-1.png)
 2. 调用 `getBean` 方法，通过 `BeanName` 获取实例 `Bean`，并存入 `AbstractBeanFactory` 中的 `beanPostProcessors` 属性内。
 
 ### 何时调用？
 `AbstractAutowireCapableBeanFactory` 的 `initializeBean` 方法
-![AbstractAutowireCapableBeanFactory-initializeBean](/spring/AbstractAutowireCapableBeanFactory-initializeBean.png)
+![AbstractAutowireCapableBeanFactory-initializeBean](/spring/spring-framework/AbstractAutowireCapableBeanFactory-initializeBean.png)
 
 ## 子接口
 ### `InstantiationAwareBeanPostProcessor`

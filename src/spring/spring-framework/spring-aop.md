@@ -20,7 +20,7 @@
 
 统一切点有不同切面进行通知时，可使用`@Order`或实现`Ordered`接口进行顺序控制，数字越小优先级越高，且优先级高的切面会先执行完“同时期”的所有方法，例如：
 
-![多切面下通知顺序](/img/spring-aop-seq.png)
+![多切面下通知顺序](/spring/spring-framework/spring-aop-seq.png)
 
 如图所示，会优先执行完Aspect1中的Around和Before通知，再执行Aspect2中的Around和Before通知。其他通知也同样类似，不再赘述。
 
