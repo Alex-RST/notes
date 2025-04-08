@@ -52,11 +52,16 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 ### `DestructionAwareBeanPostProcessor`
 ### `MergedBeanDefinitionPostProcessor`
 
-
-
 ## 实现类 
 ### `AutowiredAnnotationBeanPostProcessor`
 用于解析含有 `@Autowired`、`@Value` 注解的依赖属性及方法
 
 ### `CommonAnnotationBeanPostProcessor`
 用于解析含有 `@Resource`、`@Resource`、`@PostConstruct`、`@PreDestroy` 注解的依赖属性及方法
+
+### `ConfigurationPropertiesBindingPostProcessor`
+这是在 `spring boot` 中的一个实现类，用于 `@ConfigurationProperties`标注的 `Bean` 的属性绑定。
+```java
+//如何创建一个ConfigurationPropertiesBindingPostProcessor对象，register方法需要一个BeanFactory对象作为参数
+ConfigurationPropertiesBindingPostProcessor postProcessor = ConfigurationPropertiesBindingPostProcessor.register(context.getDefaultListableBeanFactory());
+```
