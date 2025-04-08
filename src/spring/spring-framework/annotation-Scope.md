@@ -23,7 +23,7 @@
 
 解决方案有如下几种：
 - 使用 `@Lazy` 注解
-  在需要依赖注入的单例 `Bean` 的属性上加上 `@Lazy` 注解。原理见：[Autowired - 注入底层原理 - 解析注解](/spring/annotation-Autowired.md#解析注解)
+  在需要依赖注入的单例 `Bean` 的属性上加上 `@Lazy` 注解。原理见：[Autowired - 注入底层原理 - 解析注解](/spring/spring-framework/annotation-Autowired#解析注解)
 - 指定 `proxyMode` 属性  
   在注入的目标 `Bean` 上，在 `@Scope` 注解中添加 `proxyMode=ScopedProxyMode.TARGET_CLASS`
 - 使用 `ObjectFactory` 包装  
