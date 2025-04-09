@@ -581,3 +581,4 @@ webapp
 2. [Tomcat 源码仓库地址](https://github.com/apache/tomcat)
 3. [Tomcat 主页地址](https://tomcat.apache.org/)
 4. [Java面试——Tomcat](https://blog.csdn.net/m0_74825541/article/details/145589026?spm=1000.2115.3001.6382&utm_medium=distribute.pc_feed_v2.none-task-blog-personrec_tag-18-145589026-null-null.329^v9^%E4%B8%AA%E6%8E%A8pc%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90%E2%80%94%E6%A1%B62&depth_1-utm_source=distribute.pc_feed_v2.none-task-blog-personrec_tag-18-145589026-null-null.329^v9^%E4%B8%AA%E6%8E%A8pc%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90%E2%80%94%E6%A1%B62)
+5. [最详细的Tomcat架构解析！深入理解Tomcat的架构原理以及Tomcat组件分析](https://juejin.cn/post/7055306172265414663?searchId=202504091617576FAEC077AE48A8C99A56)
