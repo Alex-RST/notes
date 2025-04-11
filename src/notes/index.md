@@ -16,3 +16,4 @@ next:
 - [编程导航](https://www.code-nav.cn/)
 - [鱼皮的编程宝典](https://www.codefather.cn/%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%88%AA/)
 - [spring framework开发手册](https://shouce.jb51.net/spring/)
+- [异常教程（破解合集）](https://www.exception.site/)
