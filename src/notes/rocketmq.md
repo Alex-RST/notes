@@ -1,5 +1,7 @@
 # RocketMQ
 
+Apache RocketMQ 中消息的生命周期主要分为**消息生产**、**消息存储**、**消息消费**这三部分。
+
 ## RocketMQ架构
 
 ### 架构图  
@@ -10,6 +12,7 @@
 ### 四大组件
 - `NameServer`
 - `Broker`
+- `Proxy`
 - `Producer`
 - `Comsumer`
 
