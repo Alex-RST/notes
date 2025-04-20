@@ -28,6 +28,7 @@ export let config: SidebarConfig = {
     },
     ignoredPath: [
         '/config',
+        '/js',
         '/public',
         '/**/index.md',
     ],

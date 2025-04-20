@@ -37,3 +37,9 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
+<script setup>
+import BlogIndex from './vue/blog-index.vue'
+</script>
+
+<BlogIndex />
+
