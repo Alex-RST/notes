@@ -30,7 +30,11 @@ export default defineConfig({
     },
     markdown: {
         lineNumbers: true,
-        math: true
+        math: true,
+        image: {
+            //开启图片懒加载
+            lazyLoading: true
+        }
     },
     lastUpdated: true,
     srcDir: "src",
