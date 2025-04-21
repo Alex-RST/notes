@@ -6,6 +6,7 @@ hero:
   name: "LTP's Notes"
   text: "已有的事，后必再有  已行的事，后必再行"
   tagline: 生前何必久睡，死后自会长眠
+  image: /vitepress-logo-large.svg
   actions:
     - theme: alt
       text: 深入理解Java虚拟机
@@ -37,9 +38,24 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
+<BlogIndex />
+
 <script setup>
 import BlogIndex from './component/BlogIndex.vue'
 </script>
 
-<BlogIndex />
+<style scope>
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe, #41d1ff);
+  /*hero logo背景渐变色 */
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #bd34fe 50%,
+    #47caff 50%
+  );
+  --vp-home-hero-image-filter: blur(40px);
+}
+</style>
+
 
