@@ -38,7 +38,7 @@ features:
 ---
 
 <script setup>
-import BlogIndex from './vue/blog-index.vue'
+import BlogIndex from './component/BlogIndex.vue'
 </script>
 
 <BlogIndex />
