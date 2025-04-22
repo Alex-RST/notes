@@ -37,7 +37,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import {data as posts} from '../../../src/js/posts.data.js';
+import {data as posts} from '../js/posts.data.js';
 
 // 模拟数据
 const mockBlogs = [
