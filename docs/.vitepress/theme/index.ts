@@ -2,6 +2,7 @@ import DefaultTheme from 'vitepress/theme'
 import { onMounted, watch, nextTick } from 'vue';
 import mediumZoom from 'medium-zoom';
 import { useRoute } from 'vitepress';
+import { useLive2d } from 'vitepress-theme-website'
 
 //组件
 import MyLayout from './component/MyLayout.vue'
@@ -45,6 +46,27 @@ export default {
       () => route.path,
       () => nextTick(() => initZoom())
     );
+
+    //看板娘 //
+    useLive2d({
+      enable: true,
+      model: {
+        url: 'https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/shizuku-pajama/index.json'
+      },
+      display: {
+        position: 'right',
+        width: '270px',
+        height: '320px',
+        xOffset: '35px',
+        yOffset: '0px',
+      },
+      mobile: {
+        show: true
+      },
+      react: {
+        opacity: 0.8
+      }
+    })
   },
 }
 

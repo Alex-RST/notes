@@ -38,5 +38,8 @@ export default defineConfig({
     },
     lastUpdated: true,
     srcDir: "src",
-    cleanUrls: true
+    cleanUrls: true,
+    head: [
+        ['script', { src: '/live2d.js' }],
+    ]
 })
