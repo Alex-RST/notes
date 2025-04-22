@@ -38,10 +38,6 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
-<BlogIndex />
-
-<script setup>
-import BlogIndex from './component/BlogIndex.vue'
-</script>
+<Confetti />
 
 

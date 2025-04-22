@@ -1,6 +1,9 @@
-import MyLayout from './component/MyLayout.vue'
 import DefaultTheme from 'vitepress/theme'
 import { onMounted, watch, nextTick } from 'vue';
+
+import MyLayout from './component/MyLayout.vue'
+import Confetti from './component/Confetti.vue'
+import BlogIndex from './component/BlogIndex.vue';
 
 import './style/index.css'
 
@@ -19,7 +22,10 @@ export default {
         () => updateHomePageStyle(location.pathname === '/'),
         { immediate: true },
       )
-    }
+    } 
+    //注册全局组件
+    app.component("Confetti", Confetti);
+    app.component("BlogIndex", BlogIndex);
   },
 }
 
