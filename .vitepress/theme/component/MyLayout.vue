@@ -1,5 +1,5 @@
 <template>
-  <DefaultTheme.Layout v-if="frontmatter.layout !== 'page'" />
+  <DefaultTheme.Layout/>
 </template>
 
 <script setup lang="ts">
