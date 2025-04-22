@@ -35,3 +35,11 @@
   
     --vp-button-brand-active-border: #F6CEEC;
   } */
+
+  /* 图片缩放相关 */
+  .medium-zoom-overlay {
+    z-index: 30;
+  }
+  .medium-zoom-image {
+    z-index: 9999 !important;/* 给的值是21，但是实测盖不住，直接999 */
+  }

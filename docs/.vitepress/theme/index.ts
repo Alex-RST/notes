@@ -1,10 +1,14 @@
 import DefaultTheme from 'vitepress/theme'
 import { onMounted, watch, nextTick } from 'vue';
+import mediumZoom from 'medium-zoom';
+import { useRoute } from 'vitepress';
 
+//组件
 import MyLayout from './component/MyLayout.vue'
 import Confetti from './component/Confetti.vue'
 import BlogIndex from './component/BlogIndex.vue';
 
+//样式
 import './style/index.css'
 
 // 彩虹背景动画样式
@@ -26,6 +30,21 @@ export default {
     //注册全局组件
     app.component("Confetti", Confetti);
     app.component("BlogIndex", BlogIndex);
+  },
+
+  setup() {
+    const route = useRoute();
+    const initZoom = () => {
+      // mediumZoom('[data-zoomable]', { background: 'var(--vp-c-bg)' }); // 默认
+      mediumZoom('.main img', { background: 'var(--vp-c-bg)' }); // 不显式添加{data-zoomable}的情况下为所有图像启用此功能
+    };
+    onMounted(() => {
+      initZoom();
+    });
+    watch(
+      () => route.path,
+      () => nextTick(() => initZoom())
+    );
   },
 }
 
