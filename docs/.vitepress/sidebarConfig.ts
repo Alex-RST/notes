@@ -32,7 +32,7 @@ export let config: SidebarConfig = {
         '/public',
         '/**/index.md',
     ],
-    srcPath: '/src'
+    srcPath: '/docs/src'
 }
 
 
