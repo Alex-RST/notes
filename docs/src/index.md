@@ -33,6 +33,7 @@ features:
   - title: 美化你的vitepress
     details: VitePress 快速上手中文教程 如果你也想搭建它，那跟我一起做吧
     link: https://vitepress.yiov.top/
+    linkText: vitepress.yiov.top
     icon:
       src: /features-icon/vitepress-logo-large.svg
   - title: Feature B
