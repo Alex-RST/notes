@@ -4,7 +4,7 @@ import confetti from "canvas-confetti";
 import { onMounted } from "vue";
 
 onMounted(() => (
-  snow()
+  basicCannon()
 ));
 
 /**
@@ -22,7 +22,7 @@ function basicCannon() {
  * 雪花
  */
 function snow() {
-  let duration = 60 * 1000;
+  let duration = 15 * 1000;
   let animationEnd = Date.now() + duration;
   let skew = 1;
 
