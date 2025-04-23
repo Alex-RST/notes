@@ -12,9 +12,6 @@ import BlogIndex from './component/BlogIndex.vue';
 //样式
 import './style/index.css'
 
-// 彩虹背景动画样式
-let homePageStyle: HTMLStyleElement | undefined
-
 export default {
   extends: DefaultTheme,
   Layout: MyLayout,
@@ -47,30 +44,31 @@ export default {
       () => nextTick(() => initZoom())
     );
 
-    //看板娘 //
-    useLive2d({
-      enable: true,
-      model: {
-        url: 'https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/shizuku-pajama/index.json'
-      },
-      display: {
-        position: 'right',
-        width: '270px',
-        height: '320px',
-        xOffset: '35px',
-        yOffset: '0px',
-      },
-      mobile: {
-        show: true
-      },
-      react: {
-        opacity: 0.8
-      }
-    })
+    //看板娘
+    // useLive2d({
+    //   enable: true,
+    //   model: {
+    //     url: 'https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/shizuku-pajama/index.json'
+    //   },
+    //   display: {
+    //     position: 'right',
+    //     width: '270px',
+    //     height: '320px',
+    //     xOffset: '35px',
+    //     yOffset: '0px',
+    //   },
+    //   mobile: {
+    //     show: true
+    //   },
+    //   react: {
+    //     opacity: 0.8
+    //   }
+    // })
   },
 }
 
 // 彩虹背景动画样式
+let homePageStyle: HTMLStyleElement | undefined
 function updateHomePageStyle(value: boolean) {
   if (value) {
     if (homePageStyle) return
