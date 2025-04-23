@@ -30,11 +30,16 @@ hero:
       text: 设计模式
       link: /design_pattern/discuss-composite-extend.md
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 美化你的vitepress
+    details: VitePress 快速上手中文教程 如果你也想搭建它，那跟我一起做吧
+    link: https://vitepress.yiov.top/
+    icon:
+      src: /features-icon/vitepress-logo-large.svg
   - title: Feature B
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
   - title: Feature C
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Feature D
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
