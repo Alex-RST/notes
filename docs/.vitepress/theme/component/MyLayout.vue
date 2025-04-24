@@ -1,11 +1,17 @@
 <template>
-  <DefaultTheme.Layout/>
+  <DefaultTheme.Layout>
+    <template #doc-footer-before> // [!code focus:3]
+      <BackToTop />
+    </template>
+  </DefaultTheme.Layout>
 </template>
 
 <script setup lang="ts">
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
+
+import BackToTop from './BackToTop.vue'
 
 const { isDark, frontmatter } = useData()
 
