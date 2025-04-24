@@ -3,7 +3,6 @@ import path from 'path'
 import UrlPattern from "url-pattern"
 import { DefaultTheme } from 'vitepress/types/default-theme'
 import { config } from './sidebarConfig'
-import { isDeepStrictEqual } from 'util'
 
 export default { sidebarItems, sidebarItem, sidebarMulti }
 export { SidebarConfig }
