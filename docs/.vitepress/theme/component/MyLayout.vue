@@ -1,8 +1,15 @@
 <template>
   <DefaultTheme.Layout>
-    <template #doc-footer-before> // [!code focus:3]
+    <!-- 回到顶部 -->
+    <template #doc-footer-before>
       <BackToTop />
     </template>
+
+    <!-- 公告 -->
+    <!-- <template #layout-top>
+      <Notice />
+    </template> -->
+
   </DefaultTheme.Layout>
 </template>
 
@@ -12,6 +19,7 @@ import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
 
 import BackToTop from './BackToTop.vue'
+import Notice from './Notice.vue'
 
 const { isDark, frontmatter } = useData()
 
