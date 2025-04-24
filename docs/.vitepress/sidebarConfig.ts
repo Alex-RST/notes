@@ -4,8 +4,8 @@ export let config: SidebarConfig = {
     pathMap: {
         'notes': '随手记',
         'maven': { name: 'Maven', withIndex: false },
-        'juc': 'Java 多线程与并发',
-        'database': '数据库',
+        'juc': { name: 'Java 多线程与并发', withIndex: false },
+        'database': { name: '数据库', withIndex: false },
         'spring': {
             name: 'Spring',
             subItems: {

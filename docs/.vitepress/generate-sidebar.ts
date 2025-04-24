@@ -3,6 +3,7 @@ import path from 'path'
 import UrlPattern from "url-pattern"
 import { DefaultTheme } from 'vitepress/types/default-theme'
 import { config } from './sidebarConfig'
+import { isDeepStrictEqual } from 'util'
 
 export default { sidebarItems, sidebarItem, sidebarMulti }
 export { SidebarConfig }
@@ -31,16 +32,18 @@ function sidebarMulti(curPath: string): DefaultTheme.SidebarMulti {
         let subPathAb: string = path.join(ROOT_ABSOLUTE_PATH, SRC_PATH, subPath)
         if (isDirectory(subPathAb) && !ignored(subPath)) {
             let itemInfo: SidebarItemInfo | undefined = itemInfoMap.get(subPath)
-            if (itemInfo === undefined) {
+            let items: DefaultTheme.SidebarItem[]
+            if (itemInfo === undefined || itemInfo.withIndex !== null) {
                 itemInfo = {
-                    name: subName,
-                    withIndex: true
+                    name: itemInfo !== undefined && itemInfo.name !== undefined ? itemInfo.name : subName,
+                    withIndex: itemInfo !== undefined && itemInfo.withIndex === undefined ? true : itemInfo?.withIndex,
+                    collapsed: null
                 }
+                items = []
+                items.push(sidebarItem(subPath, itemInfo))
             } else {
-                if (itemInfo.withIndex === undefined) itemInfo.withIndex = true
+                items = sidebarItems(subPath)
             }
-            let items: DefaultTheme.SidebarItem[] = []
-            items.push(sidebarItem(subPath, itemInfo))
             sidebar[subPath] = items
         }
     }
@@ -86,7 +89,7 @@ function sidebarItem(curPath: string, itemInfo?: SidebarItemInfo): DefaultTheme.
                 continue
             }
             let subItemInfo: SidebarItemInfo | undefined = itemInfoMap.get(subPath)
-            if (subItemInfo !== undefined && subItemInfo.collapsed === undefined) subItemInfo.collapsed = false
+            // if (subItemInfo !== undefined && subItemInfo.collapsed === undefined) subItemInfo.collapsed = false
             let item: DefaultTheme.SidebarItem = sidebarItem(subPath, subItemInfo)
             items.push(item)
         }
@@ -94,7 +97,19 @@ function sidebarItem(curPath: string, itemInfo?: SidebarItemInfo): DefaultTheme.
             itemInfo = {
                 name: curName,
                 collapsed: false,
-                withIndex: true
+                withIndex: false
+            }
+        } else {
+            if(itemInfo.name === undefined) {
+                itemInfo.name = curName
+            }
+            if(itemInfo.collapsed === undefined) {
+                itemInfo.collapsed = false
+            } else if(itemInfo.collapsed === null) {
+                itemInfo.collapsed === undefined
+            }
+            if(itemInfo.withIndex === undefined) {
+                itemInfo.withIndex = false
             }
         }
         return {
@@ -190,9 +205,9 @@ interface SidebarItemMap {
 }
 
 interface SidebarItemInfo {
-    name: string
-    collapsed?: boolean
-    withIndex?: boolean
+    name?: string
+    collapsed?: boolean | null
+    withIndex?: boolean | null
     subItems?: SidebarItemMap
 }
 
