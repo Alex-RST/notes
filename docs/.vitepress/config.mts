@@ -5,6 +5,7 @@ import sidebar from './generate-sidebar'
 export default defineConfig({
     title: "Notes",
     description: "Notes",
+    base: '/notes/',
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
