@@ -21,6 +21,14 @@ git show <commit-id> [<filename>]
 ```
 
 ## 分支
+- 创建分支
+```sh
+git branch [branch-name]
+```
+- 修改分支名
+```sh
+git branch -m [old-name] [new-name]
+```
 - 列出所有分支
 ```sh
 git branch
@@ -155,9 +163,18 @@ git remote rm <rep-name>
 ```sh
 git remote rename <oldName> <newName>
 ```
+- 修改远程仓库 `url`
+```sh
+git remote set-url [new-url]
+```
 - 查看更多的信息
 ```sh
 git remote show <rep-name>
+```
+- 修剪
+```sh
+#可用来删除远程仓库不存在，但本地仍有记录的远程仓库分支
+git remote prune [origin]
 ```
 
 ## `git fetch`
