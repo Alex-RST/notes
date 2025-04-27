@@ -4,80 +4,80 @@
 - 提交
 ```sh
 # 先使用 add 添加到暂存区
-git commit -m <message>
+git commit -m [message]
 # add 和 commit一步到位
-git commit -a -m <message>
+git commit -a -m [message]
 ```
 - 修改提交信息
 ```sh
-git commit --amend -m <message>
+git commit --amend -m [message]
 ```
 - 查看一次提交的详细信息
 ```sh
 # 默认最后一次提交
 git show 
 # 指定的提交的ID，可以同时指定此次提交中修改的文件
-git show <commit-id> [<filename>]
+git show [commit-id] [[filename]]
 ```
 
 ## 分支
 - 创建分支
 ```sh
-git branch [branch-name]
-```
-- 修改分支名
-```sh
-git branch -m [old-name] [new-name]
-```
-- 列出所有分支
-```sh
-git branch
-```
-- 切换分支
-```sh
-git checkout <branch-name>
-# or
-git switch <branch-name> # 新版本git提供
-```
-- 创建并切换到新的分支
-```sh
-git checkout -b <branch-name>
-# or
-git switch -c <branch-name> # 新版本git提供
+# 方式一
+git branch [branch-name] # 创建分支，但不切换至新分支
+# 方式二
+git checkout -b [branch-name] # 创建并切换至新分支
+# 方式三
+git switch -c [branch-name] # 创建并切换至新分支(新版本提供)
 ```
 - 删除分支
 ```sh
 # -d 表示删除分支；使用 -D 可强行删除
-git branch -d <branch-name>
+git branch -d [branch-name]
 ```
-- 设置上游分支
+- 修改分支
 ```sh
-git branch --set-upstream-to=<origin-rep-name>/<origin-branch> <local-branch>
+git branch -m [old-name] [new-name]
+```
+- 查看分支列表
+```sh
+git branch # 查看所有本地分支，并显示当前所在分支
+git branch -a # 列出所有分支（包括本地记录的远程分支）
+git branch -r # 查看远程分支（基于本地记录的远程分支）
+```
+- 切换分支
+```sh
+# 方式一
+git checkout [branch-name]
+# 方式二
+git switch [branch-name] # 新版本git提供
 ```
 - 创建远程分支到本地
 ```sh
 # 从远程仓库 clone 到本地时，默认只会看到本地的 master 分支
-git checkout -b <local-branch> <origin-rep-name>/<origin-branch>
+git checkout -b [local-branch] [origin-rep-name]/[origin-branch]
 ```
 - 其他
 ```sh
-git branch [-v|-a|-r|--merged|--no-merged]
-# -v 查看当前分支最后一次提交
-# -a 查看所有分支
-# -r 查看远程分支
-# --merged 查看哪些分支已经合并到当前分支
-# --no-merged 查看哪些分支没有合并到当前分支
+# 看当前分支最后一次提交
+git branch -v
+# 查看哪些分支没有合并到当前分支
+git branch --no-merged
+# 查看哪些分支已经合并到当前分支
+git branch -merged
+# 设置上游分支
+git branch --set-upstream-to=[origin-rep-name]/[origin-branch] [local-branch]
 ```
 
 ## 合并
 - 合并指定分支到当前分支
 ```sh
-git merge <branch-name>
+git merge [branch-name]
 ```
 - 禁用`Fast forward`模式进行合并
 ```sh
 #因为使用 --no-ff 方式合并会创建一个新commit，所以需要commit message
-git merge --no-ff -m <message> <branch-name>
+git merge --no-ff -m [message] [branch-name]
 ```
 
 ## 变基
@@ -89,17 +89,17 @@ git rebase
 - 创建标签
 ```sh
 # 不指定commit-id，默认将标签打在当前分支的最新 commit 上
-git tag <tag-name> [<commit-id>]
+git tag [tag-name] [commit-id]
 # 创建带有说明的标签，用-a指定标签名，-m指定说明文字
-git tag -a <tag-name> -m <message> <commit-id>
+git tag -a [tag-name] -m [message] [commit-id]
 ```
 - 删除标签
 ```sh
-git tag -d <tag-name>
+git tag -d [tag-name]
 ```
 - 查看标签信息
 ```sh
-git show <tagname>
+git show [tagname]
 ```
 - 查看所有标签
 ```sh
@@ -108,34 +108,34 @@ git tag
 - 推送标签
 ```sh
 # 推送指定标签
-git push origin <tag-name>
+git push origin [tag-name]
 # 一次性推送全部尚未推送到远程的本地标签
 git push origin --tags
 # 先删除本地标签，在使用如下命令，可以删除一个远程标签
-git push origin :refs/tags/<tagname>
+git push origin :refs/tags/[tagname]
 ```
 
 ## 撤销与回滚
 - **回滚**
 ```sh
-git reset [--hard|--soft|--mixed] <commit-id>
+git reset [--hard|--soft|--mixed] [commit-id]
 # --hard: 回退到上个版本的已提交状态
 # --soft: 回退到上个版本的未提交状态
 # --mixed: 回退到上个版本已添加但未提交的状态
 ```
 - 把暂存区的修改撤销掉（`unstage`），重新放回工作区
 ```sh
-git reset HEAD <file>
+git reset HEAD [file]
 ```
 - **回滚修改**：让这个文件回到最近一次 `git commit` 或 `git add` 时的状态
 ```sh
-git checkout -- <file-name>
+git checkout -- [file-name]
 ```
 - **撤销**
 ```sh
-git revert -n <commit-id>
+git revert -n [commit-id]
 # 若有以下提交记录，使用 git revert -n 6cbf16b 可以撤销 6cbf16b 提交的内容，但保留 4230067 的内容
-# * 4230067 (HEAD -> main) Revert "modified eighth"
+# * 4230067 (HEAD -] main) Revert "modified eighth"
 # * 6cbf16b hahahaha eighth
 # * 65ab06b modified eighth
 # * 23d71ad eighth.txt
@@ -153,15 +153,15 @@ git remote -v
 ```
 - 添加远程仓库
 ```sh
-git remote add <rep-name> <rep-url>
+git remote add [rep-name] [rep-url]
 ```
 - 删除远程仓库
 ```sh
-git remote rm <rep-name>
+git remote rm [rep-name]
 ```
 - 修改远程仓库名
 ```sh
-git remote rename <oldName> <newName>
+git remote rename [oldName] [newName]
 ```
 - 修改远程仓库 `url`
 ```sh
@@ -169,7 +169,7 @@ git remote set-url [new-url]
 ```
 - 查看更多的信息
 ```sh
-git remote show <rep-name>
+git remote show [rep-name]
 ```
 - 修剪
 ```sh
@@ -179,7 +179,7 @@ git remote prune [origin]
 
 ## `git fetch`
 ```sh
-git fetch <remote>
+git fetch [remote]
 ```
 
 ## 拉取
@@ -196,22 +196,22 @@ git push
 - 配置用户名和邮箱
 ```sh
 # 修改当前仓库的用户名和邮箱
-git config user.name <user.name>
-git config user.email <user.email>
+git config user.name [user.name]
+git config user.email [user.email]
 
 # 修改全局的用户名和邮箱
-git config --global user.name <user.name>
-git config --global user.email <user.email>
+git config --global user.name [user.name]
+git config --global user.email [user.email]
 ```
 - 命令别名
 ```sh
-git config --global alias.<alias> <actual-cmd>
+git config --global alias.[alias] [actual-cmd]
 ```
 
 ## 其他常用命令
 - 查看文件修改前后的差异
 ```sh
-git diff <file-name>
+git diff [file-name]
 ```
 - 查看当前仓库状态
 ```sh
@@ -234,7 +234,7 @@ git reflog
 - 把指定文件排除在`.gitignore`规则外的写法就是`!+文件名`
 - 检查文件因为那句代码被排除
 ```sh
-git check-ignore -v <filename>$
+git check-ignore -v [filename]$
 ```
 
 ## 参考资料
