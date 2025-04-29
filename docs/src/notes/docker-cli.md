@@ -59,7 +59,9 @@ docker run \
 -d \                # 后台运行
 --name my-nginx \   # 容器名
 -p 80:80 \          # 端口映射[主机端口]:[容器端口]
--v /app/nginx/html:/usr/nginx/share/html \
+-v /app/nginx/html:/usr/nginx/share/html \  # 数据卷：挂载目录
+-v nginx-config:/etc/nginx \  # 数据卷：挂载卷（不以 / 或者 ./ 开头，则认为是挂载卷）
+--network network-nginx \  # 需要先新增网络
 nginx
 ```
 
