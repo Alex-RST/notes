@@ -2,7 +2,7 @@ import { SidebarConfig } from "./generate-sidebar"
 
 export let config: SidebarConfig = {
     pathMap: {
-        'notes': '随手记',
+        'other': '随手记',
         'maven': { name: 'Maven', withIndex: false },
         'juc': { name: 'Java 多线程与并发', withIndex: false },
         'database': { name: '数据库', withIndex: false },

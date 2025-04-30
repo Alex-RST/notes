@@ -6,7 +6,7 @@ Apache RocketMQ 中消息的生命周期主要分为**消息生产**、**消息�
 
 ### 架构图  
 <div align=center>
-    <img src="/notes/rocketmq/rocketmq-architecture-diagram.png" />
+    <img src="/other/rocketmq/rocketmq-architecture-diagram.png" />
 </div>
 
 ### 四大组件

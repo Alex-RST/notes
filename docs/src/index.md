@@ -13,7 +13,7 @@ hero:
       link: /know_jvm
     - theme: brand
       text: 随手记
-      link: /notes
+      link: /other
     - theme: alt
       text: Spring
       link: /spring
