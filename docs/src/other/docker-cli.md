@@ -182,10 +182,12 @@ networks:
 ### 常用命令
 - `docker compose [OPTIONS] <COMMAND>`
 ```sh
-# 启动
-docker compose -f ./compose.yml up
-# 停止
+# 启动 以及 增量更新
+docker compose -f ./compose.yml up -d
+# 移除
 docker compose -f ./compose.yml down
+# 移除时一并移除卷和镜像
+docker compose -f ./compose.yml down --rmi all -v
 ```
 
 ## DockerFlie
