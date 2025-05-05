@@ -2,7 +2,7 @@
 
 ## 镜像
 ### 搜索镜像
-- `docker search [OPTIONS] <image>`
+- `docker search [OPTIONS] <IMAGE>`
 ```sh
 # 以查询 nginx 镜像为例：
 # 根据镜像名查询
@@ -15,21 +15,21 @@ docker search -f stars=10 nginx # stars数不小于10的镜像
 docker search -f is-automated=true nginx # 搜索自动构建的镜像
 ```
 
-### 查询本地镜像
+### 本地镜像
 - `docker image ls`
 - `docker images`
 
 ### 拉取镜像
 - `docker image pull [OPTIONS] <IMAGE>[:TAG|@DIGEST]`
-- `docker pull [OPTIONS] <image>[:TAG|@DIGEST]`
+- `docker pull [OPTIONS] <IMAGE>[:TAG|@DIGEST]`
 ```sh
 # 拉取 指定镜像所有进行
 docker pull -a nginx
 ```
 
 ### 删除镜像
-- `docker image rm <image>`
-- `docker rmi <image>`
+- `docker image rm <IMAGE>`
+- `docker rmi <IMAGE>`
 ```sh
 docker rmi nginx:latest
 # 强制删除
@@ -37,19 +37,20 @@ docker rmi -f nginx:latest
 ```
 
 ### 保存镜像
-- `docker commit [OPTIONS] <CONTAINER> [NEW-IMAGE[:TAG]]`
+- `docker image save`
 - `docker save`
-- `docker load`
 ```sh
-# 将一个容器打包成一个镜像
-docker commit -m "commit msg" container-name new-image-name
+docker image save [OPTIONS] <IMAGE> [IMAGE...]
 ```
+
+### 加载镜像
+- `docker load [OPTIONS]`
 
 ## 容器
 ### 创建容器
 #### 创建并运行一个容器
-- `docker container run [OPTIONS] <image> [COMMAND] [ARG...]`
-- `docker run [OPTIONS] <image> [COMMAND] [ARG...]`
+- `docker container run [OPTIONS] <IMAGE> [COMMAND] [ARG...]`
+- `docker run [OPTIONS] <IMAGE> [COMMAND] [ARG...]`
 
 |         option        | 作用 |
 |-----------------------|:---:|
@@ -104,6 +105,11 @@ nginx
 ```sh
 docker exec -it nginx /bin/bash
 ```
+
+### 容器镜像
+- 将容器提交为一个镜像。
+- `docker container commit [OPTIONS] <CONTAINER> [NEW-IMAGE[:TAG]]`
+- `docker commit [OPTIONS] <CONTAINER> [NEW-IMAGE[:TAG]]`
 
 ## 卷
 - `docker volume <COMMAND>`
