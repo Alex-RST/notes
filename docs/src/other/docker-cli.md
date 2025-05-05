@@ -16,15 +16,19 @@ docker search -f is-automated=true nginx # 搜索自动构建的镜像
 ```
 
 ### 查询本地镜像
+- `docker image ls`
 - `docker images`
 
 ### 拉取镜像
-- `docker pull [OPTIONS] <image>[:tag]`
+- `docker image pull [OPTIONS] <IMAGE>[:TAG|@DIGEST]`
+- `docker pull [OPTIONS] <image>[:TAG|@DIGEST]`
 ```sh
 # 拉取 指定镜像所有进行
 docker pull -a nginx
 ```
+
 ### 删除镜像
+- `docker image rm <image>`
 - `docker rmi <image>`
 ```sh
 docker rmi nginx:latest
@@ -32,9 +36,19 @@ docker rmi nginx:latest
 docker rmi -f nginx:latest
 ```
 
+### 保存镜像
+- `docker commit [OPTIONS] <CONTAINER> [NEW-IMAGE[:TAG]]`
+- `docker save`
+- `docker load`
+```sh
+# 将一个容器打包成一个镜像
+docker commit -m "commit msg" container-name new-image-name
+```
+
 ## 容器
 ### 创建容器
 #### 创建并运行一个容器
+- `docker container run [OPTIONS] <image> [COMMAND] [ARG...]`
 - `docker run [OPTIONS] <image> [COMMAND] [ARG...]`
 
 |         option        | 作用 |
