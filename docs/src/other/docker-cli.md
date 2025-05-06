@@ -216,6 +216,11 @@ docker compose stop [service]
 docker compose scale [service=number]
 ```
 
+### `docker-compose`
+:::tip
+`docker compose` 与 `docker-compose` 的区别：[官方文档](https://docs.docker.com/compose/install/linux/)
+:::
+
 ## DockerFlie
 :::info
 更多详细信息，请查阅[官方文档](https://docs.docker.com/reference/dockerfile/)
