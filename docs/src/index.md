@@ -3,10 +3,10 @@
 layout: home
 
 hero:
-  name: "LTP's Notes"
-  text: "已有的事，后必再有  已行的事，后必再行"
-  tagline: 生前何必久睡，死后自会长眠
-  image: /vitepress-logo-large.svg
+  name: "Alex的知识库"
+  text: "生前何必久睡,死后自会长眠"
+  tagline: ""
+  image: /favicon.svg
   actions:
     - theme: alt
       text: 深入理解Java虚拟机

@@ -3,8 +3,8 @@ import sidebar from './generate-sidebar'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    title: "Notes",
-    description: "Notes",
+    title: "Alex的知识库",
+    description: "Alex的知识库",
     base: '/notes/',
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
@@ -13,7 +13,7 @@ export default defineConfig({
         ],
         sidebar: sidebar.sidebarMulti('/'),
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/Alex-RST/notes'}
+            { icon: 'github', link: 'https://github.com/Alex-RST/notes' }
         ],
         outline: {
             level: [2, 3],
@@ -42,5 +42,6 @@ export default defineConfig({
     cleanUrls: true,
     head: [
         ['script', { src: '/live2d.js' }],
+        ['link', { rel: 'icon', href: '/notes/favicon.svg' }]
     ]
 })
