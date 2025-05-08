@@ -104,3 +104,7 @@ Hello from native code
 - 错误处理和内存管理：处理 JNI 错误和管理内存。
 - 库加载：确保动态库可以被正确加载。
 :::
+
+## 参考资料
+- [Java Programming Tutorial --- Java Native Interface (JNI)](https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html)
+- [Java Native Interface(JNI)从零开始详细教程](https://blog.csdn.net/createchance/article/details/53783490)
