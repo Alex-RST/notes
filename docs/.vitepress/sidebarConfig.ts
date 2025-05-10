@@ -21,7 +21,8 @@ export let config: SidebarConfig = {
                 'part-2': '第二部分 自动内存管理',
                 'part-3': '第三部分 虚拟机执行子系统',
                 'part-4': '第四部分 程序编译与代码优化',
-                'part-5': '第五部分 高效并发'
+                'part-5': '第五部分 高效并发',
+                'part-6': '附录'
             }
         },
         'design_pattern': { name: '设计模式', withIndex: false }
