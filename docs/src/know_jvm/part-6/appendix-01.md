@@ -6,3 +6,4 @@
 |-verbose:class|查看类加载和卸载信息（`Product`版的`HotSpot`）||
 |-XX:+TraceClass-Loading|查看类加载和卸载信息（`Product`版的`HotSpot`）||
 |-XX:+TraceClassUnLoading|查看类加载和卸载信息（`FastDebug`版的`HotSpot`）||
+|-Dcom.sun.management.jmxremote|开启`JMX`管理功能(JDK6及以上已默认开启)||
