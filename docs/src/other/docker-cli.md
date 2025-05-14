@@ -226,6 +226,11 @@ docker compose scale [service=number]
 更多详细信息，请查阅[官方文档](https://docs.docker.com/reference/dockerfile/)
 :::
 
+## 其他常用命令
+### `docker cp`
+- 将容器内文件复制到主机
+- docker cp <CONTAINER>:<path> <host-path>
+
 ## 参考资料
 - [【Docker系列】从头学起 Docker——docker run 命令详解](https://blog.csdn.net/qq_45547688/article/details/125785419)
 - [尚硅谷3小时速通Docker教程，名师带练docker部署到实战！](https://www.bilibili.com/video/BV1Zn4y1X7AZ?spm_id_from=333.788.videopod.episodes&vd_source=82c8936823dd2e33632d42e87e1732ba)
