@@ -11,7 +11,8 @@ export let config: SidebarConfig = {
             subItems: {
                 'spring-framework': 'Spring Framework',
                 'spring-boot': 'Spring Boot',
-                'spring-mvc': 'Spring MVC'
+                'spring-mvc': 'Spring MVC',
+                'spring-cloud': 'Spring Cloud'
             }
         },
         'know_jvm': {
