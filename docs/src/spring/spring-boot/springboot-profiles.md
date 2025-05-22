@@ -55,8 +55,8 @@ spring:
   profiles:
     group:
       production:
-      - "proddb"
-      - "prodmq"
+        - "proddb"
+        - "prodmq"
 ```
   
 :::tip
