@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import UrlPattern from "url-pattern"
-import { DefaultTheme } from 'vitepress/types/default-theme'
+import { DefaultTheme } from 'vitepress/theme'
 import { config } from './sidebarConfig'
 
 export default { sidebarItems, sidebarItem, sidebarMulti }
@@ -92,29 +92,22 @@ function sidebarItem(curPath: string, itemInfo?: SidebarItemInfo): DefaultTheme.
             let item: DefaultTheme.SidebarItem = sidebarItem(subPath, subItemInfo)
             items.push(item)
         }
+        let text: string | undefined = ''
+        let link: string | undefined = ''
+        let collapsed: boolean | undefined = false
         if (itemInfo === undefined) {
-            itemInfo = {
-                name: curName,
-                collapsed: false,
-                withIndex: false
-            }
+            text = curName
+            link: undefined
+            collapsed: false
         } else {
-            if(itemInfo.name === undefined) {
-                itemInfo.name = curName
-            }
-            if(itemInfo.collapsed === undefined) {
-                itemInfo.collapsed = false
-            } else if(itemInfo.collapsed === null) {
-                itemInfo.collapsed === undefined
-            }
-            if(itemInfo.withIndex === undefined) {
-                itemInfo.withIndex = false
-            }
+            text = itemInfo.name ? itemInfo.name : curName
+            collapsed = itemInfo.collapsed === undefined ? false : (itemInfo.collapsed === null ? undefined : itemInfo.collapsed)
+            link: itemInfo.withIndex ? curPath : undefined
         }
         return {
-            text: itemInfo.name,
-            link: itemInfo.withIndex ? curPath : undefined,
-            collapsed: itemInfo.collapsed,
+            text,
+            link,
+            collapsed,
             items
         }
     } else {
