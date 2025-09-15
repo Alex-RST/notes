@@ -234,3 +234,4 @@ docker compose scale [service=number]
 ## 参考资料
 - [【Docker系列】从头学起 Docker——docker run 命令详解](https://blog.csdn.net/qq_45547688/article/details/125785419)
 - [尚硅谷3小时速通Docker教程，名师带练docker部署到实战！](https://www.bilibili.com/video/BV1Zn4y1X7AZ?spm_id_from=333.788.videopod.episodes&vd_source=82c8936823dd2e33632d42e87e1732ba)
+- [CentOS7安装docker（参考官方文档） ](https://www.cnblogs.com/lambdadog/p/18323721)
