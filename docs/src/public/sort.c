@@ -224,7 +224,7 @@ void insertion_sort(int *array, int length, sort_order isReversed) {
 }
 
 /**
- * @brief 堆排序
+ * @brief 交换
  * @param i 变量地址
  * @param j 变量地址
 */
