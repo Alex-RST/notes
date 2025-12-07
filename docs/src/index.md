@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Alex的知识库"
-  text: "生前何必久睡,死后自会长眠"
+  text: "风吹哪页读哪页"
   tagline: ""
   image: /favicon.svg
   actions:
